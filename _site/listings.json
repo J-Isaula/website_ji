@@ -1,0 +1,13 @@
+[
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/port_mg/index.html",
+      "/posts/tidyverse/index.html",
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html",
+      "/posts/r/index.html",
+      "/posts/arima/index.html"
+    ]
+  }
+]
