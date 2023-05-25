@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juan Isaula">
+<meta name="dcterms.date" content="2021-05-14">
+
+<title>Juan Isaula - Series de Tiempo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Juan Isaula - Series de Tiempo">
+<meta property="og:description" content="Una serie temporal es una colección de observaciones indexadas por la fecha de cada observación, denotada por \(y_t\)">
+<meta property="og:image" content="https://mm218.dev/posts\arima\Fondo4.PNG">
+<meta property="og:site-name" content="Juan Isaula">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Juan Isaula - Series de Tiempo">
+<meta name="twitter:description" content="Una serie temporal es una colección de observaciones indexadas por la fecha de cada observación, denotada por \(y_t\)">
+<meta name="twitter:image" content="https://mm218.dev/posts\arima\Fondo4.PNG">
+<meta name="twitter:creator" content="@MikeMahoney218">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Juan Isaula</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations">
+ <span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software_citations.html">
+ <span class="menu-text">Software citations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml"><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#series-temporales" id="toc-series-temporales" class="nav-link active" data-scroll-target="#series-temporales">Series Temporales</a>
+  <ul class="collapse">
+  <li><a href="#datos-de-series-temporales" id="toc-datos-de-series-temporales" class="nav-link" data-scroll-target="#datos-de-series-temporales">Datos de Series Temporales</a>
+  <ul class="collapse">
+  <li><a href="#estacionariedad" id="toc-estacionariedad" class="nav-link" data-scroll-target="#estacionariedad">Estacionariedad</a></li>
+  <li><a href="#heterocedasticidad" id="toc-heterocedasticidad" class="nav-link" data-scroll-target="#heterocedasticidad">Heterocedasticidad</a></li>
+  <li><a href="#ruido-blanco" id="toc-ruido-blanco" class="nav-link" data-scroll-target="#ruido-blanco">Ruido Blanco</a></li>
+  </ul></li>
+  <li><a href="#test-para-prueba-de-ruido-blanco" id="toc-test-para-prueba-de-ruido-blanco" class="nav-link" data-scroll-target="#test-para-prueba-de-ruido-blanco">Test para prueba de ruido blanco</a>
+  <ul class="collapse">
+  <li><a href="#test-de-box-pierce" id="toc-test-de-box-pierce" class="nav-link" data-scroll-target="#test-de-box-pierce">Test de Box Pierce</a></li>
+  <li><a href="#test-de-ljung-box" id="toc-test-de-ljung-box" class="nav-link" data-scroll-target="#test-de-ljung-box">Test de Ljung-Box</a></li>
+  </ul></li>
+  <li><a href="#modelo-autorregresivo-de-orden-p" id="toc-modelo-autorregresivo-de-orden-p" class="nav-link" data-scroll-target="#modelo-autorregresivo-de-orden-p">Modelo Autorregresivo de Orden <span class="math inline">\(p\)</span></a>
+  <ul class="collapse">
+  <li><a href="#función-de-autocorrelación-parcial-pacf" id="toc-función-de-autocorrelación-parcial-pacf" class="nav-link" data-scroll-target="#función-de-autocorrelación-parcial-pacf">Función de Autocorrelación Parcial (PACF)</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Series de Tiempo</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Time Series</div>
+    <div class="quarto-category">RStudio</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Juan Isaula </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 14, 2021</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="series-temporales" class="level1">
+<h1>Series Temporales</h1>
+<p>Una serie temporal es una colección de observaciones indexadas por la fecha de cada observación, denotada por <span class="math inline">\(y_t\)</span></p>
+<p><span class="math display">\[
+\{y_1, y_2, . . . . , y_T\}
+\]</span></p>
+<p>En la práctica se asume que lo anterior es sólo una muestra, pero que la serie pudo haber sido observada en más periodos.</p>
+<p><span class="math display">\[
+\{y_t\}_{t = -\infty}^\infty = \{. . . , y_{-1}, y_0, y_1, y_2, . . . , y_T,y_{T+1},y_{T+2}, . . .\}
+\]</span></p>
+<p>En el análisis de series temporales el objetivo es extraer parámetros relevantes o características de ellas. Estas características pueden ser luego utilizadas para generar un modelo matemático que describa la serie y pueda ser utilizado para realizar predicciones.</p>
+<p>De acuerdo a la cantidad de variables variables o características que la serie temporal contenga se considera univariada para el caso de una variable, o multivariada para el caso de multiples variables. De esta fundamental característica depende los pasos a seguir para su análisis y prediccón.</p>
+<section id="datos-de-series-temporales" class="level2">
+<h2 class="anchored" data-anchor-id="datos-de-series-temporales">Datos de Series Temporales</h2>
+<p>Un paquete que utilizaremos mucho durante este post es <code>astsa</code>, <em>que significa Análisis de series de tiempo estadístico aplicado.</em></p>
+<p>Ahora, para comenzar, exploremos la naturaleza de los datos de series de tiempo. Aquí tenemos la serie de ganancias trimestrales por acción de Johnson &amp; Johnson.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(astsa)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(jj, <span class="at">main =</span> <span class="st">"Ganancias Trimestrales por Acción de Johnson &amp; Johnson"</span>,<span class="at">type =</span> <span class="st">"c"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(jj, <span class="at">labels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Tiene algunas características comunes de los datos de series de tiempo, tendencia al alza, estacionalidad en el sentido de que el seguendo y el tercer trimestre suelen subir, mientras que el cuarto trimestre suele bajar. Además existe heterosticidad porque, a medida que crece el valor del activo, los pequeños cambios porcentuales se convierten en grandes cambios absolutos.</p>
+<p>Muy bien previamente mencionamos dos palabras importantes en el análisis de series temporales, las cuales son <em>heterosticidad</em> y <em>estacionariedad</em>, antes de continuar definiremos esta terminología:</p>
+<section id="estacionariedad" class="level3">
+<h3 class="anchored" data-anchor-id="estacionariedad">Estacionariedad</h3>
+<p>La base del análisis de series de tiempo es la estacionariedad. Se dice que una serie de tiempo <span class="math inline">\(\{y_t\}\)</span> es estrictamente estacionaria si la distribución conjunta <span class="math inline">\((y_{t_1}, . . . , y_{t_k})\)</span> es idéntica a la de <span class="math inline">\((y_{t_1+t}, . . . , y_{t_k+t})\)</span>, para todo <span class="math inline">\(t\)</span>, donde <span class="math inline">\(k\)</span> es un entero positivo arbitrario y <span class="math inline">\((t_1, . . . , t_k)\)</span> es una colección de <span class="math inline">\(k\)</span> enteros positivos. En otras palabras la estacionariedad estricta requiere que la distribución conjunta de <span class="math inline">\((y_{t_1}, . . . , y_{t_k})\)</span> sea invariante bajo el cambio de tiempo. Esta es una condición muy fuere que es dificil de verificar empíricamente. A menudo se asume una versión más débil de la estacionariedad. Una serie de tiempo <span class="math inline">\(\{y_t\}\)</span> es debilmente estacionaria si tanto la media de <span class="math inline">\(y_t\)</span> como la varianza entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-\ell}\)</span> son invariantes en el tiempo, donde <span class="math inline">\(\ell\)</span> es un número entero arbitrario. Más específicamente <span class="math inline">\(\{y_t\}\)</span> es débilmente estacionaria si:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+E(y_t) &amp;=&amp; \mu\\[0.2cm]
+Cov(y_t, y_{t-\ell}) &amp;=&amp; \gamma_t
+\end{eqnarray}
+\]</span></p>
+<p>La covarianza <span class="math inline">\(\gamma_t\)</span> se llama autocovarianza lag(rezago)-<span class="math inline">\(\ell\)</span> de <span class="math inline">\(y_t\)</span>. Tiene dos propiedades importantes:</p>
+<ol type="1">
+<li><span class="math inline">\(\gamma_0 = Var(y_t)\)</span></li>
+<li><span class="math inline">\(\gamma_{-\ell} = \gamma_t\)</span></li>
+</ol>
+<p>La segunda propiedad se mantiene, ya que</p>
+<p><span class="math display">\[
+Cov(y_t, y_{t - (-\ell)}) = Cov(y_{t-(-\ell)},y_t) = Cov(y_{t+\ell},y_t) = Cov(y_{t_1},y_{t_1-1})
+\]</span></p>
+<p>donde <span class="math inline">\(t_1 = t + \ell\)</span>.</p>
+<p><strong>Observación:</strong> Supongamos que <span class="math inline">\(y_t \sim N(\mu_t, \sigma_t^2)\)</span>, decimos que es estacionario si <span class="math inline">\(\mu_t\)</span> y <span class="math inline">\(\sigma_t^2\)</span> son constantes, entonces:</p>
+<ul>
+<li><p>No estacionaria si <span class="math inline">\(\mu_t\)</span> está cambiado con el tiempo.</p></li>
+<li><p>No estacionaria si <span class="math inline">\(\sigma_t^2\)</span> está cambiando con el tiempo.</p></li>
+</ul>
+<p>En las aplicaciones, la estacionariedad débil le permite a uno hacer inferencias con respecto a observaciones futuras.</p>
+</section>
+<section id="heterocedasticidad" class="level3">
+<h3 class="anchored" data-anchor-id="heterocedasticidad">Heterocedasticidad</h3>
+<p>En estadística se dice que un modelo de regresión presenta heterocedasticidad cuando la varianza de los errores no es constante en todas las observaciones realizadas.</p>
+<p>Existen diferentes razones o situaciones en las que cabe encontrarse con perturbaciones heteroscedásticas. La situación más frecuente es en el análisis de datos de corte transversal, ya que los individuos o empresas o unidades económicas no suelen tener un comportamiento homogéneo.</p>
+<p>Otra situación en la que se presenta hereroscedasticidad es en muestras cuyos datos son valores que se han obtenido agregando o promediando datos individuales.</p>
+<p>Con esto en mente, veamos nuestra segunda seria, la cual presenta las desviaciones anuales de temperatura global. Los datos son desviaciones de la temperatura promedio entre 1960 y 1980. Notará que los datos tienen una tendencia generalmente positiva, pero la tendencia no siempre es positiva. A diferencia de los datos de Johnson y Johnson, esta serie no tiene un componente estacional y es homocedástica</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(globtemp, <span class="at">main =</span> <span class="st">"Desviaciones de Temperatura Global"</span>,<span class="at">type =</span> <span class="st">"o"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>La tercera serie son los rendimientos semanales del S&amp;P 500. El S&amp;P 500 es un índice bursátil estadounidense basado en 500 grandes corporaciones. Los rendimientos son el cambio porcentual por periodos de tiempo. A diferencia de las otras series, esta no tiene ninguna tendencia o estacionalidad. De hecho, parece que no hay ningún patrón en la serie (excepto que, de vez en cuando, la variación es grande). Este es un ejemplo de un tipo particular de proceso llamado ruido blanco.</p>
+</section>
+<section id="ruido-blanco" class="level3">
+<h3 class="anchored" data-anchor-id="ruido-blanco">Ruido Blanco</h3>
+<p>Cuando se estiman modelos de series de tiempo, es importante evaluar si los residuos de la estimación correspoonden a un ruido blanco.</p>
+<p>Sea <span class="math inline">\(\epsilon_t\)</span> una sucesión cuyos elementos tiene media cero y varianza <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="math display">\[
+\begin{eqnarray}
+E(\epsilon_t) &amp;=&amp; 0\hspace{2.5cm} (media\hspace{0.1cm}cero)\\[0.2cm]
+E(\epsilon_t^2) &amp;=&amp; \sigma^2 \hspace{2.3cm} (varianza\hspace{0.1cm} constante)\\[0.2cm]
+E(\epsilon_t\epsilon_\tau) &amp;=&amp; 0\hspace{0.2cm}para\hspace{0.1cm} t\neq \tau\hspace{0.4cm}(terminos\hspace{0.1cm}no\hspace{0.1cm}correlacionados)
+\end{eqnarray}
+\]</span></p>
+<p>Si los términos están normalmente distribuidos, es decir:</p>
+<p><span class="math display">\[
+\epsilon_t \sim N(0,\sigma^2)
+\]</span></p>
+<p>entonces diremos que <span class="math inline">\(\epsilon_t\)</span> es ruido blanco gaussiano. Una forma de evaluar si los residuos son ruido blanco es determinar si las autocorrelaciones</p>
+<p><span class="math display">\[
+\rho_1 = \rho_2 = . . . = \rho_\tau = 0
+\]</span></p>
+<p>para todo <span class="math inline">\(\tau\geq 1\)</span>.</p>
+</section>
+</section>
+<section id="test-para-prueba-de-ruido-blanco" class="level2">
+<h2 class="anchored" data-anchor-id="test-para-prueba-de-ruido-blanco">Test para prueba de ruido blanco</h2>
+<section id="test-de-box-pierce" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-box-pierce">Test de Box Pierce</h3>
+<p>¿Es esta serie un caso de ruido blanco?</p>
+<p><span class="math display">\[
+H_0: \rho_1 = \rho_2 = . . . = \rho_m = 0\hspace{0.5cm} \fbox{si es ruido blanco}
+\]</span></p>
+<p><span class="math display">\[
+Q^* = T\sum_{j = 1}^m \hat{\rho}^2\sim \chi_{m-k}^2
+\]</span></p>
+<p>Si <span class="math inline">\(Q^* &gt; \chi_{m-k}(1-\alpha)\)</span>, rechazar <span class="math inline">\(H_0\)</span> con <span class="math inline">\(100\alpha\%\)</span> de significancia: la serie no es ruido blanco.</p>
+<p>La intuición es que si la serie no es ruido blanco, algunos <span class="math inline">\(\hat{\rho}_j\)</span> serán muy grandes, y entonces <span class="math inline">\(Q^*\)</span> también lo será.</p>
+</section>
+<section id="test-de-ljung-box" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-ljung-box">Test de Ljung-Box</h3>
+<p>¿Es esta serie un caso de ruido blanco?</p>
+<p><span class="math display">\[
+H_0: \rho_1 = \rho_2 = . . . = \rho_m = 0\hspace{0.5cm} \fbox{si es ruido blanco}
+\]</span></p>
+<p><span class="math display">\[
+Q = T(T+2)\sum_{j=1}^m \frac{\hat{\rho}_j^2}{T - j}\sim \chi_{m-k}^2
+\]</span></p>
+<p>Si <span class="math inline">\(Q &gt; \chi_{m-k}(1-\alpha)\)</span>, rechazar <span class="math inline">\(H_0\)</span> con <span class="math inline">\(100\alpha\%\)</span> de significancia: la serie no es ruido blanco. Este test es similar al de Box-Pierce, peero ajustada para muestras pequeñas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'xts' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: zoo</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'zoo' was built under R version 4.2.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(sp500w, <span class="at">main =</span> <span class="st">"S&amp;P 500 Rendimientos Semanales"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="modelo-autorregresivo-de-orden-p" class="level2">
+<h2 class="anchored" data-anchor-id="modelo-autorregresivo-de-orden-p">Modelo Autorregresivo de Orden <span class="math inline">\(p\)</span></h2>
+<p>En este modelo, influye los rezagos previos (es decir, observaciones pasadas). Consideremos el ruido blanco <span class="math inline">\(\epsilon_t\)</span>. El modelo <span class="math inline">\(AR(P)\)</span> es:</p>
+<p><span class="math display">\[
+y_t = c + \phi y_{t-1} + . . . + \phi_p y_{t-p} + \epsilon_t
+\]</span></p>
+<p>Note que la ecuación previa la podemos escribir como:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+y_t - \phi_1 y_{t-1} - . . . - \phi_p y_{t-p} &amp;=&amp; c + \epsilon_t\\[0.2cm]
+\underbrace{(1 + \phi_1 L^1 - . . . - \phi_p L^p)}_{\Phi(L)} &amp;=&amp; c + \epsilon_t
+\end{eqnarray}
+\]</span></p>
+<p>El proceso <span class="math inline">\(AR(p)\)</span> es una ecuación en diferencia de orden <span class="math inline">\(p\)</span>. Esta ecuación es estable si y solo si las raíces del polinomio <span class="math inline">\(1 - \phi_1 z^1 - . . . - \phi_p z^p\)</span> están todas fuera del círculo unitario.</p>
+<p>Si el proceso es estable, resolvemos para <span class="math inline">\(y_t\)</span>,</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+y_t &amp;=&amp; \Phi^{-1}(L)(c+\epsilon_t)\\[0.2cm]
+    &amp;=&amp; \Phi^{-1}(1)c + \Phi^{-1}(L)\epsilon_t\\[0.2cm]
+    &amp;=&amp; \frac{c}{1 - \phi_1 - . . . - \phi_p} + \Phi^{-1}(L)\epsilon_t
+\end{eqnarray}
+\]</span></p>
+<p>Su valor esperado es:</p>
+<p><span class="math display">\[E(y_t) = \frac{c}{1 - \phi_1 - . . . - \phi_p}\]</span></p>
+<p>Podemos escribir el proceso <span class="math inline">\(AR(p)\)</span> en términos de desviación de la media: <span class="math inline">\(\widetilde{y} = y - \mu\)</span></p>
+<p><span class="math display">\[\widetilde{y} = \phi_1 \widetilde{y}_{t-1} + . . . + \phi_p \widetilde{y}_{t-p} + \epsilon_{t}\]</span></p>
+<p>Para obtener su varianza y autocovarianza multiplicamos la expresion anterior por <span class="math inline">\(\widetilde{y}_{t-j}\)</span> con <span class="math inline">\(j \geq 0\)</span>, y calculamos el valor esperado</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+E[\widetilde{y}\widetilde{y}_{t-j}]&amp;=&amp; E[\phi_1 \widetilde{y}_{t-1}\widetilde{y}_{t-j} + . . . + \phi_p \widetilde{y}_{t-p}\widetilde{y}_{t-j} + \epsilon_{t}\widetilde{y}_{t-j}]\\[0.2cm]
+\gamma_{j} &amp;=&amp;  \left\{\begin{array}{c}\phi_{1}\gamma_{1} + . . . + \phi_{p}\gamma_{p} + \sigma^2, \hspace{0.5cm}j=0\\\phi_{1}\gamma_{j-1} + . . . + \phi_{p}\gamma_{j-p},\hspace{0.7cm}j&gt;0\end{array}\right.
+\end{eqnarray}
+\]</span></p>
+<section id="función-de-autocorrelación-parcial-pacf" class="level3">
+<h3 class="anchored" data-anchor-id="función-de-autocorrelación-parcial-pacf">Función de Autocorrelación Parcial (PACF)</h3>
+<p>La autocorrelación parcial mide la correlación restante entre <span class="math inline">\(y_t\)</span> y <span class="math inline">\(y_{t-1}\)</span> una vez que se ha eliminado la influencia de <span class="math inline">\(y_{t-1}, y_{t-2}, . . . , y_{t-k+1}\)</span>,</p>
+<p><span class="math display">\[
+y_t = a_1^{(1)}y_{t-1} + a_2^{(2)}y_{t-2} + . . . + a_{k-1}^{(k)}y_{t-k+1} + a_k^{(k)}y_{t-k}
+\]</span></p>
+<p>Es decir, las primeras <span class="math inline">\(m\)</span> autocorrelaciones parciales, vienen de</p>
+<p><span class="math display">\[
+\begin{eqnarray*}y_{t} &amp;=&amp; a_{(1)}^{1}y_{t-1}:\hspace{2.9cm} a_{1}^{(1)}\mbox{ Autocorrelación parcial de un rezago}\\[0.1cm]y_{t} &amp;=&amp; a_{1}^{(2)}y_{t-1} + a_{2}^{(2)}y_{t-2}:\hspace{1cm}a_{2}^{(2)}\mbox{ Segunda autocorrelación parcial}.\\[0.1cm]&amp;\vdots&amp;\\[0.1cm]y_{t} &amp;=&amp; a_{1}^{(m-1)}y_{t-1} + a_{2}^{(m-2)}y_{t-2} + . . . + a_{m-1}^{(m-1)}y_{t-m+1}\\[0.1cm]y_{t} &amp;=&amp; a_{1}^{(m)}y_{t-1} + a_{2}^{(m)}y_{t-2} + . . . + a_{m-1}^{(m)}y_{t-m+1} + a_{m}^{(m)}y_{t-m}\end{eqnarray*}
+\]</span></p>
+<p>Para encontrar el valor de <span class="math inline">\(a_k^{(k)}\)</span> basta con resolver:</p>
+<p><span class="math display">\[
+\left[\begin{array}{ccccc}1 &amp; \rho_{1} &amp; \rho_{2} &amp; \cdots &amp; \rho_{k-1} \\\rho_{1} &amp; 1 &amp; \rho_{1} &amp; \cdots &amp; \rho_{k-2} \\\rho_{2} &amp; \rho_{1} &amp; 1 &amp; \cdots &amp; \rho_{k-3} \\\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \cdots \\\rho_{k-1} &amp; \rho_{k-2} &amp; \rho_{k-3} &amp; \cdots &amp; 1\end{array}\right]\left[\begin{array}{c}a_{1}^{(1)} \\a_{2}^{(2)} \\a_{3}^{(3)} \\\vdots \\a_{k}^{(k)}\end{array}\right] = \left[\begin{array}{c}\rho_{1} \\\rho_{2} \\\rho_{3} \\\vdots \\\rho_{k}\end{array}\right]
+\]</span></p>
+<p>Denotaremos la <span class="math inline">\(k\)</span>-ésima correlación parcial <span class="math inline">\(\varphi(k)=a_{k}^{(k)}\)</span></p>
+<p>Comparando las ecuaciones del proceso <span class="math inline">\(AR(p)\)</span> y de la autocorrelación parcial <span class="math inline">\(k\)</span>:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}y_{t} &amp;=&amp; \phi_{1}y_{t-1} + \phi_{2}y_{t-2} + . . . + \phi_{p}y_{t-p} + \epsilon_{t}\\[0.2cm]y_{t} &amp;=&amp; a_{1}^{(k)}y_{t-1} + a_{2}^{(k)}y_{t-2}+ . . . + a_{k-1}^{(k)}y_{t-k+1} + a_{k}^{(k)}y_{t-k}\end{eqnarray*}
+\]</span></p>
+<p>Vemos que si:</p>
+<ul>
+<li><p>Si <span class="math inline">\(k = p\)</span>, entonces <span class="math inline">\(\varphi_{k} = \phi_{p}\)</span></p></li>
+<li><p>Si <span class="math inline">\(k &gt; p\)</span>, entonces <span class="math inline">\(\varphi_{k}=0\)</span></p></li>
+<li><p>Si <span class="math inline">\(k = 1\)</span>, entonces <span class="math inline">\(\varphi_{1}=\rho_{1}\)</span></p></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaula/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022 Juan Isaula. Except where otherwise noted, all text and images licensed CC-BY-NC 4.0.</div>   
+  </div>
+</footer>
+
+
+
+</body></html>

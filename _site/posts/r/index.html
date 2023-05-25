@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juan Isaula">
+<meta name="dcterms.date" content="2022-01-20">
+
+<title>Juan Isaula - Introducción a R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Juan Isaula - Introducción a R">
+<meta property="og:description" content="Generalidades">
+<meta property="og:image" content="https://mm218.dev/posts\r\r_studio.png">
+<meta property="og:site-name" content="Juan Isaula">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:height" content="512">
+<meta property="og:image:width" content="512">
+<meta name="twitter:title" content="Juan Isaula - Introducción a R">
+<meta name="twitter:description" content="Generalidades">
+<meta name="twitter:image" content="https://mm218.dev/posts\r\r_studio.png">
+<meta name="twitter:creator" content="@MikeMahoney218">
+<meta name="twitter:image-height" content="512">
+<meta name="twitter:image-width" content="512">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Juan Isaula</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations">
+ <span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software_citations.html">
+ <span class="menu-text">Software citations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml"><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#qué-es-r" id="toc-qué-es-r" class="nav-link active" data-scroll-target="#qué-es-r">¿Qué es R?</a>
+  <ul class="collapse">
+  <li><a href="#ventajas-de-usar-r" id="toc-ventajas-de-usar-r" class="nav-link" data-scroll-target="#ventajas-de-usar-r">Ventajas de usar R</a></li>
+  <li><a href="#desventajas-de-usar-r" id="toc-desventajas-de-usar-r" class="nav-link" data-scroll-target="#desventajas-de-usar-r">Desventajas de usar R</a></li>
+  <li><a href="#instalación-de-r" id="toc-instalación-de-r" class="nav-link" data-scroll-target="#instalación-de-r">Instalación de R</a></li>
+  <li><a href="#obtener-ayuda-en-r" id="toc-obtener-ayuda-en-r" class="nav-link" data-scroll-target="#obtener-ayuda-en-r">Obtener Ayuda en R</a></li>
+  <li><a href="#operaciones-básicas" id="toc-operaciones-básicas" class="nav-link" data-scroll-target="#operaciones-básicas">Operaciones Básicas</a></li>
+  <li><a href="#vectores" id="toc-vectores" class="nav-link" data-scroll-target="#vectores">Vectores</a>
+  <ul class="collapse">
+  <li><a href="#creación-de-un-vector" id="toc-creación-de-un-vector" class="nav-link" data-scroll-target="#creación-de-un-vector">Creación de un Vector</a></li>
+  <li><a href="#operaciones-con-vectores" id="toc-operaciones-con-vectores" class="nav-link" data-scroll-target="#operaciones-con-vectores">Operaciones con vectores</a></li>
+  </ul></li>
+  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices">Matrices</a></li>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data Frames</a>
+  <ul class="collapse">
+  <li><a href="#creación-de-data-frames" id="toc-creación-de-data-frames" class="nav-link" data-scroll-target="#creación-de-data-frames">Creación de Data Frames</a></li>
+  </ul></li>
+  <li><a href="#instalación-de-librerías" id="toc-instalación-de-librerías" class="nav-link" data-scroll-target="#instalación-de-librerías">Instalación de Librerías</a></li>
+  </ul></li>
+  <li><a href="#bibliografías" id="toc-bibliografías" class="nav-link" data-scroll-target="#bibliografías">Bibliografías</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introducción a R</h1>
+<p class="subtitle lead">Generalidades</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">RStudio</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Juan Isaula </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 20, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="qué-es-r" class="level1">
+<h1>¿Qué es R?</h1>
+<p><code>R</code> es un lenguaje y un ambiente para el manejo de datos, cálculos, y gráficos en código libre. Dada estas características los desarrollos que se han realizado en <code>R</code> son abiertos y están disponibles gratuitamente, por lo cual su uso se ha difundido ampliamente. <code>R</code> es difundido libremente por una gran diversidad de sitios espejo del <code>CRAN</code> (The comprehensive R Archive Network: red de servidores en todo el mundo que almacenan versiones id’enticas y actualizadas de código y documentación para R). Además, de ser gratuitos, los desarrollos en R se actualizan más rápido que cualquier otro de los costosos softwares comerciales que se encuentran en el mercado. Esto es así debido a que los usuarios hacen desarrollos, los documentan y los difunden en su red especializada de manera cotidiana (Quintana y Mendoza, 2016,p.23).</p>
+<p>Antes de comenzar a programar es bueno conocer los aspectos básicos del software que se esta utilizando como son: el ambiente, el funcionamiento de las herramientas de ayuda y la sintaxis básica, necesaria para el desarrollo de cualquier proyecto. En la práctica, la programación en <code>R</code> no es dificil solo hace falta acostumbrarse al ambiente y familiarizarse a la sintaxis, la cual trataremos en este material.</p>
+<section id="ventajas-de-usar-r" class="level2">
+<h2 class="anchored" data-anchor-id="ventajas-de-usar-r">Ventajas de usar R</h2>
+<ul>
+<li>Es software libre y por tanto su costo es nulo.&nbsp;</li>
+<li>Es multiplataforma: existen versiones para LinuX, Mac y Windows. Los procedimientos y análisis desarrollados en una plataforma son perfectamente desarrollables en otra.&nbsp;</li>
+<li>Implementa una enorme cantidad de métodos estadísticos, desde los más clasicos a los más modernos. Los métodos se organizan en librerías cuyo número se encuentra en constante crecimiento.<br>
+</li>
+<li>Capacidad para acceder a datos en múltiples formatos. Dispone de librerías para leer datos desdes <code>SPSS</code>,<code>SAS</code>,<code>Access</code>, <code>MySQL</code>,<code>Excel</code>, etc. A si mismo permite también la generació de informes de resultados en diversos formatos.<br>
+</li>
+<li>Enorme capacidad para manipular y modificar datos y funciones.<br>
+</li>
+<li>Generación de gráficos de alta calidad.<br>
+</li>
+<li>Existencia de una comunidad de usuarios muy activa, en la que participan estadísticos de renombre.<br>
+</li>
+<li>Amplia disponibilidad de documentación, tanto en internet como en libros publicados por editoriales de prestigio.&nbsp;</li>
+<li>Facilidad de integración con actividad de formación en técnicas y métodos estadísticos en todos los ámbitos del conocimiento.<br>
+</li>
+<li>Existencia de extensiones específicas para nuevas áreas como modelos gráficos o análisis de mercados financieros.<br>
+</li>
+<li>Todos los algoritmos implementados en <code>R</code> pueden ser vistos e interpretados por cualquier usuario, por lo que este puede saber exactamente que es lo que hace el ordenador cuando ejecuta un comando.</li>
+</ul>
+</section>
+<section id="desventajas-de-usar-r" class="level2">
+<h2 class="anchored" data-anchor-id="desventajas-de-usar-r">Desventajas de usar R</h2>
+<ul>
+<li>Hay empresas que por políticas no pueden instalar software libre en sus maquinas cada una tiene su politica, sus software de preferencia, sus necesidades, etc.<br>
+</li>
+<li>Algunas de las instituciones del sector público y privado tienen un dilema. por parte necesitan ahorrar recursos y por otra parte tienen que contar con soporte técnico por el que pagan fortunas. La idea del soporte es tener el apoyo y mantenimiento por si algo sale mal tanto en la aplicación del software como en la administración de los sistemas. Por eso pagan licencias costosas por SAS, STATA y otros paquetes.<br>
+</li>
+<li>Una de las principales desventajas es que hasta hace poco el uso de <code>R</code> estaba limitado a entornos universitarios y de usuarios con gran conocimiento de la estadística y la programación. Junto a esto, su primera impresión entre los usuarios principiantes, es de dureza y poca amigabilidad, aunque esto queda superado con el uso.<br>
+</li>
+<li>No hay nadie a quien reclamar si algo falla, ni hay un departamento de atención al cliente que nos diga qué podemos hacer si algo va mal, si alguién procedimiento nos da un error, o simplemente si no sabemos qué sintaxis utilizar. Pero a cambio existe una comunidad de usuarios organizada en foros y dispuesta a colaborar desinteresadamente en la resolución de problemas.<br>
+</li>
+<li>A todos los puntos anteriores podemos añadir el siguiente, que será considerado por unos una ventaja y por otros un inconveniente: Para hacer un buen uso de R hay que tener un buen conocimiento de los métodos estadísticos. En realidad esta afirmación es cierta no sólo para R, sino para cualquier paquete estadístico.</li>
+</ul>
+</section>
+<section id="instalación-de-r" class="level2">
+<h2 class="anchored" data-anchor-id="instalación-de-r">Instalación de R</h2>
+<p>Para realizar la instalación de <code>R</code> y <code>RStudio</code> en <code>Windows</code>,<code>Mac</code>, <code>Ubuntu</code> o <code>Linux</code> se debe ingresar a los siguientes sitios web:</p>
+<ul>
+<li><a href="https://www.r-project.org/">Instalación de R</a></li>
+<li><a href="https://posit.co/products/open-source/rstudio/">Instalación de RStudio</a></li>
+</ul>
+</section>
+<section id="obtener-ayuda-en-r" class="level2">
+<h2 class="anchored" data-anchor-id="obtener-ayuda-en-r">Obtener Ayuda en R</h2>
+<p><code>R</code>Permite obtener ayuda para conocer toda la información (qué hace, cuál es la sintaxis correcta, qué parámetros tiene, algunos ejemplos de uso, etcétera) sobre una función, objeto o librería.</p>
+<p>Existen cinco funciones para obtener ayuda las cuales son:</p>
+<ol type="1">
+<li><code>helt.start()</code><br>
+</li>
+</ol>
+<p>Utilizando esta función se encuentra un menú de recursos, entre los cuales existen manuales, referencias y demás material para comenzar a aprender R.<br>
+</p>
+<p>escribe en tu consola de <code>RStudio</code> help.start()</p>
+<ol start="2" type="1">
+<li><code>help(¨nombre del objeto¨)</code><br>
+</li>
+</ol>
+<p>Esta función facilita obtener información acerca de las funciones de los paquetes ya instalados en <code>R</code>. Si se desea obtener información acerca de una función, por ejemplo de la función <code>plot()</code>, se debe escribir <code>help(“plot”)</code> o <code>?plot</code> en la línea de comandos.</p>
+<ol start="3" type="1">
+<li><code>example("nombre de la función")</code><br>
+</li>
+</ol>
+<p>Para obtener ejemplos del uso de funciones, se utiliza la función <code>example ()</code>. Porejemplo, escribe<code>example(“array”)</code>.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-1_546e5b3106d1ca347c4653c49b4f16a3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">example</span>(<span class="st">"array"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+array&gt; dim(as.array(letters))
+[1] 26
+
+array&gt; array(1:3, c(2,4)) # recycle 1:3 "2 2/3 times"
+     [,1] [,2] [,3] [,4]
+[1,]    1    3    2    1
+[2,]    2    1    3    2
+
+array&gt; #     [,1] [,2] [,3] [,4]
+array&gt; #[1,]    1    3    2    1
+array&gt; #[2,]    2    1    3    2
+array&gt; 
+array&gt; 
+array&gt; </code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li><code>library(help = "nombre")</code><br>
+</li>
+</ol>
+<p>Otra manera de obtener información de ayuda sobre un paquete es usar la opción help para el comando library(), con lo cual tendrás información más completa. Un ejemplo es <code>library(help=“stats”)</code>.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-2_d11accaaf7f44721ba1f49411a6805bd">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="at">help=</span><span class="st">"stats"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="5" type="1">
+<li><code>vignette(“nombre de la librer ́ıa”)</code><br>
+</li>
+</ol>
+<p>Algunos paquetes ya instalados en <code>R</code> incluyen viñetas dentro del ordenador. Una viñeta es un documento corto que describe como se usa un paquete. Se puede ver una viñeta usando la función <code>vignette()</code>. Escribe <code>vignette(“Sweave”)</code> en la línea de comandos.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-3_ea8f85445e05198a261fb83ecdf9cf42">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vignette</span>(<span class="st">"Sweave"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="operaciones-básicas" class="level2">
+<h2 class="anchored" data-anchor-id="operaciones-básicas">Operaciones Básicas</h2>
+<p>La forma correcta de almacenar valores, es a través de una asignación la cual se realiza especificando el símbolo <code>&lt;-</code>. Del lado izquierdo del símbolo se especifica el nombre de la variable y del lado derecho se introduce el valor u operación.<br>
+</p>
+<p>Se puede trabajar con una gran cantidad de operadores matemáticos que utiliza <code>R</code> y que permite realizar cálculos matemáticos, por mencionar algunos, se pueden observar en el siguiente cuadro</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Operador Matemático</th>
+<th>Función en R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\sqrt{x}\)</span></td>
+<td><code>sqrt()</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(e^x\)</span></td>
+<td><code>exp(x)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(x!\)</span></td>
+<td><code>factorial(x)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(logaritmo(x)\)</span></td>
+<td><code>log(x)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi\)</span></td>
+<td><code>Pi</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(|x|\)</span></td>
+<td><code>abs(x)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(seno(x)\)</span></td>
+<td><code>sin(x)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(coseno(x)\)</span></td>
+<td><code>cos(x)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(tangente(x)\)</span></td>
+<td><code>tan(x)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(cos^{-1}(x)\)</span></td>
+<td><code>acos(x)</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(sen^{-1}(x)\)</span></td>
+<td><code>asin(x)</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(tan^{-1}(x)\)</span></td>
+<td><code>atan(x)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Asignar un valor a cierta cantidad de variables por ejemplo: a una variable <span class="math inline">\(w\)</span> el valor 3, a la variable <span class="math inline">\(y\)</span> el valor 7 y a la variable <span class="math inline">\(z\)</span> el valor 90, a una variable <span class="math inline">\(suma\)</span> la adición de las variables anteriores y finalmente obtendremos la raíz cuadrada de la variable <span class="math inline">\(suma\)</span> guardándola en una variable con el nombre raíz.</p>
+<p>A continuació le muestro el ejemplo en <code>R</code></p>
+<div class="cell" data-hash="_cache/unnamed-chunk-4_68050d87a6d77510135e44e9b9506bbf">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="dv">3</span>   <span class="co"># Para evaluar la instrucción se debe presionar la tecla Control + ENTER.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>w        <span class="co"># Para observar el valor de la variable nombra la variable.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="dv">90</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 90</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>suma <span class="ot">&lt;-</span> w <span class="sc">+</span> y <span class="sc">+</span> z</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>suma</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>raiz <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(suma)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>raiz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+</div>
+<p>En la primera línea se observa el simbolo <code>(#)</code>, el cual permite comentar el código, para tomar notas de interés.</p>
+<p>En <code>R</code> tamién se puede almacenar cadenas de caracteres como se muestra en el siguiente ejemplo:</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-5_9f265675d1ce44911ff362109bb6224c">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="st">"Cálculo"</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Cálculo"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="st">"Microeconomía"</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Microeconomía"</code></pre>
+</div>
+</div>
+<p>Para obtener un listado o desplegado de las variables que han sido definidas en la sesio ́n se debe de escribir el comando <code>ls()</code>.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-6_ae0df94214934049661ecf19646f76ed">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a"    "b"    "raiz" "suma" "w"    "y"    "z"   </code></pre>
+</div>
+</div>
+</section>
+<section id="vectores" class="level2">
+<h2 class="anchored" data-anchor-id="vectores">Vectores</h2>
+<p>Un vector es una secuencia ordenada de datos, los cuales han de ser del mismo tipo, es decir, todos deben de ser números, caracteres, cadenas de caracteres, valores lógicos, etc. Los tipos de datos que se pueden almacenar en un vector se destacan los siguientes:</p>
+<ul>
+<li><code>logical (lógicos: TRUE, verdadero, o FALSE, falso)</code></li>
+<li><code>integer (números enteros)</code></li>
+<li><code>numeric (números reales)</code></li>
+<li><code>character (palabras)</code></li>
+</ul>
+<section id="creación-de-un-vector" class="level3">
+<h3 class="anchored" data-anchor-id="creación-de-un-vector">Creación de un Vector</h3>
+<p>La forma correcta de almacenar un conjunto de datos, es a través de una asignación utilizando el comando <code>c</code>, donde dicha lista de números se almacenan bajo nombre, y así mismo este se utiliza para referirse a los datos que almacena, la asignación se realiza especificando el símbolo <code>&lt;-</code>.<br>
+</p>
+<p>Para generar un vector utilizamos la función <code>c</code> separado cada uno de los elementos por medio de una coma <code>(,)</code> por ejemplo si se quisiera almacenar la secuencia <span class="math inline">\(0,1,2,3,4,5,6,7,8,9\)</span> dentro de un vector llamado <span class="math inline">\(vector\)</span></p>
+<div class="cell" data-hash="_cache/unnamed-chunk-7_c923c4695207ab28e7ea23e48ab9fb46">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0 1 2 3 4 5 6 7 8 9</code></pre>
+</div>
+</div>
+<p>Si se desea crear un vector de letras, palabras o cadenas de caracteres llamadas <code>string</code>, se tiene que nombrar cada cadena de caracteres entre comillas de manera obligatoria</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-8_b598c789c02caa366c9a82878957cdf5">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>vectorletra <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>vectorletra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "a" "b" "c" "d" "e"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>vectorpalabra <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Micro"</span>, <span class="st">"Economía"</span>, <span class="st">"en"</span>, <span class="st">"R"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>vectorpalabra</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Micro"    "Economía" "en"       "R"       </code></pre>
+</div>
+</div>
+<p>Se puede facilitar la creación de vectores podemos utilizar <code>c(a:b)</code> para datos de manera consecutiva, el comando <code>seq(a, b, by = p)</code> de manera aritmética, donde <span class="math inline">\(a\)</span> es el primer elemento, <span class="math inline">\(b\)</span> es el último elemento y <span class="math inline">\(p\)</span> es la diferencia de cada elemento.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-9_118ba2a082cd57becd89c1b8f186cc2f">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>w</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="at">by =</span> <span class="dv">10</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0  10  20  30  40  50  60  70  80  90 100</code></pre>
+</div>
+</div>
+</section>
+<section id="operaciones-con-vectores" class="level3">
+<h3 class="anchored" data-anchor-id="operaciones-con-vectores">Operaciones con vectores</h3>
+<p>Se pueden realizar operaciones como suma, resta, producto de vectores, se utilizaran los vectores <span class="math inline">\(w\)</span> e <span class="math inline">\(y\)</span> para ejemplificar las operaciones.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-10_4484fdde9c32a6c64c0e75d90476420f">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>suma <span class="ot">&lt;-</span> w <span class="sc">+</span> y</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>suma </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0  11  22  33  44  55  66  77  88  99 110</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>resta <span class="ot">&lt;-</span> w <span class="sc">-</span> y</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>resta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0  -9 -18 -27 -36 -45 -54 -63 -72 -81 -90</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>producto <span class="ot">&lt;-</span> w<span class="sc">*</span>y</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>producto</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]    0   10   40   90  160  250  360  490  640  810 1000</code></pre>
+</div>
+</div>
+<p>El manejo de vectores en <code>R</code> tiene una propiedad muy útil: podemos aplicar una función a todos los elementos de un vector en un solo paso.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-11_66c6909d315ba81e355eebb7d1772c52">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>w <span class="sc">+</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  5  6  7  8  9 10 11 12 13 14 15</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>w <span class="sc">-</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] -2 -1  0  1  2  3  4  5  6  7  8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="sc">*</span>w</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0  10  20  30  40  50  60  70  80  90 100</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 0.000000 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751
+ [9] 2.828427 3.000000 3.162278</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>w<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]   0   1   4   9  16  25  36  49  64  81 100</code></pre>
+</div>
+</div>
+<p>Entre otras funciones para aplicar a vectores, y de gran importancia son las relacionadas principalmente con la estadística. Por ejemplo</p>
+<ul>
+<li><code>max</code> y <code>min</code> calculan sus valores maximos y minimos respectivamente</li>
+<li><code>sum</code> calcula la suma</li>
+<li><code>prod</code> calcula el producto</li>
+<li><code>mean</code> calcula la media</li>
+<li><code>diff</code> calcula el vector formado por las diferencias sucesivas entre entradas del vector original.</li>
+<li><code>sort</code> ordena los elementos del vector en el orden natural creciente del tipo de datos que lo forman, se puede incluir en su argumento el parámetro <code>decreasing = TRUE</code>.</li>
+</ul>
+<div class="cell" data-hash="_cache/unnamed-chunk-12_2f0866e0c5143f4f155cc84a6e34648d">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>w</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 55</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prod</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  0  1  2  3  4  5  6  7  8  9 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(w, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 10  9  8  7  6  5  4  3  2  1  0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="matrices" class="level2">
+<h2 class="anchored" data-anchor-id="matrices">Matrices</h2>
+<p>Las matrices son un tipo de vector particular, es un vector con un atributo especial, llamado dimensión. La dimensión establece el número de renglones y el número de columnas que tendrá una matriz, se debe recordar que una matriz no es más que un arreglo de números en <span class="math inline">\(m\)</span> renglones y <span class="math inline">\(n\)</span> columnas.</p>
+<p>Por ejemplo una matriz de 3 renglones y 3 columnas</p>
+<p><span class="math display">\[\left[\begin{array}{ccc}1 &amp; 2 &amp; 3 \\2 &amp; 4 &amp; 5 \\3 &amp; 5 &amp; 6\end{array}\right]\]</span> Se dispone de dos maneras básicas de definir una matriz en <code>R</code>. En primer lugar, la instrucción:</p>
+<p><span class="math display">\[matrix(vector,nrow = n, byrow = valorlogico)\]</span></p>
+<p>Define una matriz de <span class="math inline">\(n\)</span> filas (rows) formada por las entradas del vector. Si se captura <code>byrow = TRUE</code>, la matriz se construye por filas, mientras que con <code>byrow = FALSE</code> se construye por columnas; este último es el valor por defecto, por lo que no hace falta especificarlo. En vez de emplear <code>nrow</code>, se puede indicar el número de columnas con <code>ncol</code>. Veamos algunos ejemplos:</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-13_2f789773e79983fe283b0c476f2c361d">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>,<span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    4
+[2,]    2    5
+[3,]    3    6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    3
+[2,]    4    5    6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    1    2
+[2,]    3    4
+[3,]    5    6</code></pre>
+</div>
+</div>
+<p>Observe cómo muestra <code>R</code> las matrices: indica las filas con <span class="math inline">\([i,]\)</span>, donde <span class="math inline">\(i\)</span> es el índice de la fila, y las columnas con <span class="math inline">\([,j]\)</span>, donde <span class="math inline">\(j\)</span> es el índice de la columna. Otra posible manera de definir matrices es combinando filas o columnas. La instrucción:</p>
+<p><span class="math display">\[rbind(vector1,vector2, vector3)\]</span> construya la matriz de filas <span class="math inline">\(vector1, vector2, . . . , vector N\)</span> que han de tener la misma longitud en este orden. Si en lugar de <code>rbind</code> se usa <code>cbind</code>, se obtiene la matriz cuyas columnas son los vectores a los que se aplica.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-14_f7859c1fab16f3123fff96b3ac816093">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    2
+[2,]    2    3    6
+[3,]    1    2    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>), <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    2    1
+[2,]    0    3    2
+[3,]    2    6    0</code></pre>
+</div>
+</div>
+</section>
+<section id="data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="data-frames">Data Frames</h2>
+<p>La manera más conveniente de guardar una tabla de datos en <code>R</code> es en forma de <span class="math inline">\(dataframe\)</span>. En concreto, un <span class="math inline">\(data\)</span> <span class="math inline">\(frame\)</span> es una tabla de doble entrada, formada por variables en las columnas y observaciones de estas variables en las filas, de manera que cada fila contiene los valores de las variables para un mismo caso o individuo. En ese sentido, un <span class="math inline">\(data\)</span> <span class="math inline">\(frame\)</span> tiene la apariencia de una matriz, pero con la diferencia de que cada columna de un <span class="math inline">\(data\)</span> <span class="math inline">\(frame\)</span> puede contener datos de un tipo diferente siempre que todos los datos de una misma columna sean del mismo tipo porque corresponden a observaciones de una misma propiedad: así, una columna puede estar formada por números, por palabras, por valores lógicos, etcétera. De esta manera, las columnas de un data frame son vectores, mientras que las filas son listas.</p>
+<section id="creación-de-data-frames" class="level3">
+<h3 class="anchored" data-anchor-id="creación-de-data-frames">Creación de Data Frames</h3>
+<p>Para construir un <span class="math inline">\(data\)</span> <span class="math inline">\(frame\)</span> a partir de unos vectores, se usa la función <code>data.frame</code> aplicada a los vectores en el orden en el que queramos disponer las columnas de la tabla; de esta manera, las variables tomarán los nombres de los vectores. Estos nombres también se pueden especificar en el argumento de la función <code>data.frame</code>, entrando cada columna con una construcción de la forma:</p>
+<p><span class="math display">\[Nombre~variable = vector~con~el~contenido~de~la~variable\]</span></p>
+<p>Para ilustrar esta función usemos un ejemplo sencillo:<br>
+</p>
+<p>Una compañía de seguros desea crear una base de datos para la gestión de las pólizas de sus asegurados. Para ello, los datos de los que dispone son los siguientes:</p>
+<ul>
+<li>De cada póliza se guarda el número de póliza.</li>
+<li>El tipo que puede ser “Hogar” o “Auto”.</li>
+<li>La fecha de creación de la póliza.</li>
+<li>y el conjunto de coberturas incluidas en la póliza ( a elegir entre Incendio, Robo, Terceros y Responsabilidad Civil).</li>
+<li>Para cada póliza guardamos los atos de sus titulares, y sabemos que cada poliza tiene un único titular.</li>
+<li>De los titulares guardamos nombre, sexo, edad y estado de providencia.</li>
+</ul>
+<div class="cell" data-hash="_cache/unnamed-chunk-15_8dde9dd1ed8b4c59963debe0cff14365">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>Poliza <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>Tipo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Hogar"</span>, <span class="st">"Auto"</span>, <span class="st">"Auto"</span>, <span class="st">"Auto"</span>, <span class="st">"Hogar"</span>, <span class="st">"Hogar"</span>, <span class="st">"Auto"</span>,</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"Auto"</span>, <span class="st">"Hogar"</span>)</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>Fecha <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"12/12/2016"</span>, <span class="st">"08/02/2014"</span>, <span class="st">"10/08/2012"</span>, <span class="st">"01/01/2015"</span>,</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">"21/11/2011"</span>, <span class="st">"18/01/2016"</span>, <span class="st">"12/04/2005"</span>, <span class="st">"29/03/2007"</span>,</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">"18/02/2009"</span>)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>Coberturas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Incendio"</span>, <span class="st">"Robo"</span>, <span class="st">"Terceros"</span>, <span class="st">"Robo"</span>, <span class="st">"Robo"</span>,</span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Incendio"</span>, <span class="st">"Terceros"</span>, <span class="st">"R. Civil"</span>, <span class="st">"Incendio"</span>)</span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>Nombre <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Carlos"</span>, <span class="st">"Nancy"</span>, <span class="st">"Pedro"</span>, <span class="st">"Cecilia"</span>, <span class="st">"Ricardo"</span>, <span class="st">"Sofia"</span>,</span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Armando"</span>, <span class="st">"Vicente"</span>, <span class="st">"Fernando"</span>)</span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a>Sexo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"M"</span>, <span class="st">"M"</span>)</span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a>Edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">35</span>, <span class="dv">45</span>, <span class="dv">47</span>, <span class="dv">24</span>, <span class="dv">43</span>, <span class="dv">33</span>, <span class="dv">31</span>, <span class="dv">40</span>)</span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a>Estado <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Campeche"</span>, <span class="st">"Chiapas"</span>, <span class="st">"Ciudad de M ́exico"</span>, <span class="st">"Coahuila"</span>,</span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Durango"</span>, <span class="st">"Guanajuato"</span>, <span class="st">"Guerrero"</span>, <span class="st">"Hidalgo"</span>, <span class="st">"Jalisco"</span>)</span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>dataframe<span class="ot">=</span> <span class="fu">data.frame</span>(Poliza, Tipo, Fecha, Coberturas, Nombre, Sexo, Edad)</span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-25"><a href="#cb77-25" aria-hidden="true" tabindex="-1"></a>dataframe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Poliza  Tipo      Fecha Coberturas   Nombre Sexo Edad
+1      1 Hogar 12/12/2016   Incendio   Carlos    M   25
+2      2  Auto 08/02/2014       Robo    Nancy    F   35
+3      3  Auto 10/08/2012   Terceros    Pedro    M   45
+4      4  Auto 01/01/2015       Robo  Cecilia    F   47
+5      5 Hogar 21/11/2011       Robo  Ricardo    M   24
+6      6 Hogar 18/01/2016   Incendio    Sofia    F   43
+7      7  Auto 12/04/2005   Terceros  Armando    M   33
+8      8  Auto 29/03/2007   R. Civil  Vicente    M   31
+9      9 Hogar 18/02/2009   Incendio Fernando    M   40</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="instalación-de-librerías" class="level2">
+<h2 class="anchored" data-anchor-id="instalación-de-librerías">Instalación de Librerías</h2>
+<p>R es un lenguaje que permite la implementación de paquetes adicionales que le dan una capacidad de gestión de datos más amplia y permiten la implementación de nuevas funciones que harán de R un programa que se adapte a las necesidades.<br>
+</p>
+<p>El procedimiento para instalar un paquete depende del sistema operativo usado y de la manera como se instalo <code>R</code>: ya sea desde el código fuente o desde o por medio de archivos binarios pre-compilados. Existen varias funciones para manejar paquetes tales como:</p>
+<ul>
+<li><code>installed.packages()</code></li>
+<li><code>CRAN.package()</code></li>
+<li><code>download.packages()</code></li>
+</ul>
+<p>Para verificar la versión de paquetes ya instalados en el sistema y actualizarlos a la versión más reciente utilizamos la siguiente función:</p>
+<ul>
+<li><code>update.packages()</code></li>
+</ul>
+</section>
+</section>
+<section id="bibliografías" class="level1">
+<h1>Bibliografías</h1>
+<ul>
+<li><p><a href="https://bookdown.org/jboscomendoza/r-principiantes4/">R para principiantes</a></p></li>
+<li><p><a href="https://cran.r-project.org/doc/contrib/Santana_El_arte_de_programar_en_R.pdf">El arte de programar en R</a></p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaula/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022 Juan Isaula. Except where otherwise noted, all text and images licensed CC-BY-NC 4.0.</div>   
+  </div>
+</footer>
+
+
+
+</body></html>
