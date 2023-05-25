@@ -1,0 +1,14 @@
+---
+title: "courses"
+page-layout: full
+---
+
+Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar información sobre algnos cursos en los cuales soy colaborador.
+
+<h3>2023</h3>
+
+<h4>Microeconomía II - UNAH</h4>
+
+-   [Programa del curso](https://rpubs.com/Juan-Isaula/1044986)
+
+-   [Material de apoyo para modulo I](https://j-isaula.github.io/micreoeconomics/)
