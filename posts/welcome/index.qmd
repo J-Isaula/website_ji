@@ -1,0 +1,169 @@
+---
+title: "Modelo Prophet de Facebook"
+subtitle: "Pronóstico aplicado al tipo de cambio USD/HNL"
+author: "Juan Isaula"
+date: "2022-05-14"
+categories: [Prophet, Forecasting, R, RStudio]
+image: "Fondo_post2.PNG"
+---
+
+En este post, te presento la implementación de Facebook Prophet, así como sus principales hiperparámetros ajustados para generar el modelo predictivo, dicho modelo lo implementaremos para predecir el tipo de cambio de Honduras versus el dólar EE:UU (USD/HNL), considerando que esto será unicamente para conocer el funcionamiento del modelo, no para justificar que es el mejor modelo para realizar la actividad descrita previamente.
+
+## Descripción General del Modelo
+
+Facebook Prophet es un modelo y una biblioteca que proporciona características tanto de modelos lineales generalizados (MLG) como de modelos aditivos (MA), principalmente extendiendo el MLG mediante el uso de funciones de suavizado no lineal. Fue especificado por `Taylor y Letham en 2017.`
+
+Prophet es un software de código abierto lanzado por el equipo Core Data Science de Facebook. Está disponible para su descarga en `CRAN` y `PyPI`. En esta ocasión usaremos el `lenguaje R` para implementar el modelo, sin embargo, tu puedes hacerlo en `Python` si es de tu preferencia.
+
+Prophet funciona mejor con series temporales que tienen fuertes efectos estacionales y varias temporadas de datos históricos. Prophet es resistente a los datos faltantes y los cambios en la tendencia, y por lo general maneja bien los valores atípicos. *Prophet esta diseñado especificamente para la predicción de series temporales de negocios.*
+
+Su modelo aditivo que consta de cuatro componentes, esta dado por:
+
+$$
+y(t) = g(t) + s(t) + h(t) + \epsilon_{t}
+$$
+
+donde,
+
+-   $g(t)$: Representa la tendencia y el objetivo es capturar la tendencia de la serie. Por ejemplo, es probable que la cantidad de vistas de anuncios de Facebook aumente con el tiempo a medida que más personas se unen a la red. Pero, ¿cuál sería la función exacta del aumento?
+
+-   $s(t)$: Es el componente de Estacionalidad. El número de anuncios también puede depender de la temporada. Por ejemplo, en el hemisferio norte durante los meses de verano, es probable que las personas pasen más tiempo al aire libre y menos tiempo frente a sus computadoras. Tales fluctuaciones pueden ser muy diferentes para diferentes series temporales de negocios. El segundo componente es, por lo tanto, una función que modela las tendencias estacionales.
+
+-   $h(t)$: Representa los efectos de las vaciones. Usamos la información para días festivos que tienen claro impacto en la mayoria de las series temporales comerciales. Tenga en cuenta que las vaciones varían entre años, países, etc. Y, por lo tanto, la información debe proporcionarse explícitamente al modelo.
+
+-   $\epsilon_{t}$: Es el término de error. Representa fluctuaciones aleatorias que el modelo no puede explicar. Como de costumbre, se supone que $\epsilon_{t}$ sigue una distribución $N(0,1)$ con media cero y varianza desconocida $\sigma$ que debe derivarse de los datos .
+
+## Hiperparámetros
+
+Hay varios parámetros personalizables en la implementación de Facebook Prophet ([revisar](https://facebook.github.io/prophet/)), siendo los principales:
+
+-   `Puntos de cambio:` definen los cambios de tendencia. Estos pueden ser encontrados por el propio algoritmo o también pueden ser definidos y ajustados por el analista.
+
+-   `Estacionalidad:` define las funciones periódicas que pueden afectar a la serie temporal. De forma predeterminada, Prophet considera la estacionalidad anual, semanal y diaria e intenta encontrar tendencias que representan esos efectos periódicos en los datos.
+
+-   `Días festivos:` los días especiales (días festivos o cualquier otro evento recurrente) también pueden ser modelados por el modelo aditivo.
+
+En `R`, se usa la `API` de ajuste de modelo normal. Proporcionamos una función prophet que realiza el ajuste y devuelve un objeto de modelo. Posteriormeente usted puede llamar a la función `predict` y `plot` en este objeto modelo.
+
+## Datos y Preparación
+
+Los datos que utilizaremos los encontramos en [Yahoo! Finance](https://finance.yahoo.com/). Así como `Python` tiene un paquete para importar datos directamente de *Yahoo Finance,* `R` también cuenta con sus paquetes particular que nos permiten realizar una tarea similar. Necesitamos los siguiente paquetes:
+
+```{r}
+library(TTR)
+library(quantmod)
+
+```
+
+Si aún no los tienes instalados sugiero los instales usando `install.packages("name paquete")`. Muy bien, ahora si estamos listos para poder extraer nuestros datos de yahoo finance y para ello usaremos la funcion `getSymbols` del paquete `quantmod`. Veamos,
+
+```{r, warning=FALSE}
+df <- getSymbols('HNL=X',src = 'yahoo',
+                 from = "2010-01-01",
+                 to = "2022-12-20",
+                 auto.assign = FALSE)
+```
+
+Tenga en cuenta que `from =  "2010-01-01"` y `to = "2022-12-20"` nos ayudan a indicar desde que fecha quiero comenzar a tomar mis datos y hasta que fecha quiero tomarlos. Además, `auto.assign = FALSE` indica a `getSymbols` que devuelva los datos.
+
+Ahora, conozcamos nuestros datos
+
+```{r}
+head(df)
+```
+
+De estos datos únicamente usaremos el valor de cierre (`HNL=X.Close)` de manera diaria del lempira hondureño contra el dólar, para enfocarnos solo en esos datos, primero convertiremos nuestro conjunto de datos `df` en un `dataframe`, dado que inicialmente es un objeto de tipo `xts`,
+
+```{r}
+class(df)
+```
+
+para realizar el cambio a un dataframe, considere la siguiente función
+
+```{r}
+xts_to_datframe<-function(data_xts){
+  df_t<-data.frame(fecha=(index(data_xts)),
+                   value=coredata(data_xts))
+  colnames(df_t)<-c("ds", "y")
+  df_t
+}
+```
+
+Tiene que tener cuidado con el nombramiento de sus columnas, dado que `prophet` reconoce unicamente marcos de datos con columnas nombras como `ds` y `y`, qu contienen la fecha y el valor numérico de sus observaciones respectivamente. Con esto en mente, pasemos a transformar `df` a un objeto de clase dataframe por medio de la función que construimos previamente:
+
+```{r}
+HNL <- xts_to_datframe(df$`HNL=X.Close`) 
+class(HNL)
+```
+
+Puede apreciar que ya tenemos nuestro marco de datos como un `dataframe`, y estamos listos para comenzar a crear nuestro modelo.
+
+## Implementación del Modelo
+
+Primero visualicemos nuestros datos
+
+```{r, warning = FALSE}
+library(tidyverse)
+library(ggplot2)
+
+HNL %>% ggplot(aes(x = ds, y = y))+
+  geom_line()+
+  theme_minimal()+
+   labs(title = 'Datos Historicos del Tipo de Cambio del USD/HNL',
+       subtitle = '2010 - 2022',
+       x = 'Fecha',
+       y = 'HNL',
+       caption = 'Elaboracion propia con datos de yahoo finance')
+```
+
+```{r, warning = FALSE}
+library(prophet)
+
+m <- prophet(HNL,daily.seasonality = TRUE)
+
+future <- make_future_dataframe(m,periods = 3,freq = 'day')
+tail(future)
+
+```
+
+```{r, warning = FALSE}
+forecast <- predict(m, future)
+
+dyplot.prophet(m, forecast)
+```
+
+De la figura previa,
+
+-   Los puntos negros representan medidas reales
+
+-   La linea azul el pronóstico de Prophet
+
+-   La banda azul representa el intervalo de incertidumbre
+
+## Desglose del Pronóstico
+
+Si bien el pronóstico arroja muchas cosas, podemos centrarnos en algunas como:
+
+-   `ds` fecha que se pronostica
+
+-   `yhat` predicción para el valor `y` (tipo de cambio) ese día en particular.
+
+-   `yhat_lower` valor esperado más bajo para el rango del valor y previsto ese día
+
+-   `yhat_upper` valor esperado más alto para el rango de valor y previsto de ese día
+
+Con `tail()` podemos ver la salida de los últimos días pronosticados los cuales son 21, 22 y 23 de diciembre 2022.
+
+```{r}
+tail(forecast[c('ds', 'yhat', 'yhat_lower', 'yhat_upper')])
+```
+
+Segun nuestros resultados, nuestro modelo nos ve obteniendo para el día 21 de diciembre entre 23.35901 (yhat_lower) y 24.83438 (yhat_upper) lempiras por un dolar de EE.UU.
+
+Para entender el pronóstico más a detalle, podemos gráficar sus componentes con:
+
+```{r}
+prophet_plot_components(m,forecast)
+```
+
+Recuerde que el fin de este post, no es abogar por el uso indiscriminado de `Prophet` como el mejor modelo para pronosticar el tipo de cambio hondureño vs el dólar. Espero hayas conocido las generalidades de este modelo y su utilidad en el ambito predictivo.
