@@ -1,0 +1,27 @@
+---
+title: "Juan Isaula"
+image: j1.jpeg
+about:
+  template: trestles
+  image-shape: rounded
+  links:
+    - text: LinkedIn
+      url: "https://www.linkedin.com/in/juan-isaula-817531239/?originalSubdomain=hn"
+    - text: Twitter
+      icon: twitter
+      url: "https://twitter.com/isaula_juan"
+    - text: GitHub
+      icon: github
+      url: "https://github.com/J-Isaula"
+    - text: Blog
+      url: "blog.html"
+comments: false
+page-layout: full
+---
+
+# Hola!
+
+Soy Juan, un matemático, especialista en ciencia de datos y analista actuarial que ama programar en `Python` y `R`, disfruto tomar café acompañado de pláticas atrayentes. Me fascina el campo del Machine Learning y Deep Learning, la mayor parte de mis trabajos están orientados al desarrollo de modelos estadísticos aplicados a diferentes áreas (economía, medicina, finanzas & actuaría).
+
+En este sitio mantengo información sobre cursos en los cuales soy colaborador, algunos papers que llaman mucho mi atención, mi blog personal donde podra encontrar post que le puden despertar su interes en el modelado estadístico con el uso de herramientas de aprendizaje automático. 
+
