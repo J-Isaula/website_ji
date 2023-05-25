@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juan Isaula">
+<meta name="dcterms.date" content="2023-01-21">
+
+<title>Juan Isaula - Machine Learning en Tidyverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Juan Isaula - Machine Learning en Tidyverse">
+<meta property="og:description" content="Múltiples Modulos con broom">
+<meta property="og:image" content="https://mm218.dev/posts\tidyverse\image.jpg">
+<meta property="og:site-name" content="Juan Isaula">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Juan Isaula - Machine Learning en Tidyverse">
+<meta name="twitter:description" content="Múltiples Modulos con broom">
+<meta name="twitter:image" content="https://mm218.dev/posts\tidyverse\image.jpg">
+<meta name="twitter:creator" content="@MikeMahoney218">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Juan Isaula</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations">
+ <span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../software_citations.html">
+ <span class="menu-text">Software citations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../blog.xml"><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#exploración-de-coeficientes-entre-modelos" id="toc-exploración-de-coeficientes-entre-modelos" class="nav-link active" data-scroll-target="#exploración-de-coeficientes-entre-modelos">Exploración de Coeficientes entre Modelos</a>
+  <ul class="collapse">
+  <li><a href="#coeficientes-de-regresión" id="toc-coeficientes-de-regresión" class="nav-link" data-scroll-target="#coeficientes-de-regresión">Coeficientes de Regresión</a></li>
+  <li><a href="#coeficientes-de-modelos-múltiples" id="toc-coeficientes-de-modelos-múltiples" class="nav-link" data-scroll-target="#coeficientes-de-modelos-múltiples">Coeficientes de Modelos Múltiples</a></li>
+  <li><a href="#evaluación-del-ajuste-de-muchos-modelos" id="toc-evaluación-del-ajuste-de-muchos-modelos" class="nav-link" data-scroll-target="#evaluación-del-ajuste-de-muchos-modelos">Evaluación del Ajuste de Muchos Modelos</a></li>
+  <li><a href="#modelos-con-mejor-y-peor-ajuste" id="toc-modelos-con-mejor-y-peor-ajuste" class="nav-link" data-scroll-target="#modelos-con-mejor-y-peor-ajuste">Modelos con Mejor y Peor Ajuste</a></li>
+  <li><a href="#creación-de-marco-de-datos-aumentados" id="toc-creación-de-marco-de-datos-aumentados" class="nav-link" data-scroll-target="#creación-de-marco-de-datos-aumentados">Creación de Marco de Datos Aumentados</a></li>
+  <li><a href="#modelo-para-bahamas-r2-0.995" id="toc-modelo-para-bahamas-r2-0.995" class="nav-link" data-scroll-target="#modelo-para-bahamas-r2-0.995">Modelo para Bahamas <span class="math inline">\(R^2 = 0.995\)</span></a></li>
+  <li><a href="#modelo-para-ukraine-r2-0.16" id="toc-modelo-para-ukraine-r2-0.16" class="nav-link" data-scroll-target="#modelo-para-ukraine-r2-0.16">Modelo para Ukraine <span class="math inline">\(R^2 = 0.16\)</span></a></li>
+  <li><a href="#visualización-de-peores-y-mejores-modelos" id="toc-visualización-de-peores-y-mejores-modelos" class="nav-link" data-scroll-target="#visualización-de-peores-y-mejores-modelos">Visualización de Peores y Mejores modelos</a></li>
+  <li><a href="#mejores-al-ajuste-del-modelo" id="toc-mejores-al-ajuste-del-modelo" class="nav-link" data-scroll-target="#mejores-al-ajuste-del-modelo">Mejores al Ajuste del Modelo</a></li>
+  <li><a href="#construir-mejores-modelos" id="toc-construir-mejores-modelos" class="nav-link" data-scroll-target="#construir-mejores-modelos">Construir Mejores Modelos</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Machine Learning en Tidyverse</h1>
+<p class="subtitle lead">Múltiples Modulos con broom</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">Machine Learning</div>
+    <div class="quarto-category">Forecasting</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">RStudio</div>
+    <div class="quarto-category">broom</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Juan Isaula </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 21, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="exploración-de-coeficientes-entre-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="exploración-de-coeficientes-entre-modelos">Exploración de Coeficientes entre Modelos</h2>
+<p>Asumire que el lector tiene cierto conocimiento de la teoría de modelos lineales, en caso de no ser así, no te preocupes visita este <a href="https://rpubs.com/Juan-Isaula/982033">link</a> para que puedas ir a leer las generalidades de estos modelos y su uso en <code>R,</code> principalmente los tres paquetes de <code>broom</code> que le permiten explorar estos modelos. En este post trataremos de combinar estas técnica para aprender más sobre estos modelos y sus datos.</p>
+<p>A continuación cargaremos algunos de los paquetes que nos ayudaran para poder realizar nuestra tarea,</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-1_58c07cbf5e37e9af932ccb3068b03b05">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># para manipulación de datos</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder) <span class="co"># marco de datos que utilizaremos </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dslabs)    <span class="co"># conjunto de datos y funciones para analisis de datos</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)     <span class="co"># Resumen informacion sobre objetos estadisticos en tibbles</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Recuerde que el marco de <code>gapminder</code> contiene informacion sobbre cada país desde 1960 hasta 2016. Crearemos una variable que llamaremos <code>gap_anidado</code> para obtener que las características de cada país este anidadas como un <code>tibble.</code> La ventaja de usar estos tibble es que podemos construir modelos lineales simples que predicen la esperanza de vida por año para cada país. Nos centraremos en aprender a usar los coeficientes de estos modelos para obtener nuevos conocimientos sobre los datos de gapminder.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-2_83cf394bc6f2891a87747bddbdec7d07">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gap_anidado <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(country) <span class="sc">%&gt;%</span> <span class="fu">nest</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gap_anidado)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+# Groups:   country [6]
+  country             data             
+  &lt;fct&gt;               &lt;list&gt;           
+1 Albania             &lt;tibble [57 × 8]&gt;
+2 Algeria             &lt;tibble [57 × 8]&gt;
+3 Angola              &lt;tibble [57 × 8]&gt;
+4 Antigua and Barbuda &lt;tibble [57 × 8]&gt;
+5 Argentina           &lt;tibble [57 × 8]&gt;
+6 Armenia             &lt;tibble [57 × 8]&gt;</code></pre>
+</div>
+</div>
+<p>Tal como lo mencionamos previamente, <code>gap_anidado</code> contiene las características de cada país anidadas como un <code>tibble.</code> Con esto hecho, procederemos a construir modelos lineales para cada país, para ello usaremos la función <code>map()</code> del paquete <code>purrr</code></p>
+<div class="cell" data-hash="_cache/unnamed-chunk-3_31abf904e8ded2c991c008c9a1cb6d1e">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gap_models <span class="ot">&lt;-</span> gap_anidado <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, <span class="sc">~</span><span class="fu">lm</span>(life_expectancy<span class="sc">~</span>year,<span class="at">data =</span> .x)))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gap_models</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 185 × 3
+# Groups:   country [185]
+   country             data              model 
+   &lt;fct&gt;               &lt;list&gt;            &lt;list&gt;
+ 1 Albania             &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 2 Algeria             &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 3 Angola              &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 4 Antigua and Barbuda &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 5 Argentina           &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 6 Armenia             &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 7 Aruba               &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 8 Australia           &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+ 9 Austria             &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+10 Azerbaijan          &lt;tibble [57 × 8]&gt; &lt;lm&gt;  
+# … with 175 more rows</code></pre>
+</div>
+</div>
+<section id="coeficientes-de-regresión" class="level3">
+<h3 class="anchored" data-anchor-id="coeficientes-de-regresión">Coeficientes de Regresión</h3>
+<p><span class="math display">\[y = \alpha + \beta x\]</span></p>
+<p>Repasemos brevemente cómo interpretar los coeficientes para un modelo de regresión lineal simple. Recuerda que esto implica calcular dos términos de coeficientes que relacionan la variable dependiente con la variable independiente <span class="math inline">\(x\)</span>.</p>
+<p>Para nuestros modelos, las variales:</p>
+<ul>
+<li><p><span class="math inline">\(y\)</span>: Representa la esperanza de vida en relación con el año (variable <span class="math inline">\(x\)</span>).</p></li>
+<li><p><span class="math inline">\(\alpha\)</span>: Representa el coeficiente del intercepto, nos dice la esperanza en el año 0. Esto no es significativo para nuestros datos, por lo que lo pasaremos por alto.</p></li>
+<li><p><span class="math inline">\(\beta\)</span>: Es el coeficiente del año (variable <span class="math inline">\(x\)</span>), que para un modelo de regresión lineal simple corresponde directamente a la pendiente del mismo.</p></li>
+</ul>
+<p>Usando la función <code>tidy()</code> del paquete <code>broom</code> en el primer modelo, aprenderemos que con cada año que pasa la esperanza de vida promedio de la población de este país en particular aumenta aproximadamente 0.23 años. Este enfoque puede brindarle información sobre el crecimiento o la falta de crecimiento en la esperanza de vida a lo largo del tiempo para los países que esta modelando.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-4_9f749c004cd7b85094d047c279d0fb8a">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(gap_models<span class="sc">$</span>model[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic  p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept) -397.     12.4         -32.1 2.48e-37
+2 year           0.236   0.00622      38.0 3.72e-41</code></pre>
+</div>
+</div>
+</section>
+<section id="coeficientes-de-modelos-múltiples" class="level3">
+<h3 class="anchored" data-anchor-id="coeficientes-de-modelos-múltiples">Coeficientes de Modelos Múltiples</h3>
+<p>Puede generar estos coeficientes mapeando la funcíon <code>tidy()</code> para cada uno de nuestros modelos y luego simplificando el nuevo marco de datos usando la función <code>unnest()</code>. Esto da como resultado un <code>tibble</code> que contiene la estimación para cada coeficiente de cada país.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-5_f0e782981273e3bc37402da13f90ef9f">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>gap_models <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coef =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">tidy</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(coef)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 370 × 8
+# Groups:   country [185]
+   country             data     model  term    estimate std.e…¹ stati…²  p.value
+   &lt;fct&gt;               &lt;list&gt;   &lt;list&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Albania             &lt;tibble&gt; &lt;lm&gt;   (Inter… -3.97e+2 1.24e+1   -32.1 2.48e-37
+ 2 Albania             &lt;tibble&gt; &lt;lm&gt;   year     2.36e-1 6.22e-3    38.0 3.72e-41
+ 3 Algeria             &lt;tibble&gt; &lt;lm&gt;   (Inter… -1.10e+3 4.05e+1   -27.2 1.51e-33
+ 4 Algeria             &lt;tibble&gt; &lt;lm&gt;   year     5.86e-1 2.04e-2    28.8 7.84e-35
+ 5 Angola              &lt;tibble&gt; &lt;lm&gt;   (Inter… -7.48e+2 1.12e+1   -67.0 2.03e-54
+ 6 Angola              &lt;tibble&gt; &lt;lm&gt;   year     4.01e-1 5.62e-3    71.4 6.69e-56
+ 7 Antigua and Barbuda &lt;tibble&gt; &lt;lm&gt;   (Inter… -3.79e+2 1.56e+1   -24.2 5.19e-31
+ 8 Antigua and Barbuda &lt;tibble&gt; &lt;lm&gt;   year     2.26e-1 7.87e-3    28.8 7.64e-35
+ 9 Argentina           &lt;tibble&gt; &lt;lm&gt;   (Inter… -3.56e+2 7.67e+0   -46.4 8.83e-46
+10 Argentina           &lt;tibble&gt; &lt;lm&gt;   year     2.15e-1 3.86e-3    55.7 4.58e-50
+# … with 360 more rows, and abbreviated variable names ¹​std.error, ²​statistic</code></pre>
+</div>
+</div>
+</section>
+<section id="evaluación-del-ajuste-de-muchos-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="evaluación-del-ajuste-de-muchos-modelos">Evaluación del Ajuste de Muchos Modelos</h3>
+<p>Anteriormente aprovechamos la función <code>tidy()</code> de <code>broom</code> para explorar los coeficientes de nuestros modelos. Al hacerlo, obtuvimos información sobre cómo cambió la esperanza de vida con el tiempo para cada uno de los países en nuestro conjunto de datos. Ahora, aprenderá a usar la función <code>glance()</code> de <code>broom</code> para medir que tan bien se ajusta cada uno de estos modelos a sus datos subyacentes.</p>
+<p>Una forma de medir el ajuste de un modelo de regresión lineal es calcular su métrica <span class="math inline">\(R^2\)</span></p>
+<p><span class="math display">\[
+R^2 = \frac{\%~variación~explicada~por~el~modelo}{\%~variación~total~de~los~datos}
+\]</span></p>
+<p>La métrica <span class="math inline">\(R^2\)</span> mide la relación entre la variación explicada por el modelo de regresión y la variación total de los datos. Toma valores entre 0 y 1.</p>
+<p>En la siguiente figura, le muestro dos ejemplos, el primero con un valor alto y el segundo con un valor bajo de su <span class="math inline">\(R^2\)</span> respectivamente. Note que en el caso donde el <span class="math inline">\(R^2 = 0.009\)</span> es bajo o cercano a cero, esto nos indica que un modelo lineal esta capturando una cantidad proporcionalmente pequeña de la variación en los datos y. por lo tanto, no se ajusta bien. Por el contrario el modelo con <span class="math inline">\(R^2 = 0.965\)</span> valor que es más cercano a 1, lo que indica que este modelo lineal se ajusta bien a los datos. Puede evaluar el ajuste de los modelos midiendo el valor del <span class="math inline">\(R^2\)</span> para cada modelo.</p>
+<p><img src="ml1.PNG" class="img-fluid"></p>
+<p>Muy bien, con el conocimiento previo, hechemos un vistazo a nuestros modelos. Para ello usamos <code>map()</code> y <code>glance()</code> para crear un marco de datos de estadísticas de resumen para cada modelo almacenado como la columna coef. Luego, puede simplificar estos marcos de datos usando la función <code>unnest()</code>. Esto nos dará como resultado un tibble que contendrá las estadisticas del modelo para cada modelo de país.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-6_de3f7cc3aa8a836a7bf495089e38fb03">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_perf <span class="ot">&lt;-</span> gap_models <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">coef =</span> <span class="fu">map</span>(model,<span class="sc">~</span><span class="fu">glance</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(coef)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>model_perf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 185 × 15
+# Groups:   country [185]
+   country    data     model r.squ…¹ adj.r…² sigma stati…³  p.value    df logLik
+   &lt;fct&gt;      &lt;list&gt;   &lt;lis&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Albania    &lt;tibble&gt; &lt;lm&gt;    0.963   0.963 0.772  1443.  3.72e-41     1  -65.1
+ 2 Algeria    &lt;tibble&gt; &lt;lm&gt;    0.938   0.937 2.53    828.  7.84e-35     1 -133. 
+ 3 Angola     &lt;tibble&gt; &lt;lm&gt;    0.989   0.989 0.698  5091.  6.69e-56     1  -59.3
+ 4 Antigua a… &lt;tibble&gt; &lt;lm&gt;    0.938   0.937 0.977   828.  7.64e-35     1  -78.6
+ 5 Argentina  &lt;tibble&gt; &lt;lm&gt;    0.983   0.982 0.479  3103.  4.58e-50     1  -37.9
+ 6 Armenia    &lt;tibble&gt; &lt;lm&gt;    0.288   0.275 1.57     22.2 1.70e- 5     1 -106. 
+ 7 Aruba      &lt;tibble&gt; &lt;lm&gt;    0.882   0.880 0.964   412.  3.28e-27     1  -77.8
+ 8 Australia  &lt;tibble&gt; &lt;lm&gt;    0.983   0.983 0.540  3240.  1.42e-50     1  -44.7
+ 9 Austria    &lt;tibble&gt; &lt;lm&gt;    0.989   0.989 0.430  4949.  1.45e-55     1  -31.7
+10 Azerbaijan &lt;tibble&gt; &lt;lm&gt;    0.679   0.673 1.54    116.  3.48e-15     1 -105. 
+# … with 175 more rows, 5 more variables: AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,
+#   df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated variable names ¹​r.squared,
+#   ²​adj.r.squared, ³​statistic</code></pre>
+</div>
+</div>
+<p>Si observamos los valores de <span class="math inline">\(R^2\)</span> de los primeros 5 modelos notamos que tienen un <span class="math inline">\(R^2\)</span> alto, lo que nos dice que los modelos para estos países se han ajustado bien a los datos de esos países en particular.</p>
+</section>
+<section id="modelos-con-mejor-y-peor-ajuste" class="level3">
+<h3 class="anchored" data-anchor-id="modelos-con-mejor-y-peor-ajuste">Modelos con Mejor y Peor Ajuste</h3>
+<p>Siendo un poco más curiosos, tratemos de explorar el ajuste de los modelos. Para ver esto, podemos filtrar los valores más alto de <code>r.squared</code>, tomaremos como un r.squared alto 0.995 en adelante.</p>
+<p>Por ejemplo, podemos usar la función <code>slice_max()</code> de <code>dplyr</code> para encontrar los modelos que mejor se ajustan. Asimismo, podemos encontrar los modelos con el peor ajuste utilizando la función <code>slice_min()</code>. Hechemos un vistazo al código y los resultados generados,</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-7_81237373395022b9bf525249bc397d5d">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mejores_models <span class="ot">&lt;-</span> model_perf <span class="sc">%&gt;%</span> <span class="fu">filter</span>(r.squared <span class="sc">&gt;</span> <span class="fl">0.995</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mejores_models</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 15
+# Groups:   country [3]
+  country     data     model r.squ…¹ adj.r…² sigma stati…³  p.value    df logLik
+  &lt;fct&gt;       &lt;list&gt;   &lt;lis&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 Bahamas     &lt;tibble&gt; &lt;lm&gt;    0.995   0.995 0.235  11428. 1.74e-65     1  2.67 
+2 Israel      &lt;tibble&gt; &lt;lm&gt;    0.996   0.996 0.250  15626. 3.29e-69     1 -0.826
+3 Switzerland &lt;tibble&gt; &lt;lm&gt;    0.996   0.995 0.244  12349. 2.08e-66     1  0.508
+# … with 5 more variables: AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,
+#   df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated variable names ¹​r.squared,
+#   ²​adj.r.squared, ³​statistic</code></pre>
+</div>
+</div>
+<p>y para los peores filtremos los países que tienen un modelo con un <code>r.squared</code> menor a 0.3</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-8_9cd4dd6b8812bd7f79c56ef10a1affc1">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>peores_modelos <span class="ot">&lt;-</span> model_perf <span class="sc">%&gt;%</span> <span class="fu">filter</span>(r.squared <span class="sc">&lt;</span> <span class="fl">0.3</span>) </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>peores_modelos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 15
+# Groups:   country [12]
+   country    data     model r.squ…¹ adj.r.…² sigma stati…³ p.value    df logLik
+   &lt;fct&gt;      &lt;list&gt;   &lt;lis&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Armenia    &lt;tibble&gt; &lt;lm&gt;  2.88e-1  0.275    1.57 2.22e+1 1.70e-5     1 -106. 
+ 2 Botswana   &lt;tibble&gt; &lt;lm&gt;  8.21e-4 -0.0173   4.98 4.52e-2 8.32e-1     1 -171. 
+ 3 Central A… &lt;tibble&gt; &lt;lm&gt;  2.76e-1  0.262    3.13 2.09e+1 2.76e-5     1 -145. 
+ 4 Latvia     &lt;tibble&gt; &lt;lm&gt;  1.92e-1  0.177    1.88 1.31e+1 6.49e-4     1 -116. 
+ 5 Lesotho    &lt;tibble&gt; &lt;lm&gt;  3.46e-2  0.0170   5.23 1.97e+0 1.66e-1     1 -174. 
+ 6 Lithuania  &lt;tibble&gt; &lt;lm&gt;  2.94e-1  0.281    1.24 2.29e+1 1.32e-5     1  -92.0
+ 7 Russia     &lt;tibble&gt; &lt;lm&gt;  2.63e-2  0.00856  1.80 1.48e+0 2.28e-1     1 -113. 
+ 8 South Afr… &lt;tibble&gt; &lt;lm&gt;  2.69e-1  0.256    3.57 2.03e+1 3.54e-5     1 -152. 
+ 9 Swaziland  &lt;tibble&gt; &lt;lm&gt;  6.92e-5 -0.0181   5.83 3.80e-3 9.51e-1     1 -180. 
+10 Ukraine    &lt;tibble&gt; &lt;lm&gt;  1.73e-1  0.158    1.41 1.15e+1 1.30e-3     1  -99.4
+11 Zambia     &lt;tibble&gt; &lt;lm&gt;  4.13e-2  0.0239   4.13 2.37e+0 1.30e-1     1 -161. 
+12 Zimbabwe   &lt;tibble&gt; &lt;lm&gt;  1.37e-1  0.122    5.75 8.75e+0 4.55e-3     1 -180. 
+# … with 5 more variables: AIC &lt;dbl&gt;, BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,
+#   df.residual &lt;int&gt;, nobs &lt;int&gt;, and abbreviated variable names ¹​r.squared,
+#   ²​adj.r.squared, ³​statistic</code></pre>
+</div>
+</div>
+</section>
+<section id="creación-de-marco-de-datos-aumentados" class="level3">
+<h3 class="anchored" data-anchor-id="creación-de-marco-de-datos-aumentados">Creación de Marco de Datos Aumentados</h3>
+<p>Para hacer esto, primero debe crear un marco de datos que contenga tanto los valores predichos como los originales. Esto requiere primero usar <code>map()</code> y <code>augment()</code> para trabajar en la columna de la lista que contiene los modelos para crear marcos de datos anidados que contengan tanto los valores originales como los predichos. Luego, puede usar <code>unnest()</code> en esta nueva columna para simplificar estos marcos de datos y permitir una mayor exploración.</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-9_67b564a3287ede42d1ef946e505eec4e">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>augment_models <span class="ot">&lt;-</span> gap_models <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">augmented =</span> <span class="fu">map</span>(model,<span class="sc">~</span><span class="fu">augment</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(augmented)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>augment_models</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10,545 × 11
+# Groups:   country [185]
+   country data     model  life_exp…¹  year .fitted .resid   .hat .sigma .cooksd
+   &lt;fct&gt;   &lt;list&gt;   &lt;list&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Albania &lt;tibble&gt; &lt;lm&gt;         62.9  1960    65.7 -2.80  0.0684  0.672 0.517  
+ 2 Albania &lt;tibble&gt; &lt;lm&gt;         63.9  1961    65.9 -1.99  0.0648  0.728 0.245  
+ 3 Albania &lt;tibble&gt; &lt;lm&gt;         64.8  1962    66.1 -1.30  0.0614  0.758 0.0989 
+ 4 Albania &lt;tibble&gt; &lt;lm&gt;         65.6  1963    66.4 -0.778 0.0581  0.772 0.0332 
+ 5 Albania &lt;tibble&gt; &lt;lm&gt;         66.2  1964    66.6 -0.434 0.0549  0.777 0.00970
+ 6 Albania &lt;tibble&gt; &lt;lm&gt;         66.6  1965    66.9 -0.260 0.0518  0.779 0.00327
+ 7 Albania &lt;tibble&gt; &lt;lm&gt;         66.9  1966    67.1 -0.206 0.0489  0.779 0.00193
+ 8 Albania &lt;tibble&gt; &lt;lm&gt;         67.1  1967    67.3 -0.213 0.0461  0.779 0.00192
+ 9 Albania &lt;tibble&gt; &lt;lm&gt;         67.3  1968    67.6 -0.239 0.0435  0.779 0.00227
+10 Albania &lt;tibble&gt; &lt;lm&gt;         67.6  1969    67.8 -0.245 0.0409  0.779 0.00224
+# … with 10,535 more rows, 1 more variable: .std.resid &lt;dbl&gt;, and abbreviated
+#   variable name ¹​life_expectancy</code></pre>
+</div>
+</div>
+<p>Ahora, visualizaremos algunos de estos modelos.</p>
+</section>
+<section id="modelo-para-bahamas-r2-0.995" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-para-bahamas-r2-0.995">Modelo para Bahamas <span class="math inline">\(R^2 = 0.995\)</span></h3>
+<p>Note que dado que su <span class="math inline">\(R^2\)</span> es bastante alto, podemos asumir que el modelo lineal se ajusta bien a los datos. Puede comparar el ajuste del modelo con los datos originales trazando ambos en el mismo gráfico. En este ejemplo, usaremos <code>ggplot2</code> para trazar los valores originales de la esperanza de vida como un diagrama de dispensión usando <code>geom_point()</code> y agregué el ajuste del modelo lineal como una línea roja usando <code>geom_line()</code></p>
+<div class="cell" data-hash="_cache/unnamed-chunk-10_d60103fd21ef9ad7bcbacda99b660351">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>augment_models <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Bahamas"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> life_expectancy)) <span class="sc">+</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Modelo Regresión Lineal para Bahamas"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Año"</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Esperanza de Vida"</span>) <span class="sc">+</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="figs/unnamed-chunk-10.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Si observa el gráfico, podemos pensar que un modelo de regresión lineal se va ajustando bien a los datos de este país en particular.</p>
+</section>
+<section id="modelo-para-ukraine-r2-0.16" class="level3">
+<h3 class="anchored" data-anchor-id="modelo-para-ukraine-r2-0.16">Modelo para Ukraine <span class="math inline">\(R^2 = 0.16\)</span></h3>
+<p>Ahora veamos el modelo correspondiente al país Ukraine, que tiene un valor de <span class="math inline">\(R^2\)</span> super más bajo que el de Bahamas. Claramente, esperariamos encontrarnos con un modelo que no se ajuste bien a los datos dado el antecedente del <span class="math inline">\(R^2\)</span></p>
+<div class="cell" data-hash="_cache/unnamed-chunk-11_3e522d679ab2f774fcad76f610fa149d">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>augment_models <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">"Ukraine"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> life_expectancy)) <span class="sc">+</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Modelo de Regresión Lineal para Ukraine"</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Año"</span>, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Esperanza de  Vida"</span>) <span class="sc">+</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="figs/unnamed-chunk-11.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Como pudo ver en estos dos ejemplos, <code>augment()</code> y <code>ggplot()</code> facilitan la exploración visual del ajuste de un modelo.</p>
+</section>
+<section id="visualización-de-peores-y-mejores-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="visualización-de-peores-y-mejores-modelos">Visualización de Peores y Mejores modelos</h3>
+<p>En este caso, prepararemos los cuatro mejores modelos que consideramos anteriormente y los peores y los visualizaremos,</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-12_9d0c7d45f8f2371c59f9a39dc84a501c">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mejores_augment <span class="ot">&lt;-</span> mejores_models <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">augmented =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">augment</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(augmented)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>peores_augment <span class="ot">&lt;-</span> peores_modelos <span class="sc">%&gt;%</span> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">augmented =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">augment</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(augmented)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Bien, ahora visualizamos los modelos</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-13_0923b7d30473db742883ce7b528eb546">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mejores_augment <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> life_expectancy)) <span class="sc">+</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>country, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="figs/unnamed-chunk-13.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell" data-hash="_cache/unnamed-chunk-14_142105ad25c1dd9e1972bc6785d9d6a8">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>peores_augment <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year)) <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> life_expectancy)) <span class="sc">+</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> .fitted), <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>country, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="figs/unnamed-chunk-14.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Parcelas geniales! Puede ver que un modelo lineal hace un gran trabajo para los mejores 3 modelos de ajuste, pero los peores modelos de ajuste no parecen tener una relación lineal. Trabajaremos para mejorar este ajuste en la proxima serie de ejercicios mediante la incorporación de funciones adicionales.</p>
+</section>
+<section id="mejores-al-ajuste-del-modelo" class="level3">
+<h3 class="anchored" data-anchor-id="mejores-al-ajuste-del-modelo">Mejores al Ajuste del Modelo</h3>
+<p>Con la información que reunimos con Augment() y glance(), aprendimos que algunos de los modelos de regresión lineal simple no se ajustan adecuadamente a las tendencias subyacentes de nuestros datos. Para separar esto emplearemos un modelo de <strong><em>regresión múltiple.</em></strong></p>
+<section id="modelo-de-regresión-lineal-multiple" class="level4">
+<h4 class="anchored" data-anchor-id="modelo-de-regresión-lineal-multiple">Modelo de Regresión Lineal Multiple</h4>
+<p><span class="math display">\[Y = \alpha + \beta_1x_1 9 \beta_2x_2 + . . . \]</span></p>
+<p>Este modelo es una extensión natural del modelo de regresión lineal simple. La diferencia clave es que usa más variables explicativas para explicar el resultados, lo que significa que, en lugar de ajustar una linea de mejor ajuste, estamos ajustando un plano multidimensional. En el conjunto de datos <code>gapminder</code>, podemos usar características adicionales de nuestras observaciones para modelr la esperanza de vida. Entonces, vamos a usarlo,</p>
+<p>La elección de que características usar se puede controlar en el campo de fórmula de la función <code>lm()</code>. Recuerde que para un modelo simple usamos la fórmula de la esperanza de vida explicada por año. De manera similar para un modelo de regresión múltiple, puede definir explícitamente la fórmula incluyendo el nombre de cada característica separada por un signo <code>+</code> o si sabe que desa incluir todas las características, puede capturarlas usando un punto,como veremos posteriormente.</p>
+</section>
+<section id="uso-de-broom-con-modelos-de-regresión-múltiple" class="level4">
+<h4 class="anchored" data-anchor-id="uso-de-broom-con-modelos-de-regresión-múltiple">Uso de broom con modelos de regresión múltiple</h4>
+<p>El comportamiento de las funciones de broom sigue siendo el mismo. <code>tidy()</code> devuelve las estimaciones de los coeficientes de los modelos, esto ahora incluye estimaciones para las cuatro características adicionales. Lo mismo ocurre con <code>augment()</code>, además, de los valores ajustados para cada observación, se devuelven los valores de cuatro caracteristicas nuevas. y aunque la salida esperada de <code>glance()</code> sigue siendo la misma, tenemos que cambiar nuestro enfoque del valor de r cuadrado al valor de r cuadrado ajustado al evaluar el ajuste de nuestros modelos o comparar modelos de regresión lineal simple y múltiple.</p>
+</section>
+<section id="r-cuadrado-ajustado" class="level4">
+<h4 class="anchored" data-anchor-id="r-cuadrado-ajustado">R cuadrado ajustado</h4>
+<p>Recuerde que <code>r.squared</code> mide la variación explicada por el modelo. Agregar cualquier característica nueva a un modelo, independientemente de su relación con la variable dependiente, siempre aumentará el valor de <code>r.squared</code> del modelo. Esto se vuelve problemático cuando se compara el ajuste de modelos con diferente número de características explicativas utilizadas. Para compensar esto, en su lugar, utilizará el valor <code>adj.r.squared</code> (r cuadrado ajustado) esta es una métrica r cuadrada modificada cuyo cálculo tiene en cuenta la cantidad de características utilizadas en el modelo.</p>
+<p>La interpretación del <code>adj.r.squared</code> es muy similar al <code>r.squared</code> y lo usaremos para evaluar el ajuste de nuestros modelos y compararlos con los modelos lineales simples creados anteriormente.</p>
+</section>
+</section>
+<section id="construir-mejores-modelos" class="level3">
+<h3 class="anchored" data-anchor-id="construir-mejores-modelos">Construir Mejores Modelos</h3>
+<p>Anteriormente, creamos una colección de modelos simples para ajustarse a la expectativa de vida usando la característica de año. Su análisis anterior mostro que algunos de estos modelos no encajaban muy bien.</p>
+<p>En esta sección, construiremos modelos de regresión múltiple para cada país utilizando todas las funciones disponibles. Puede que le interese comparar el rendimiento de los 12 modelos con el peor ajuste</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>País</th>
+<th>Adj.r.squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Armenia</td>
+<td>0.274831633</td>
+</tr>
+<tr class="even">
+<td>Botswana</td>
+<td>-0.017346290</td>
+</tr>
+<tr class="odd">
+<td>Central African Republic</td>
+<td>0.262392009</td>
+</tr>
+<tr class="even">
+<td>Latvia</td>
+<td>0.177428933</td>
+</tr>
+<tr class="odd">
+<td>Lesotho</td>
+<td>0.017078583</td>
+</tr>
+<tr class="even">
+<td>Lithuania</td>
+<td>0.281255888</td>
+</tr>
+<tr class="odd">
+<td>Russia</td>
+<td>0.008564872</td>
+</tr>
+<tr class="even">
+<td>South Africa</td>
+<td>0.255968853</td>
+</tr>
+<tr class="odd">
+<td>Swaziland</td>
+<td>-0.018111402</td>
+</tr>
+<tr class="even">
+<td>Ukraine</td>
+<td>0.157855451</td>
+</tr>
+<tr class="odd">
+<td>Zambia</td>
+<td>0.023859596</td>
+</tr>
+<tr class="even">
+<td>Zimbabwe</td>
+<td>0.1216212616</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora si, apliquemos un modelo lineal generalizado para ver si mejorar estos datos</p>
+<div class="cell" data-hash="_cache/unnamed-chunk-15_2fd820a9f33ba17ee77a9af7a70ee91a">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un modelo lineal para cada país</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>gap_fullmodel <span class="ot">&lt;-</span> gap_anidado <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="fu">map</span>(data, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                     <span class="sc">~</span><span class="fu">lm</span>(life_expectancy<span class="sc">~</span>year<span class="sc">+</span>population<span class="sc">+</span>fertility<span class="sc">+</span>gdp, <span class="at">data =</span> .x)))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>fullmodel_perf <span class="ot">&lt;-</span> gap_fullmodel <span class="sc">%&gt;%</span> </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extraigaimos las estadísticas de ajuste de cada modelo en marcos de datos</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fit =</span> <span class="fu">map</span>(model, <span class="sc">~</span><span class="fu">glance</span>(.x))) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Simplifiquemos los marcos de datos de ajuste para cada modelo</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(fit)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Vea el rendimiento de los 12 países con el peor ajuste, es decir, </span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># los dos modelos simples que viste antes</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>fullmodel_perf <span class="sc">%&gt;%</span> </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">%in%</span> peores_modelos<span class="sc">$</span>country) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, adj.r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+# Groups:   country [12]
+   country                  adj.r.squared
+   &lt;fct&gt;                            &lt;dbl&gt;
+ 1 Armenia                          0.923
+ 2 Botswana                         0.736
+ 3 Central African Republic         0.931
+ 4 Latvia                           0.687
+ 5 Lesotho                          0.855
+ 6 Lithuania                        0.893
+ 7 Russia                           0.652
+ 8 South Africa                     0.896
+ 9 Swaziland                        0.905
+10 Ukraine                          0.692
+11 Zambia                           0.872
+12 Zimbabwe                         0.978</code></pre>
+</div>
+</div>
+<p>Note que los valores para <code>adj.r.squared</code> mejoraron considerablemente. Si bien <code>adj.r.squared</code> nos dice qué tan bien se ajusta el modelo a nuestros datos, no da ninguna indicación sobre cómo se desempeñaria con nuevos datos. En otro post, les mostraré como estimar el rendimiento del modelo utilizando los datos retenidos de la construcción del modelo.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaula/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022 Juan Isaula.</div>   
+  </div>
+</footer>
+
+
+
+</body></html>
