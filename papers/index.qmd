@@ -8,6 +8,6 @@
     <p><strong>Bruce E. Hansen</strong>: Time series econometrics for the 21st century <a href="https://www.tandfonline.com/doi/abs/10.1080/00220485.2017.1320610?journalCode=vece20">https://doi.org/10.48550/arXiv.2304.02632</a> <a href='https://www.ssc.wisc.edu/~bhansen/papers/jee.pdf'>[PDF]</a></p>
     <h3>2020</h3>
     <p><strong>Juan, I. M</strong>: Modelos de tipo caja negra para estudio de
-series temporales Financieras.<a href='https://drive.google.com/drive/my-drive'> [PDF]</a></p>
+series temporales Financieras.<a href='https://drive.google.com/file/d/1bfmZtjIk9PH4K1LU4Gagvng3GDCZSuCO/view?usp=sharing'> [PDF]</a></p>
 </body>
 </html>
