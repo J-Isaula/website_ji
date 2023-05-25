@@ -1,0 +1,353 @@
+---
+title: "Introducción a R"
+subtitle: "Generalidades"
+author: "Juan Isaula"
+date: "2022-01-20"
+categories: [R, RStudio]
+image: "r_studio.png"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=TRUE,
+                      message=FALSE, warning=FALSE,
+                      fig.path='figs/',
+                      cache.path = '_cache/',
+                      fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      })
+```
+
+# ¿Qué es R?
+
+`R` es un lenguaje y un ambiente para el manejo de datos, cálculos, y gráficos en código libre. Dada estas características los desarrollos que se han realizado en `R` son abiertos y están disponibles gratuitamente, por lo cual su uso se ha difundido ampliamente. `R` es difundido libremente por una gran diversidad de sitios espejo del `CRAN` (The comprehensive R Archive Network: red de servidores en todo el mundo que almacenan versiones id'enticas y actualizadas de código y documentación para R). Además, de ser gratuitos, los desarrollos en R se actualizan más rápido que cualquier otro de los costosos softwares comerciales que se encuentran en el mercado. Esto es así debido a que los usuarios hacen desarrollos, los documentan y los difunden en su red especializada de manera cotidiana (Quintana y Mendoza, 2016,p.23).
+
+Antes de comenzar a programar es bueno conocer los aspectos básicos del software que se esta utilizando como son: el ambiente, el funcionamiento de las herramientas de ayuda y la sintaxis básica, necesaria para el desarrollo de cualquier proyecto. En la práctica, la programación en `R` no es dificil solo hace falta acostumbrarse al ambiente y familiarizarse a la sintaxis, la cual trataremos en este material.
+
+## Ventajas de usar R
+
+-   Es software libre y por tanto su costo es nulo. 
+-   Es multiplataforma: existen versiones para LinuX, Mac y Windows. Los procedimientos y análisis desarrollados en una plataforma son perfectamente desarrollables en otra. 
+-   Implementa una enorme cantidad de métodos estadísticos, desde los más clasicos a los más modernos. Los métodos se organizan en librerías cuyo número se encuentra en constante crecimiento.\
+-   Capacidad para acceder a datos en múltiples formatos. Dispone de librerías para leer datos desdes `SPSS`,`SAS`,`Access`, `MySQL`,`Excel`, etc. A si mismo permite también la generació de informes de resultados en diversos formatos.\
+-   Enorme capacidad para manipular y modificar datos y funciones.\
+-   Generación de gráficos de alta calidad.\
+-   Existencia de una comunidad de usuarios muy activa, en la que participan estadísticos de renombre.\
+-   Amplia disponibilidad de documentación, tanto en internet como en libros publicados por editoriales de prestigio. 
+-   Facilidad de integración con actividad de formación en técnicas y métodos estadísticos en todos los ámbitos del conocimiento.\
+-   Existencia de extensiones específicas para nuevas áreas como modelos gráficos o análisis de mercados financieros.\
+-   Todos los algoritmos implementados en `R` pueden ser vistos e interpretados por cualquier usuario, por lo que este puede saber exactamente que es lo que hace el ordenador cuando ejecuta un comando.
+
+## Desventajas de usar R
+
+-   Hay empresas que por políticas no pueden instalar software libre en sus maquinas cada una tiene su politica, sus software de preferencia, sus necesidades, etc.\
+-   Algunas de las instituciones del sector público y privado tienen un dilema. por parte necesitan ahorrar recursos y por otra parte tienen que contar con soporte técnico por el que pagan fortunas. La idea del soporte es tener el apoyo y mantenimiento por si algo sale mal tanto en la aplicación del software como en la administración de los sistemas. Por eso pagan licencias costosas por SAS, STATA y otros paquetes.\
+-   Una de las principales desventajas es que hasta hace poco el uso de `R` estaba limitado a entornos universitarios y de usuarios con gran conocimiento de la estadística y la programación. Junto a esto, su primera impresión entre los usuarios principiantes, es de dureza y poca amigabilidad, aunque esto queda superado con el uso.\
+-   No hay nadie a quien reclamar si algo falla, ni hay un departamento de atención al cliente que nos diga qué podemos hacer si algo va mal, si alguién procedimiento nos da un error, o simplemente si no sabemos qué sintaxis utilizar. Pero a cambio existe una comunidad de usuarios organizada en foros y dispuesta a colaborar desinteresadamente en la resolución de problemas.\
+-   A todos los puntos anteriores podemos añadir el siguiente, que será considerado por unos una ventaja y por otros un inconveniente: Para hacer un buen uso de R hay que tener un buen conocimiento de los métodos estadísticos. En realidad esta afirmación es cierta no sólo para R, sino para cualquier paquete estadístico.
+
+## Instalación de R
+
+Para realizar la instalación de `R` y `RStudio` en `Windows`,`Mac`, `Ubuntu` o `Linux` se debe ingresar a los siguientes sitios web:
+
+-   [Instalación de R](https://www.r-project.org/)
+-   [Instalación de RStudio](https://posit.co/products/open-source/rstudio/)
+
+## Obtener Ayuda en R
+
+`R`Permite obtener ayuda para conocer toda la información (qué hace, cuál es la sintaxis correcta, qué parámetros tiene, algunos ejemplos de uso, etcétera) sobre una función, objeto o librería.
+
+Existen cinco funciones para obtener ayuda las cuales son:
+
+1.  `helt.start()`\
+
+Utilizando esta función se encuentra un menú de recursos, entre los cuales existen manuales, referencias y demás material para comenzar a aprender R.\
+
+escribe en tu consola de `RStudio` help.start()
+
+2.  `help(¨nombre del objeto¨)`\
+
+Esta función facilita obtener información acerca de las funciones de los paquetes ya instalados en `R`. Si se desea obtener información acerca de una función, por ejemplo de la función `plot()`, se debe escribir `help(“plot”)` o `?plot` en la línea de comandos.
+
+3.  `example("nombre de la función")`\
+
+Para obtener ejemplos del uso de funciones, se utiliza la función `example ()`. Porejemplo, escribe`example(“array”)`.
+
+```{r echo=TRUE, warning=FALSE}
+example("array")
+```
+
+4.  `library(help = "nombre")`\
+
+Otra manera de obtener información de ayuda sobre un paquete es usar la opción help para el comando library(), con lo cual tendrás información más completa. Un ejemplo es `library(help=“stats”)`.
+
+```{r echo=TRUE, warning=FALSE}
+library(help="stats")
+```
+
+5.  `vignette(“nombre de la librer ́ıa”)`\
+
+Algunos paquetes ya instalados en `R` incluyen viñetas dentro del ordenador. Una viñeta es un documento corto que describe como se usa un paquete. Se puede ver una viñeta usando la función `vignette()`. Escribe `vignette(“Sweave”)` en la línea de comandos.
+
+```{r echo=TRUE, warning=FALSE}
+vignette("Sweave")
+```
+
+## Operaciones Básicas
+
+La forma correcta de almacenar valores, es a través de una asignación la cual se realiza especificando el símbolo `<-`. Del lado izquierdo del símbolo se especifica el nombre de la variable y del lado derecho se introduce el valor u operación.\
+
+Se puede trabajar con una gran cantidad de operadores matemáticos que utiliza `R` y que permite realizar cálculos matemáticos, por mencionar algunos, se pueden observar en el siguiente cuadro
+
+| Operador Matemático | Función en R   |
+|---------------------|----------------|
+| $\sqrt{x}$          | `sqrt()`       |
+| $e^x$               | `exp(x)`       |
+| $x!$                | `factorial(x)` |
+| $logaritmo(x)$      | `log(x)`       |
+| $\pi$               | `Pi`           |
+| $|x|$               | `abs(x)`       |
+| $seno(x)$           | `sin(x)`       |
+| $coseno(x)$         | `cos(x)`       |
+| $tangente(x)$       | `tan(x)`       |
+| $cos^{-1}(x)$       | `acos(x)`      |
+| $sen^{-1}(x)$       | `asin(x)`      |
+| $tan^{-1}(x)$       | `atan(x)`      |
+
+Asignar un valor a cierta cantidad de variables por ejemplo: a una variable $w$ el valor 3, a la variable $y$ el valor 7 y a la variable $z$ el valor 90, a una variable $suma$ la adición de las variables anteriores y finalmente obtendremos la raíz cuadrada de la variable $suma$ guardándola en una variable con el nombre raíz.
+
+A continuació le muestro el ejemplo en `R`
+
+```{r echo=TRUE, warning=FALSE}
+w <- 3   # Para evaluar la instrucción se debe presionar la tecla Control + ENTER.
+w        # Para observar el valor de la variable nombra la variable.
+  
+y <- 7
+y
+
+z <- 90 
+z
+
+suma <- w + y + z
+suma
+
+raiz <- sqrt(suma)
+raiz
+```
+
+En la primera línea se observa el simbolo `(#)`, el cual permite comentar el código, para tomar notas de interés.
+
+En `R` tamién se puede almacenar cadenas de caracteres como se muestra en el siguiente ejemplo:
+
+```{r echo=TRUE, warning=FALSE}
+a <- "Cálculo"
+a
+
+b <- "Microeconomía"
+b
+```
+
+Para obtener un listado o desplegado de las variables que han sido definidas en la sesio ́n se debe de escribir el comando `ls()`.
+
+```{r echo=TRUE, warning=FALSE}
+ls()
+```
+
+## Vectores
+
+Un vector es una secuencia ordenada de datos, los cuales han de ser del mismo tipo, es decir, todos deben de ser números, caracteres, cadenas de caracteres, valores lógicos, etc. Los tipos de datos que se pueden almacenar en un vector se destacan los siguientes:
+
+-   `logical (lógicos: TRUE, verdadero, o FALSE, falso)`
+-   `integer (números enteros)`
+-   `numeric (números reales)`
+-   `character (palabras)`
+
+### Creación de un Vector
+
+La forma correcta de almacenar un conjunto de datos, es a través de una asignación utilizando el comando `c`, donde dicha lista de números se almacenan bajo nombre, y así mismo este se utiliza para referirse a los datos que almacena, la asignación se realiza especificando el símbolo `<-`.\
+
+Para generar un vector utilizamos la función `c` separado cada uno de los elementos por medio de una coma `(,)` por ejemplo si se quisiera almacenar la secuencia $0,1,2,3,4,5,6,7,8,9$ dentro de un vector llamado $vector$
+
+```{r echo=TRUE, warning=FALSE}
+vector <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+vector
+```
+
+Si se desea crear un vector de letras, palabras o cadenas de caracteres llamadas `string`, se tiene que nombrar cada cadena de caracteres entre comillas de manera obligatoria
+
+```{r echo=TRUE, warning=FALSE}
+vectorletra <- c("a", "b", "c", "d", "e")
+vectorletra
+
+vectorpalabra <- c("Micro", "Economía", "en", "R")
+vectorpalabra
+```
+
+Se puede facilitar la creación de vectores podemos utilizar `c(a:b)` para datos de manera consecutiva, el comando `seq(a, b, by = p)` de manera aritmética, donde $a$ es el primer elemento, $b$ es el último elemento y $p$ es la diferencia de cada elemento.
+
+```{r echo=TRUE, warning=FALSE}
+w <- c(0:10)
+w
+
+y <- seq(0, 100, by = 10)
+y
+```
+
+### Operaciones con vectores
+
+Se pueden realizar operaciones como suma, resta, producto de vectores, se utilizaran los vectores $w$ e $y$ para ejemplificar las operaciones.
+
+```{r echo=TRUE, warning=FALSE}
+suma <- w + y
+suma 
+
+resta <- w - y
+resta
+
+producto <- w*y
+producto
+```
+
+El manejo de vectores en `R` tiene una propiedad muy útil: podemos aplicar una función a todos los elementos de un vector en un solo paso.
+
+```{r echo=TRUE, warning=FALSE}
+w + 5
+
+w - 2
+
+10*w
+
+sqrt(w)
+
+w^2
+```
+
+Entre otras funciones para aplicar a vectores, y de gran importancia son las relacionadas principalmente con la estadística. Por ejemplo
+
+-   `max` y `min` calculan sus valores maximos y minimos respectivamente
+-   `sum` calcula la suma
+-   `prod` calcula el producto
+-   `mean` calcula la media
+-   `diff` calcula el vector formado por las diferencias sucesivas entre entradas del vector original.
+-   `sort` ordena los elementos del vector en el orden natural creciente del tipo de datos que lo forman, se puede incluir en su argumento el parámetro `decreasing = TRUE`.
+
+```{r echo=TRUE, warning=FALSE}
+w
+
+max(w)
+
+min(w)
+
+sum(w)
+
+prod(w)
+
+mean(w)
+
+diff(w)
+
+sort(w)
+
+sort(w, decreasing = TRUE)
+```
+
+## Matrices
+
+Las matrices son un tipo de vector particular, es un vector con un atributo especial, llamado dimensión. La dimensión establece el número de renglones y el número de columnas que tendrá una matriz, se debe recordar que una matriz no es más que un arreglo de números en $m$ renglones y $n$ columnas.
+
+Por ejemplo una matriz de 3 renglones y 3 columnas
+
+$$\left[\begin{array}{ccc}1 & 2 & 3 \\2 & 4 & 5 \\3 & 5 & 6\end{array}\right]$$ Se dispone de dos maneras básicas de definir una matriz en `R`. En primer lugar, la instrucción:
+
+$$matrix(vector,nrow = n, byrow = valorlogico)$$
+
+Define una matriz de $n$ filas (rows) formada por las entradas del vector. Si se captura `byrow = TRUE`, la matriz se construye por filas, mientras que con `byrow = FALSE` se construye por columnas; este último es el valor por defecto, por lo que no hace falta especificarlo. En vez de emplear `nrow`, se puede indicar el número de columnas con `ncol`. Veamos algunos ejemplos:
+
+```{r echo=TRUE, warning=FALSE}
+matrix(1:6,nrow = 2)
+
+matrix(1:6, nrow = 3)
+
+matrix(1:6, nrow = 2, byrow = TRUE)
+
+matrix(1:6, nrow = 3, byrow = TRUE)
+```
+
+Observe cómo muestra `R` las matrices: indica las filas con $[i,]$, donde $i$ es el índice de la fila, y las columnas con $[,j]$, donde $j$ es el índice de la columna. Otra posible manera de definir matrices es combinando filas o columnas. La instrucción:
+
+$$rbind(vector1,vector2, vector3)$$ construya la matriz de filas $vector1, vector2, . . . , vector N$ que han de tener la misma longitud en este orden. Si en lugar de `rbind` se usa `cbind`, se obtiene la matriz cuyas columnas son los vectores a los que se aplica.
+
+```{r echo=TRUE, warning=FALSE}
+rbind(c(1, 0, 2), c(2, 3, 6), c(1, 2, 0))
+
+cbind(c(1, 0, 2), c(2, 3, 6), c(1, 2, 0))
+```
+
+## Data Frames
+
+La manera más conveniente de guardar una tabla de datos en `R` es en forma de $dataframe$. En concreto, un $data$ $frame$ es una tabla de doble entrada, formada por variables en las columnas y observaciones de estas variables en las filas, de manera que cada fila contiene los valores de las variables para un mismo caso o individuo. En ese sentido, un $data$ $frame$ tiene la apariencia de una matriz, pero con la diferencia de que cada columna de un $data$ $frame$ puede contener datos de un tipo diferente siempre que todos los datos de una misma columna sean del mismo tipo porque corresponden a observaciones de una misma propiedad: así, una columna puede estar formada por números, por palabras, por valores lógicos, etcétera. De esta manera, las columnas de un data frame son vectores, mientras que las filas son listas.
+
+### Creación de Data Frames
+
+Para construir un $data$ $frame$ a partir de unos vectores, se usa la función `data.frame` aplicada a los vectores en el orden en el que queramos disponer las columnas de la tabla; de esta manera, las variables tomarán los nombres de los vectores. Estos nombres también se pueden especificar en el argumento de la función `data.frame`, entrando cada columna con una construcción de la forma:
+
+$$Nombre~variable = vector~con~el~contenido~de~la~variable$$
+
+Para ilustrar esta función usemos un ejemplo sencillo:\
+
+Una compañía de seguros desea crear una base de datos para la gestión de las pólizas de sus asegurados. Para ello, los datos de los que dispone son los siguientes:
+
+-   De cada póliza se guarda el número de póliza.
+-   El tipo que puede ser "Hogar" o "Auto".
+-   La fecha de creación de la póliza.
+-   y el conjunto de coberturas incluidas en la póliza ( a elegir entre Incendio, Robo, Terceros y Responsabilidad Civil).
+-   Para cada póliza guardamos los atos de sus titulares, y sabemos que cada poliza tiene un único titular.
+-   De los titulares guardamos nombre, sexo, edad y estado de providencia.
+
+```{r echo=TRUE, warning=FALSE}
+Poliza <- c(1:9)
+
+Tipo <- c("Hogar", "Auto", "Auto", "Auto", "Hogar", "Hogar", "Auto",
+           "Auto", "Hogar")
+
+Fecha <- c("12/12/2016", "08/02/2014", "10/08/2012", "01/01/2015",
+           "21/11/2011", "18/01/2016", "12/04/2005", "29/03/2007",
+           "18/02/2009")
+
+Coberturas <- c("Incendio", "Robo", "Terceros", "Robo", "Robo",
+                "Incendio", "Terceros", "R. Civil", "Incendio")
+
+Nombre <- c("Carlos", "Nancy", "Pedro", "Cecilia", "Ricardo", "Sofia",
+            "Armando", "Vicente", "Fernando")
+
+Sexo <- c("M", "F", "M", "F", "M", "F", "M", "M", "M")
+
+Edad <- c(25, 35, 45, 47, 24, 43, 33, 31, 40)
+
+Estado <- c("Campeche", "Chiapas", "Ciudad de M ́exico", "Coahuila",
+            "Durango", "Guanajuato", "Guerrero", "Hidalgo", "Jalisco")
+
+dataframe= data.frame(Poliza, Tipo, Fecha, Coberturas, Nombre, Sexo, Edad)
+
+dataframe
+```
+
+## Instalación de Librerías
+
+R es un lenguaje que permite la implementación de paquetes adicionales que le dan una capacidad de gestión de datos más amplia y permiten la implementación de nuevas funciones que harán de R un programa que se adapte a las necesidades.\
+
+El procedimiento para instalar un paquete depende del sistema operativo usado y de la manera como se instalo `R`: ya sea desde el código fuente o desde o por medio de archivos binarios pre-compilados. Existen varias funciones para manejar paquetes tales como:
+
+-   `installed.packages()`
+-   `CRAN.package()`
+-   `download.packages()`
+
+Para verificar la versión de paquetes ya instalados en el sistema y actualizarlos a la versión más reciente utilizamos la siguiente función:
+
+-   `update.packages()`
+
+# Bibliografías
+
+-   [R para principiantes](https://bookdown.org/jboscomendoza/r-principiantes4/)
+
+-   [El arte de programar en R](https://cran.r-project.org/doc/contrib/Santana_El_arte_de_programar_en_R.pdf)
