@@ -1,0 +1,275 @@
+---
+title: "Machine Learning en Tidyverse"
+subtitle: "Múltiples Modulos con broom"
+author: "Juan Isaula"
+date: "2023-01-21"
+categories: [Machine Learning, Forecasting, R, RStudio, broom]
+image: "image.jpg"
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(cache=TRUE,
+                      message=FALSE, warning=FALSE,
+                      fig.path='figs/',
+                      cache.path = '_cache/',
+                      fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      })
+```
+
+## Exploración de Coeficientes entre Modelos
+
+Asumire que el lector tiene cierto conocimiento de la teoría de modelos lineales, en caso de no ser así, no te preocupes visita este [link](https://rpubs.com/Juan-Isaula/982033) para que puedas ir a leer las generalidades de estos modelos y su uso en `R,` principalmente los tres paquetes de `broom` que le permiten explorar estos modelos. En este post trataremos de combinar estas técnica para aprender más sobre estos modelos y sus datos.
+
+A continuación cargaremos algunos de los paquetes que nos ayudaran para poder realizar nuestra tarea,
+
+```{r, warning = FALSE}
+library(tidyverse) # para manipulación de datos
+library(gapminder) # marco de datos que utilizaremos 
+library(dslabs)    # conjunto de datos y funciones para analisis de datos
+library(broom)     # Resumen informacion sobre objetos estadisticos en tibbles
+```
+
+Recuerde que el marco de `gapminder` contiene informacion sobbre cada país desde 1960 hasta 2016. Crearemos una variable que llamaremos `gap_anidado` para obtener que las características de cada país este anidadas como un `tibble.` La ventaja de usar estos tibble es que podemos construir modelos lineales simples que predicen la esperanza de vida por año para cada país. Nos centraremos en aprender a usar los coeficientes de estos modelos para obtener nuevos conocimientos sobre los datos de gapminder.
+
+```{r}
+gap_anidado <- gapminder %>% group_by(country) %>% nest()
+
+head(gap_anidado)
+```
+
+Tal como lo mencionamos previamente, `gap_anidado` contiene las características de cada país anidadas como un `tibble.` Con esto hecho, procederemos a construir modelos lineales para cada país, para ello usaremos la función `map()` del paquete `purrr`
+
+```{r}
+gap_models <- gap_anidado %>% 
+  mutate(model = map(data, ~lm(life_expectancy~year,data = .x)))
+
+gap_models
+```
+
+### Coeficientes de Regresión
+
+$$y = \alpha + \beta x$$
+
+Repasemos brevemente cómo interpretar los coeficientes para un modelo de regresión lineal simple. Recuerda que esto implica calcular dos términos de coeficientes que relacionan la variable dependiente con la variable independiente $x$.
+
+Para nuestros modelos, las variales:
+
+-   $y$: Representa la esperanza de vida en relación con el año (variable $x$).
+
+-   $\alpha$: Representa el coeficiente del intercepto, nos dice la esperanza en el año 0. Esto no es significativo para nuestros datos, por lo que lo pasaremos por alto.
+
+-   $\beta$: Es el coeficiente del año (variable $x$), que para un modelo de regresión lineal simple corresponde directamente a la pendiente del mismo.
+
+Usando la función `tidy()` del paquete `broom` en el primer modelo, aprenderemos que con cada año que pasa la esperanza de vida promedio de la población de este país en particular aumenta aproximadamente 0.23 años. Este enfoque puede brindarle información sobre el crecimiento o la falta de crecimiento en la esperanza de vida a lo largo del tiempo para los países que esta modelando.
+
+```{r}
+tidy(gap_models$model[[1]])
+```
+
+### Coeficientes de Modelos Múltiples
+
+Puede generar estos coeficientes mapeando la funcíon `tidy()` para cada uno de nuestros modelos y luego simplificando el nuevo marco de datos usando la función `unnest()`. Esto da como resultado un `tibble` que contiene la estimación para cada coeficiente de cada país.
+
+```{r}
+gap_models %>% 
+  mutate(coef = map(model, ~tidy(.x))) %>% 
+  unnest(coef)
+```
+
+### Evaluación del Ajuste de Muchos Modelos
+
+Anteriormente aprovechamos la función `tidy()` de `broom` para explorar los coeficientes de nuestros modelos. Al hacerlo, obtuvimos información sobre cómo cambió la esperanza de vida con el tiempo para cada uno de los países en nuestro conjunto de datos. Ahora, aprenderá a usar la función `glance()` de `broom` para medir que tan bien se ajusta cada uno de estos modelos a sus datos subyacentes.
+
+Una forma de medir el ajuste de un modelo de regresión lineal es calcular su métrica $R^2$
+
+$$
+R^2 = \frac{\%~variación~explicada~por~el~modelo}{\%~variación~total~de~los~datos}
+$$
+
+La métrica $R^2$ mide la relación entre la variación explicada por el modelo de regresión y la variación total de los datos. Toma valores entre 0 y 1.
+
+En la siguiente figura, le muestro dos ejemplos, el primero con un valor alto y el segundo con un valor bajo de su $R^2$ respectivamente. Note que en el caso donde el $R^2 = 0.009$ es bajo o cercano a cero, esto nos indica que un modelo lineal esta capturando una cantidad proporcionalmente pequeña de la variación en los datos y. por lo tanto, no se ajusta bien. Por el contrario el modelo con $R^2 = 0.965$ valor que es más cercano a 1, lo que indica que este modelo lineal se ajusta bien a los datos. Puede evaluar el ajuste de los modelos midiendo el valor del $R^2$ para cada modelo.
+
+![](ml1.PNG)
+
+Muy bien, con el conocimiento previo, hechemos un vistazo a nuestros modelos. Para ello usamos `map()` y `glance()` para crear un marco de datos de estadísticas de resumen para cada modelo almacenado como la columna coef. Luego, puede simplificar estos marcos de datos usando la función `unnest()`. Esto nos dará como resultado un tibble que contendrá las estadisticas del modelo para cada modelo de país.
+
+```{r}
+model_perf <- gap_models %>% 
+  mutate(coef = map(model,~glance(.x))) %>% 
+  unnest(coef)
+
+model_perf
+```
+
+Si observamos los valores de $R^2$ de los primeros 5 modelos notamos que tienen un $R^2$ alto, lo que nos dice que los modelos para estos países se han ajustado bien a los datos de esos países en particular.
+
+### Modelos con Mejor y Peor Ajuste
+
+Siendo un poco más curiosos, tratemos de explorar el ajuste de los modelos. Para ver esto, podemos filtrar los valores más alto de `r.squared`, tomaremos como un r.squared alto 0.995 en adelante.
+
+Por ejemplo, podemos usar la función `slice_max()` de `dplyr` para encontrar los modelos que mejor se ajustan. Asimismo, podemos encontrar los modelos con el peor ajuste utilizando la función `slice_min()`. Hechemos un vistazo al código y los resultados generados,
+
+```{r}
+mejores_models <- model_perf %>% filter(r.squared > 0.995)
+mejores_models
+```
+
+y para los peores filtremos los países que tienen un modelo con un `r.squared` menor a 0.3
+
+```{r}
+peores_modelos <- model_perf %>% filter(r.squared < 0.3) 
+peores_modelos
+```
+
+### Creación de Marco de Datos Aumentados
+
+Para hacer esto, primero debe crear un marco de datos que contenga tanto los valores predichos como los originales. Esto requiere primero usar `map()` y `augment()` para trabajar en la columna de la lista que contiene los modelos para crear marcos de datos anidados que contengan tanto los valores originales como los predichos. Luego, puede usar `unnest()` en esta nueva columna para simplificar estos marcos de datos y permitir una mayor exploración.
+
+```{r}
+augment_models <- gap_models %>% 
+  mutate(augmented = map(model,~augment(.x))) %>% 
+  unnest(augmented)
+
+augment_models
+```
+
+Ahora, visualizaremos algunos de estos modelos.
+
+### Modelo para Bahamas $R^2 = 0.995$
+
+Note que dado que su $R^2$ es bastante alto, podemos asumir que el modelo lineal se ajusta bien a los datos. Puede comparar el ajuste del modelo con los datos originales trazando ambos en el mismo gráfico. En este ejemplo, usaremos `ggplot2` para trazar los valores originales de la esperanza de vida como un diagrama de dispensión usando `geom_point()` y agregué el ajuste del modelo lineal como una línea roja usando `geom_line()`
+
+```{r}
+augment_models %>% filter(country == "Bahamas") %>% 
+  ggplot(aes(x = year, y = life_expectancy)) + 
+  geom_point() + 
+  geom_line(aes(y = .fitted), color = "red") + 
+  labs(title = "Modelo Regresión Lineal para Bahamas",
+       x = "Año",
+       y = "Esperanza de Vida") + 
+  theme_minimal()
+```
+
+Si observa el gráfico, podemos pensar que un modelo de regresión lineal se va ajustando bien a los datos de este país en particular.
+
+### Modelo para Ukraine $R^2 = 0.16$
+
+Ahora veamos el modelo correspondiente al país Ukraine, que tiene un valor de $R^2$ super más bajo que el de Bahamas. Claramente, esperariamos encontrarnos con un modelo que no se ajuste bien a los datos dado el antecedente del $R^2$
+
+```{r}
+augment_models %>% filter(country == "Ukraine") %>% 
+  ggplot(aes(x = year, y = life_expectancy)) + 
+  geom_point() + 
+  geom_line(aes(y = .fitted), color = "red") + 
+  labs(title = "Modelo de Regresión Lineal para Ukraine", 
+       x = "Año", 
+       y = "Esperanza de  Vida") + 
+  theme_minimal()
+```
+
+Como pudo ver en estos dos ejemplos, `augment()` y `ggplot()` facilitan la exploración visual del ajuste de un modelo.
+
+### Visualización de Peores y Mejores modelos
+
+En este caso, prepararemos los cuatro mejores modelos que consideramos anteriormente y los peores y los visualizaremos,
+
+```{r}
+mejores_augment <- mejores_models %>% 
+  mutate(augmented = map(model, ~augment(.x))) %>% 
+  unnest(augmented)
+
+peores_augment <- peores_modelos %>% 
+  mutate(augmented = map(model, ~augment(.x))) %>% 
+  unnest(augmented)
+```
+
+Bien, ahora visualizamos los modelos
+
+```{r}
+mejores_augment %>% 
+  ggplot(aes(x = year)) + 
+  geom_point(aes(y = life_expectancy)) + 
+  geom_line(aes(y = .fitted), color = "red") + 
+  facet_wrap(~country, scales = "free_y") + 
+  theme_minimal()
+```
+
+```{r}
+peores_augment %>% 
+  ggplot(aes(x = year)) + 
+  geom_point(aes(y = life_expectancy)) + 
+  geom_line(aes(y = .fitted), color = "red") + 
+  facet_wrap(~country, scales = "free_y") + 
+  theme_minimal()
+```
+
+Parcelas geniales! Puede ver que un modelo lineal hace un gran trabajo para los mejores 3 modelos de ajuste, pero los peores modelos de ajuste no parecen tener una relación lineal. Trabajaremos para mejorar este ajuste en la proxima serie de ejercicios mediante la incorporación de funciones adicionales.
+
+### Mejores al Ajuste del Modelo
+
+Con la información que reunimos con Augment() y glance(), aprendimos que algunos de los modelos de regresión lineal simple no se ajustan adecuadamente a las tendencias subyacentes de nuestros datos. Para separar esto emplearemos un modelo de ***regresión múltiple.***
+
+#### Modelo de Regresión Lineal Multiple
+
+$$Y = \alpha + \beta_1x_1 9 \beta_2x_2 + . . . $$
+
+Este modelo es una extensión natural del modelo de regresión lineal simple. La diferencia clave es que usa más variables explicativas para explicar el resultados, lo que significa que, en lugar de ajustar una linea de mejor ajuste, estamos ajustando un plano multidimensional. En el conjunto de datos `gapminder`, podemos usar características adicionales de nuestras observaciones para modelr la esperanza de vida. Entonces, vamos a usarlo,
+
+La elección de que características usar se puede controlar en el campo de fórmula de la función `lm()`. Recuerde que para un modelo simple usamos la fórmula de la esperanza de vida explicada por año. De manera similar para un modelo de regresión múltiple, puede definir explícitamente la fórmula incluyendo el nombre de cada característica separada por un signo `+` o si sabe que desa incluir todas las características, puede capturarlas usando un punto,como veremos posteriormente.
+
+#### Uso de broom con modelos de regresión múltiple
+
+El comportamiento de las funciones de broom sigue siendo el mismo. `tidy()` devuelve las estimaciones de los coeficientes de los modelos, esto ahora incluye estimaciones para las cuatro características adicionales. Lo mismo ocurre con `augment()`, además, de los valores ajustados para cada observación, se devuelven los valores de cuatro caracteristicas nuevas. y aunque la salida esperada de `glance()` sigue siendo la misma, tenemos que cambiar nuestro enfoque del valor de r cuadrado al valor de r cuadrado ajustado al evaluar el ajuste de nuestros modelos o comparar modelos de regresión lineal simple y múltiple.
+
+#### R cuadrado ajustado
+
+Recuerde que `r.squared` mide la variación explicada por el modelo. Agregar cualquier característica nueva a un modelo, independientemente de su relación con la variable dependiente, siempre aumentará el valor de `r.squared` del modelo. Esto se vuelve problemático cuando se compara el ajuste de modelos con diferente número de características explicativas utilizadas. Para compensar esto, en su lugar, utilizará el valor `adj.r.squared` (r cuadrado ajustado) esta es una métrica r cuadrada modificada cuyo cálculo tiene en cuenta la cantidad de características utilizadas en el modelo.
+
+La interpretación del `adj.r.squared` es muy similar al `r.squared` y lo usaremos para evaluar el ajuste de nuestros modelos y compararlos con los modelos lineales simples creados anteriormente.
+
+### Construir Mejores Modelos
+
+Anteriormente, creamos una colección de modelos simples para ajustarse a la expectativa de vida usando la característica de año. Su análisis anterior mostro que algunos de estos modelos no encajaban muy bien.
+
+En esta sección, construiremos modelos de regresión múltiple para cada país utilizando todas las funciones disponibles. Puede que le interese comparar el rendimiento de los 12 modelos con el peor ajuste
+
+| País                     | Adj.r.squared |
+|--------------------------|---------------|
+| Armenia                  | 0.274831633   |
+| Botswana                 | -0.017346290  |
+| Central African Republic | 0.262392009   |
+| Latvia                   | 0.177428933   |
+| Lesotho                  | 0.017078583   |
+| Lithuania                | 0.281255888   |
+| Russia                   | 0.008564872   |
+| South Africa             | 0.255968853   |
+| Swaziland                | -0.018111402  |
+| Ukraine                  | 0.157855451   |
+| Zambia                   | 0.023859596   |
+| Zimbabwe                 | 0.1216212616  |
+
+Ahora si, apliquemos un modelo lineal generalizado para ver si mejorar estos datos
+
+```{r}
+# Creamos un modelo lineal para cada país
+gap_fullmodel <- gap_anidado %>% 
+  mutate(model = map(data, 
+                     ~lm(life_expectancy~year+population+fertility+gdp, data = .x)))
+
+fullmodel_perf <- gap_fullmodel %>% 
+  # Extraigaimos las estadísticas de ajuste de cada modelo en marcos de datos
+  mutate(fit = map(model, ~glance(.x))) %>% 
+  # Simplifiquemos los marcos de datos de ajuste para cada modelo
+  unnest(fit)
+
+# Vea el rendimiento de los 12 países con el peor ajuste, es decir, 
+# los dos modelos simples que viste antes
+fullmodel_perf %>% 
+  filter(country %in% peores_modelos$country) %>% 
+  select(country, adj.r.squared)
+```
+
+Note que los valores para `adj.r.squared` mejoraron considerablemente. Si bien `adj.r.squared` nos dice qué tan bien se ajusta el modelo a nuestros datos, no da ninguna indicación sobre cómo se desempeñaria con nuevos datos. En otro post, les mostraré como estimar el rendimiento del modelo utilizando los datos retenidos de la construcción del modelo.
