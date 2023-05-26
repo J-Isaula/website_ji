@@ -5,10 +5,22 @@ page-layout: full
 
 Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar información sobre algnos cursos en los cuales soy colaborador.
 
-<h3>2023</h3>
+<h1>2023</h1>
 
-<h4>Microeconomía II - UNAH</h4>
+<h2>Microeconomía II - UNAH</h2>
 
 -   [Programa del curso](https://rpubs.com/Juan-Isaula/1044986)
 
--   [Material de apoyo para modulo I](https://j-isaula.github.io/micreoeconomics/)
+<h4> Modulo I - Teoria del Consumidor</h4>
+
+-   [kaggle - Comandos Generales Python](https://www.kaggle.com/code/juanisaula/comandos-generales-python)
+
+-   [Material de repaso - Matemáticas de la optimización](https://j-isaula.github.io/micreoeconomics/)
+
+<h4> Bibliografía Recomendada</h4>
+
+-   [Advanced Microeconomic Theory, Geoffrey A. Jehle Philip J.Reny](https://zalamsyah.staff.unja.ac.id/wp-content/uploads/sites/286/2019/11/1-Advanced-Microeconomic-Theory-3rd-Ed.-JEHLE-RENY.pdf)
+
+-   [Teoría Microeconómica (Principios básicos y ampliaciones-Walter Nikolso)](https://elvisjgblog.files.wordpress.com/2019/04/teorc3ada-microeconc3b3mica-9c2b0-edicic3b3n-walter-nicholson.pdf)
+
+-   [Microeconomia II - UNAH - Juan Isaula](https://j-isaula.github.io/1619/documentos.html)
