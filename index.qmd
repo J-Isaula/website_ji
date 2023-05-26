@@ -14,7 +14,7 @@ about:
       icon: github
       url: "https://github.com/J-Isaula"
     - text: Blog
-      url: "blog.html"
+      url: "https://j-isaula.github.io/website_ji/blog.html"
 comments: false
 page-layout: full
 ---
