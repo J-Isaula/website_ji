@@ -257,5 +257,12 @@
     "title": "Juan Isaula",
     "section": "",
     "text": "Subscribe to new posts\n\nGet new content in a weekly email"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "App/Dashboards",
+    "section": "",
+    "text": "En este sitio encontraras algunos Dashboards que he realizado en lenguajes de programación R y Python para algunas instituciones del País (Honduras) .\n\nGeoRGe\nEs una App que elaboré en el lenguaje de programación R, utilizando principalmente los paquetes shiny | shinydashboard | DT | tidyverse | shinyWidgets | fresh. En la actualizad es utilizada en el Instituto Hondureño de Seguridad Social (IHSS).\nIA-JIM\nApp que ayuda con el cómputo de gran parte de los indicadores actuariales primarios y secundarios del IHSS, correspondientes al Régimen del Seguro de Previsión Social (RSPS)."
   }
 ]
