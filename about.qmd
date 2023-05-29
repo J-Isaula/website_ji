@@ -1,17 +1,13 @@
 ---
-title: "Juan Isaula"
-image: juan.jpeg
-about: 
-  template: trestles
-  image-shape: round
-  image-width: 15em
-  links:
-    - text: LinkedIn
-      href: https://www.linkedin.com/in/juan-isaula-817531239/?originalSubdomain=hn
-    - text: Twitter
-      href: https://twitter.com/isaula_juan
-    - text: GitHub
-      href: https://github.com/J-Isaula
+title: "App/Dashboards"
 ---
 
-Sobre mi
+En este sitio encontraras algunos `Dashboards` que he realizado en lenguajes de programación `R` y `Python` para algunas instituciones del País (Honduras) .
+
+-   [GeoRGe](https://juanisaula.shinyapps.io/GeorGE/?_ga=2.82240022.1240928687.1675353549-1442211681.1673756750)
+
+    Es una App que elaboré en el lenguaje de programación R, utilizando principalmente los paquetes `shiny` \| `shinydashboard` \| `DT` \| `tidyverse` \| `shinyWidgets` \| `fresh`. En la actualizad es utilizada en el I*nstituto Hondureño de Seguridad Social (IHSS).*
+
+-   [IA-JIM](https://juanisaula.shinyapps.io/IAIHSS/?_ga=2.183163558.1415305719.1677687400-1442211681.1673756750)
+
+    App que ayuda con el cómputo de gran parte de los indicadores actuariales primarios y secundarios del IHSS, correspondientes al Régimen del Seguro de Previsión Social (RSPS).
