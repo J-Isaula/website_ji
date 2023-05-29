@@ -1,6 +1,6 @@
 ---
 title: "Juan Isaula"
-image: j1.jpeg
+image: isaula.jpeg
 about:
   template: trestles
   image-shape: rounded

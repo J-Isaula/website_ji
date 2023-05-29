@@ -30,10 +30,10 @@ website:
         href: papers
       - text: "Cursos"
         href: presentations
-      - text: "Dashboards"
-        href: about.html
       - text: "Blog"
         href: blog.html
+      - text: "Dashboards"
+        href: about.html
         
   page-footer:
     left: "© Copyright 2022 Juan Isaula"
