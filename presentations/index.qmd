@@ -11,13 +11,19 @@ Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar informa
 
 -   [Programa del curso](https://rpubs.com/Juan-Isaula/1044986)
 
-<h4> Modulo I - Teoria del Consumidor</h4>
+<h4>Modulo I - Teoria del Consumidor</h4>
 
 -   [kaggle - Comandos Generales Python](https://www.kaggle.com/code/juanisaula/comandos-generales-python)
 
 -   [Material de repaso - Matemáticas de la optimización](https://j-isaula.github.io/micreoeconomics/)
 
-<h4> Bibliografía Recomendada</h4>
+-   [Aula virtual Classroom](https://classroom.google.com/c/NTU0MTk3NDM2MzEw?cjc=kxeyk6r)
+
+<h5>Videos</h5>
+
+1.   [Comandos Generales Python](https://youtu.be/tEAe82p6mAc)
+
+<h4>Bibliografía Recomendada</h4>
 
 -   [Advanced Microeconomic Theory, Geoffrey A. Jehle Philip J.Reny](https://zalamsyah.staff.unja.ac.id/wp-content/uploads/sites/286/2019/11/1-Advanced-Microeconomic-Theory-3rd-Ed.-JEHLE-RENY.pdf)
 
