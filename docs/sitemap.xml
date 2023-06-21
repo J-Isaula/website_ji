@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mm218.dev/index.html</loc>
-    <lastmod>2023-06-02T20:36:26.549Z</lastmod>
+    <lastmod>2023-06-21T20:41:29.225Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/posts/estructuras_mercado/index.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://mm218.dev/blog.html</loc>
-    <lastmod>2023-06-02T20:36:49.668Z</lastmod>
+    <lastmod>2023-06-21T20:49:40.115Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/posts/port_mg/index.html</loc>
@@ -42,7 +42,7 @@
   </url>
   <url>
     <loc>https://mm218.dev/presentations/index.html</loc>
-    <lastmod>2023-06-02T20:39:54.552Z</lastmod>
+    <lastmod>2023-06-15T16:06:46.045Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/subscribe.html</loc>
@@ -55,5 +55,13 @@
   <url>
     <loc>https://mm218.dev/dash.html</loc>
     <lastmod>2023-05-29T20:08:01.277Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mm218.dev/posts/port_mg/estructuras_mercado/index.html</loc>
+    <lastmod>2023-06-21T17:33:23.871Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mm218.dev/posts/RN/index.html</loc>
+    <lastmod>2023-06-21T19:34:34.094Z</lastmod>
   </url>
 </urlset>

@@ -10,11 +10,871 @@
 <atom:link href="https://mm218.dev/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Technology and the Environment</description>
 <generator>quarto-1.2.475</generator>
-<lastBuildDate>Thu, 13 Apr 2023 06:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 23 May 2023 06:00:00 GMT</lastBuildDate>
+<item>
+  <title>Redes Neuronales Recurrentes (LSTM)</title>
+  <dc:creator>Juan Isaula</dc:creator>
+  <link>https://mm218.dev/posts/RN/index.html</link>
+  <description><![CDATA[ 
+
+
+
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p>Las redes neuronales recurrentes son una arquitectura bastante empleada puesto que emplean los output de salida para retroalimentarse y continuar prediciendo un output.</p>
+<p><img src="https://mm218.dev/posts/RN/Figure.png" class="img-fluid"></p>
+<section id="usos" class="level3">
+<h3 class="anchored" data-anchor-id="usos">Usos</h3>
+<ul>
+<li><p>Principalmente sirve para contextos donde el orden importa y sirve como predictor recurrente (series de tiempo, textos, audios)</p></li>
+<li><p>Sin embargo, ¿que tanto recordar el pasado? ¿cuál es la consecuencia en el rendimiento y demora de estimación?</p></li>
+<li><p>Sus tipos más utilizados son <code>LSTM</code> y <code>GRU</code></p></li>
+</ul>
+<p>En este post nos enfocaremos en utilizar, describir y simular la red LSTM.</p>
+</section>
+<section id="aplicaciones" class="level3">
+<h3 class="anchored" data-anchor-id="aplicaciones">Aplicaciones</h3>
+<ul>
+<li><p>Predictor de la siguiente palabra</p></li>
+<li><p>Series de tiempo</p></li>
+<li><p>No recomendable para transversal</p></li>
+</ul>
+</section>
+</section>
+<section id="red-de-memoria-de-corto-y-largo-plazo-lstm" class="level2">
+<h2 class="anchored" data-anchor-id="red-de-memoria-de-corto-y-largo-plazo-lstm">Red de Memoria de Corto y Largo Plazo (LSTM)</h2>
+<p>Las redes LSTM (Long Short-Term Memory) son un tipo especial de redes neuronales recurrentes diseñadas con celdas de memoria que mantienen su estado a largo plazo. El principal objetivo de este tipo de redes es la solución del desvanecimiento del gradiente experimentado en las redes recurrentes. Globalmente, el flujo computacional de LSTM se ve de la siguiente manera:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mm218.dev/posts/RN/Figure 4.16.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Flujo computacional de LSTM</figcaption><p></p>
+</figure>
+</div>
+<p>Las redes neuronales recurrentes pasan solo un estado oculto <img src="https://latex.codecogs.com/png.latex?h_t"> a través de cada iteración. Pero LSTM pasa dos vectores: <img src="https://latex.codecogs.com/png.latex?h_t-">estado oculto <em>(memoria a corto plazo) y</em> <img src="https://latex.codecogs.com/png.latex?c_t-">estado celular <em>(memoria a largo plazo).</em></p>
+<p>Las salidas de la celda LSTM se calculan a traves de las fórmulas que se muestran a continuación:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbegin%7Beqnarray%7D%0Ai_t%20&amp;=&amp;%20%5Csigma(w_%7Bii%7Dx_t%20+%20b_ii%20+%20w_%7Bhi%7Dh_%7B(t-1)%7D%20+%20b_%7Bhi%7D)%5C%5C%5B0.2cm%5D%0Af_t%20&amp;=&amp;%20%5Csigma(w_%7Bif%7Dx_t%20+%20b_%7Bif%7D%20+%20w_%7Bhj%7Dh_%7B(t-1)%7D%20+%20b_%7Bhf%7D)%5C%5C%5B0.2cm%5D%0Ag_t%20&amp;=&amp;%20%5Ctanh(w_%7Big%7Dx_t%20+%20b_%7Big%7D%20+%20w_%7Bhg%7Dh_%7B(t-1)%7D%20+%20b_%7Bhn%7D)%5C%5C%5B0.2cm%5D%0Ao_t%20&amp;=&amp;%20%5Csigma(w_%7Bio%7Dx_t%20+%20b_%7Bio%7D%20+%20w_%7Bho%7Dh_%7B(t-1)%7D%20+%20b_%7Bho%7D)%5C%5C%5B0.2cm%5D%0Ac_t%20&amp;=&amp;%20f_t%20%5Ccirc%20c_%7Bt-1%7D%20+%20i_t%5Ccirc%20g_t%5C%5C%5B0.2cm%5D%0Ah_t%20&amp;=&amp;%20o_t%20%5Ccirc%20%5Ctanh(c_t)%0A%5Cend%7Beqnarray%7D"></p>
+<p>donde:</p>
+<ul>
+<li><p><img src="https://latex.codecogs.com/png.latex?%5Csigma"> es la función sigmoidea</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?%5Ccirc"> es el producto de Hadamard, que es:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Bbmatrix%7D%0Aa_1%20%5C%5C%0Aa_2%20%5C%5C%0Aa_3%0A%5Cend%7Bbmatrix%7D%20%5Ccirc%0A%5Cbegin%7Bbmatrix%7D%0Ab_1%20%5C%5C%0Ab_2%20%5C%5C%0Ab_3%0A%5Cend%7Bbmatrix%7D%20=%20%5Cbegin%7Bbmatrix%7D%0Aa_1b_1%5C%5C%0Aa_2b_2%5C%5C%0Aa_3b_3%0A%5Cend%7Bbmatrix%7D%0A"></p></li>
+</ul>
+<section id="variables" class="level3">
+<h3 class="anchored" data-anchor-id="variables">Variables</h3>
+<ol type="1">
+<li><p><img src="https://latex.codecogs.com/png.latex?i_t"> <code>(puerta de entrada)</code> es la variable que se utiliza para actualizar el estado de la celda <img src="https://latex.codecogs.com/png.latex?c_t">. El estado previamente oculto <img src="https://latex.codecogs.com/png.latex?c_t"> y la entrada secuencial actual <img src="https://latex.codecogs.com/png.latex?x_t"> se dan como entrada a una función sigmoidea. Si la salida está cerca a uno, más importante es la información.</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?f_t"> <code>(puerta de olvido)</code> es la variable que decide que información debe olvidarse en el estado de celda <img src="https://latex.codecogs.com/png.latex?c_t">. El estadp previamente oculto <img src="https://latex.codecogs.com/png.latex?h_t"> y la entrada de secuencia <img src="https://latex.codecogs.com/png.latex?x_t"> se dan como entradas a una función sigmoidea. Si la salida <img src="https://latex.codecogs.com/png.latex?f_t"> está cerca de cero, entonces la información puede olvidarse, mientras que si la salida esta cerca de uno, la información debe almacenarse.</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?g_t"> representa información importante potencialmente nueva para el estado celular <img src="https://latex.codecogs.com/png.latex?c_t">.</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?c_t"> <code>(estado celular)</code> es una suma de:</p>
+<ul>
+<li><p>Estado de celada anterior <img src="https://latex.codecogs.com/png.latex?c_%7Bt-1%7D"> con alguna información olvidada <img src="https://latex.codecogs.com/png.latex?f_t">.</p></li>
+<li><p>Nueva información de <img src="https://latex.codecogs.com/png.latex?g_t">.</p></li>
+</ul></li>
+</ol>
+<!-- -->
+<ol start="5" type="1">
+<li><p><img src="https://latex.codecogs.com/png.latex?o_t"> <code>(puerta de salida)</code> es la variable para actualizar el estado oculto <img src="https://latex.codecogs.com/png.latex?h_t">.</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?h_t"> <code>(estado oculto)</code> es el siguiente estado oculto que se calcula seleccionando la información importante <img src="https://latex.codecogs.com/png.latex?o_t"> del estado de celda <img src="https://latex.codecogs.com/png.latex?c_t">.</p></li>
+</ol>
+<p>La siguiente figura muestra el gráfico computacional de la <code>celda</code> <code>LSTM:</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mm218.dev/posts/RN/Figure 4.17.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Gráfico computacional de LSTM</figcaption><p></p>
+</figure>
+</div>
+<p>La red LSTM tiene los siguientes parámetros, que se ajustan durante el entrenamiento:</p>
+<ul>
+<li><p><img src="https://latex.codecogs.com/png.latex?w_%7Bii%7D,%20w_%7Bhi%7D,%20w_%7Bif%7D,%20w_%7Bhf%7D,%20w_%7Big%7D,%20w_%7Bhg%7D,%20w_%7Bio%7D,%20w_%7Bho%7D"> - Pesos</p></li>
+<li><p><img src="https://latex.codecogs.com/png.latex?b_%7Bii%7D,%20b_%7Bhi%7D,%20b_%7Bif%7D,%20b_%7Bhf%7D,%20b_%7Big%7D,%20b_%7Bio%7D,%20b_%7Bho%7D"> - Sesgos</p></li>
+</ul>
+</section>
+</section>
+<section id="simulación-de-pronóstico-usando-lstm-con-python" class="level2">
+<h2 class="anchored" data-anchor-id="simulación-de-pronóstico-usando-lstm-con-python">Simulación de Pronóstico Usando LSTM con Python</h2>
+<p>El pronóstico que realizamos para poner en marcha nuestro modelo LSTM es sobre el precio de cierre (close) del índice bursátil de Apple (AAPL). La librería o paquete principal para construcción de nuestro modelo fue <code>Tensorflow</code>. A continuación el lector puede apreciar la codificación que se llevó a cabo para poder construir nuestro modelo.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="co" style="color: #5E5E5E;"># Librerías </span></span>
+<span id="cb1-2"><span class="im" style="color: #00769E;">import</span> numpy <span class="im" style="color: #00769E;">as</span> np</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;">import</span> pandas <span class="im" style="color: #00769E;">as</span> pd</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;">as</span> plt</span>
+<span id="cb1-5"><span class="im" style="color: #00769E;">from</span> pandas <span class="im" style="color: #00769E;">import</span> datetime</span>
+<span id="cb1-6"><span class="im" style="color: #00769E;">import</span> math, time</span>
+<span id="cb1-7"><span class="im" style="color: #00769E;">import</span> itertools</span>
+<span id="cb1-8"><span class="im" style="color: #00769E;">from</span> sklearn <span class="im" style="color: #00769E;">import</span> preprocessing</span>
+<span id="cb1-9"><span class="im" style="color: #00769E;">import</span> datetime</span>
+<span id="cb1-10"><span class="im" style="color: #00769E;">from</span> operator <span class="im" style="color: #00769E;">import</span> itemgetter</span>
+<span id="cb1-11"><span class="im" style="color: #00769E;">from</span> sklearn.preprocessing <span class="im" style="color: #00769E;">import</span> MinMaxScaler</span>
+<span id="cb1-12"><span class="im" style="color: #00769E;">from</span> sklearn.metrics <span class="im" style="color: #00769E;">import</span> mean_squared_error</span>
+<span id="cb1-13"><span class="im" style="color: #00769E;">from</span> math <span class="im" style="color: #00769E;">import</span> sqrt</span>
+<span id="cb1-14"><span class="im" style="color: #00769E;">from</span> keras.models <span class="im" style="color: #00769E;">import</span> Sequential</span>
+<span id="cb1-15"><span class="im" style="color: #00769E;">from</span> keras.layers.core <span class="im" style="color: #00769E;">import</span> Dense, Dropout, Activation</span>
+<span id="cb1-16"><span class="im" style="color: #00769E;">from</span> keras.layers <span class="im" style="color: #00769E;">import</span> LSTM</span>
+<span id="cb1-17"><span class="im" style="color: #00769E;">from</span> keras.models <span class="im" style="color: #00769E;">import</span> load_model</span>
+<span id="cb1-18"><span class="im" style="color: #00769E;">import</span> keras</span>
+<span id="cb1-19"><span class="im" style="color: #00769E;">import</span> h5py</span>
+<span id="cb1-20"><span class="im" style="color: #00769E;">import</span> requests</span>
+<span id="cb1-21"><span class="im" style="color: #00769E;">import</span> os</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15680\3683430178.py:5: FutureWarning:
+
+The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead.
+</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;"># Cargamos nuestro Dataset</span></span>
+<span id="cb3-2">df <span class="op" style="color: #5E5E5E;">=</span> pd.read_csv(<span class="st" style="color: #20794D;">"prices-split-adjusted.csv"</span>, index_col <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span>)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="co" style="color: #5E5E5E;"># Graficamos el precio de cierre (Close) de AAPL</span></span>
+<span id="cb4-2">plt.figure(figsize<span class="op" style="color: #5E5E5E;">=</span>(<span class="dv" style="color: #AD0000;">15</span>, <span class="dv" style="color: #AD0000;">5</span>))<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb4-3">plt.subplot(<span class="dv" style="color: #AD0000;">1</span>,<span class="dv" style="color: #AD0000;">2</span>,<span class="dv" style="color: #AD0000;">1</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb4-4">plt.plot(df[df.symbol <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">'EQIX'</span>].close.values, color<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'green'</span>, label<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'close'</span>)</span>
+<span id="cb4-5">plt.title(<span class="st" style="color: #20794D;">'Indice de AAPL'</span>)</span>
+<span id="cb4-6">plt.xlabel(<span class="st" style="color: #20794D;">'días'</span>)</span>
+<span id="cb4-7">plt.ylabel(<span class="st" style="color: #20794D;">'precio de cierre (Close)'</span>)</span>
+<span id="cb4-8">plt.legend(loc<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'best'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>&lt;matplotlib.legend.Legend at 0x1eed0f0af50&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="https://mm218.dev/posts/RN/index_files/figure-html/cell-4-output-2.png" width="580" height="449"></p>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="co" style="color: #5E5E5E;"># data_df es nuestra data que comenzara a tratarse y posterioremente con la cual</span></span>
+<span id="cb6-2"><span class="co" style="color: #5E5E5E;"># se estara trabajando el resto del proyecto</span></span>
+<span id="cb6-3">data_df <span class="op" style="color: #5E5E5E;">=</span> pd.read_csv(<span class="st" style="color: #20794D;">"prices-split-adjusted.csv"</span>, index_col <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb6-4">data_df.head()</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>symbol</th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-01-05</th>
+      <td>WLTW</td>
+      <td>123.430000</td>
+      <td>125.839996</td>
+      <td>122.309998</td>
+      <td>126.250000</td>
+      <td>2163600.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-06</th>
+      <td>WLTW</td>
+      <td>125.239998</td>
+      <td>119.980003</td>
+      <td>119.940002</td>
+      <td>125.540001</td>
+      <td>2386400.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-07</th>
+      <td>WLTW</td>
+      <td>116.379997</td>
+      <td>114.949997</td>
+      <td>114.930000</td>
+      <td>119.739998</td>
+      <td>2489500.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-08</th>
+      <td>WLTW</td>
+      <td>115.480003</td>
+      <td>116.620003</td>
+      <td>113.500000</td>
+      <td>117.440002</td>
+      <td>2006300.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-11</th>
+      <td>WLTW</td>
+      <td>117.010002</td>
+      <td>114.970001</td>
+      <td>114.089996</td>
+      <td>117.330002</td>
+      <td>1408600.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">data_df <span class="op" style="color: #5E5E5E;">=</span> data_df[data_df.symbol <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">'AAPL'</span>]</span>
+<span id="cb7-2">data_df.drop([<span class="st" style="color: #20794D;">'symbol'</span>],<span class="dv" style="color: #AD0000;">1</span>,inplace<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb7-3">data_df.head()</span></code></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15680\1763401402.py:2: FutureWarning:
+
+In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.490000</td>
+      <td>30.572857</td>
+      <td>30.340000</td>
+      <td>30.642857</td>
+      <td>123432400.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.657143</td>
+      <td>30.625713</td>
+      <td>30.464285</td>
+      <td>30.798571</td>
+      <td>150476200.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.625713</td>
+      <td>30.138571</td>
+      <td>30.107143</td>
+      <td>30.747143</td>
+      <td>138040000.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.250000</td>
+      <td>30.082857</td>
+      <td>29.864286</td>
+      <td>30.285715</td>
+      <td>119282800.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.042856</td>
+      <td>30.282858</td>
+      <td>29.865715</td>
+      <td>30.285715</td>
+      <td>111902700.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">data_df[<span class="st" style="color: #20794D;">'date'</span>] <span class="op" style="color: #5E5E5E;">=</span> data_df.index</span>
+<span id="cb9-2">data_df.head()</span></code></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+      <th>date</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.490000</td>
+      <td>30.572857</td>
+      <td>30.340000</td>
+      <td>30.642857</td>
+      <td>123432400.0</td>
+      <td>2010-01-04</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.657143</td>
+      <td>30.625713</td>
+      <td>30.464285</td>
+      <td>30.798571</td>
+      <td>150476200.0</td>
+      <td>2010-01-05</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.625713</td>
+      <td>30.138571</td>
+      <td>30.107143</td>
+      <td>30.747143</td>
+      <td>138040000.0</td>
+      <td>2010-01-06</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.250000</td>
+      <td>30.082857</td>
+      <td>29.864286</td>
+      <td>30.285715</td>
+      <td>119282800.0</td>
+      <td>2010-01-07</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.042856</td>
+      <td>30.282858</td>
+      <td>29.865715</td>
+      <td>30.285715</td>
+      <td>111902700.0</td>
+      <td>2010-01-08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">data_df[<span class="st" style="color: #20794D;">'date'</span>] <span class="op" style="color: #5E5E5E;">=</span> pd.to_datetime(data_df[<span class="st" style="color: #20794D;">'date'</span>])</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">min_max_scaler <span class="op" style="color: #5E5E5E;">=</span> preprocessing.MinMaxScaler(feature_range<span class="op" style="color: #5E5E5E;">=</span>(<span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">1</span>))</span>
+<span id="cb11-2">dataset <span class="op" style="color: #5E5E5E;">=</span> min_max_scaler.fit_transform(data_df[<span class="st" style="color: #20794D;">'close'</span>].values.reshape(<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">1</span>, <span class="dv" style="color: #AD0000;">1</span>))</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">train_size <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">int</span>(<span class="bu" style="color: null;">len</span>(dataset) <span class="op" style="color: #5E5E5E;">*</span> <span class="fl" style="color: #AD0000;">0.7</span>)</span>
+<span id="cb12-2">test_size <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">len</span>(dataset) <span class="op" style="color: #5E5E5E;">-</span> train_size</span>
+<span id="cb12-3">train, test <span class="op" style="color: #5E5E5E;">=</span> dataset[<span class="dv" style="color: #AD0000;">0</span>:train_size,:], dataset[train_size:<span class="bu" style="color: null;">len</span>(dataset),:]</span>
+<span id="cb12-4"><span class="bu" style="color: null;">print</span>(<span class="bu" style="color: null;">len</span>(train), <span class="bu" style="color: null;">len</span>(test))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1233 529</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;"># create_dataset: convertir una matriz de valores en una matriz de conjunto de datos</span></span>
+<span id="cb14-2"><span class="kw" style="color: #003B4F;">def</span> create_dataset(dataset, look_back<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">15</span>):</span>
+<span id="cb14-3">    dataX, dataY <span class="op" style="color: #5E5E5E;">=</span> [], []</span>
+<span id="cb14-4">    <span class="cf" style="color: #003B4F;">for</span> i <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">range</span>(<span class="bu" style="color: null;">len</span>(dataset)<span class="op" style="color: #5E5E5E;">-</span>look_back<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">1</span>):</span>
+<span id="cb14-5">        a <span class="op" style="color: #5E5E5E;">=</span> dataset[i:(i<span class="op" style="color: #5E5E5E;">+</span>look_back), <span class="dv" style="color: #AD0000;">0</span>]</span>
+<span id="cb14-6">        dataX.append(a)</span>
+<span id="cb14-7">        dataY.append(dataset[i <span class="op" style="color: #5E5E5E;">+</span> look_back, <span class="dv" style="color: #AD0000;">0</span>])</span>
+<span id="cb14-8">    <span class="cf" style="color: #003B4F;">return</span> np.array(dataX), np.array(dataY)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">x_train, y_train <span class="op" style="color: #5E5E5E;">=</span> create_dataset(train, look_back<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">15</span>)</span>
+<span id="cb15-2">x_test, y_test <span class="op" style="color: #5E5E5E;">=</span> create_dataset(test, look_back<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">15</span>)</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="bu" style="color: null;">print</span>(x_train.shape)</span>
+<span id="cb16-2"><span class="bu" style="color: null;">print</span>(y_train.shape)</span>
+<span id="cb16-3"><span class="bu" style="color: null;">print</span>(x_test.shape)</span>
+<span id="cb16-4"><span class="bu" style="color: null;">print</span>(y_test.shape)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1217, 15)
+(1217,)
+(513, 15)
+(513,)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">x_train <span class="op" style="color: #5E5E5E;">=</span> np.reshape(x_train, (x_train.shape[<span class="dv" style="color: #AD0000;">0</span>], <span class="dv" style="color: #AD0000;">1</span>, x_train.shape[<span class="dv" style="color: #AD0000;">1</span>]))</span>
+<span id="cb18-2">x_test <span class="op" style="color: #5E5E5E;">=</span> np.reshape(x_test, (x_test.shape[<span class="dv" style="color: #AD0000;">0</span>], <span class="dv" style="color: #AD0000;">1</span>, x_test.shape[<span class="dv" style="color: #AD0000;">1</span>]))</span></code></pre></div>
+</div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;"># Creamos y entrenamos el modelo LSTM</span></span>
+<span id="cb19-2">look_back <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">15</span></span>
+<span id="cb19-3">model <span class="op" style="color: #5E5E5E;">=</span> Sequential()</span>
+<span id="cb19-4">model.add(LSTM(<span class="dv" style="color: #AD0000;">40</span>, input_shape<span class="op" style="color: #5E5E5E;">=</span>(<span class="dv" style="color: #AD0000;">1</span>, look_back)))</span>
+<span id="cb19-5">model.add(Dense(<span class="dv" style="color: #AD0000;">1</span>))</span>
+<span id="cb19-6">model.<span class="bu" style="color: null;">compile</span>(loss<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'mean_squared_error'</span>, optimizer<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'adam'</span>)</span>
+<span id="cb19-7">model.fit(x_train, y_train, epochs<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">60</span>, batch_size<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">12</span>, verbose<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">2</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 3s - loss: 0.0338 - 3s/epoch - 31ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 2/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 9.9663e-04 - 222ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 3/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 6.5925e-04 - 214ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 4/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 6.0674e-04 - 215ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 5/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 5.8148e-04 - 215ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 6/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 5.5606e-04 - 213ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 7/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 5.4358e-04 - 209ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 8/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 5.1103e-04 - 210ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 9/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.8448e-04 - 211ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 10/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.6867e-04 - 208ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 11/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.4561e-04 - 209ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 12/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.3198e-04 - 215ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 13/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.1709e-04 - 228ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 14/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.9856e-04 - 247ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 15/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.9495e-04 - 253ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 16/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.5599e-04 - 259ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 17/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.6534e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 18/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.2957e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 19/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.1943e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 20/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.2481e-04 - 256ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 21/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.9763e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 22/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.8552e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 23/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.8551e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 24/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.7440e-04 - 263ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 25/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.4704e-04 - 262ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 26/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.4839e-04 - 280ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 27/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.5600e-04 - 283ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 28/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.4723e-04 - 263ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 29/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3212e-04 - 265ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 30/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3427e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 31/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3414e-04 - 265ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 32/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.5744e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 33/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1674e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 34/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.0715e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 35/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1523e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 36/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1403e-04 - 274ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 37/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9267e-04 - 289ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 38/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8953e-04 - 285ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 39/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9211e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 40/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1431e-04 - 267ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 41/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8277e-04 - 275ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 42/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8529e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 43/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7988e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 44/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8537e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 45/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8835e-04 - 262ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 46/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9919e-04 - 269ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 47/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8098e-04 - 265ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 48/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8758e-04 - 274ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 49/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7596e-04 - 272ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 50/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.0812e-04 - 273ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 51/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8111e-04 - 295ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 52/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7374e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 53/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6604e-04 - 268ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 54/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7562e-04 - 293ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 55/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7096e-04 - 269ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 56/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6818e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 57/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5963e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 58/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7307e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 59/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6153e-04 - 266ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 60/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6028e-04 - 274ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;keras.callbacks.History at 0x1eed19e78e0&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb141" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb141-1"><span class="co" style="color: #5E5E5E;"># Metricas utilizadas en el modelo </span></span>
+<span id="cb141-2"></span>
+<span id="cb141-3">trainPredict <span class="op" style="color: #5E5E5E;">=</span> model.predict(x_train)</span>
+<span id="cb141-4">testPredict <span class="op" style="color: #5E5E5E;">=</span> model.predict(x_test)</span>
+<span id="cb141-5"><span class="co" style="color: #5E5E5E;"># invertimos las predicciones</span></span>
+<span id="cb141-6">trainPredict <span class="op" style="color: #5E5E5E;">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
+<span id="cb141-7">trainY <span class="op" style="color: #5E5E5E;">=</span> min_max_scaler.inverse_transform([y_train])</span>
+<span id="cb141-8">testPredict <span class="op" style="color: #5E5E5E;">=</span> min_max_scaler.inverse_transform(testPredict)</span>
+<span id="cb141-9">testY <span class="op" style="color: #5E5E5E;">=</span> min_max_scaler.inverse_transform([y_test])</span>
+<span id="cb141-10"><span class="co" style="color: #5E5E5E;"># calculate root mean squared </span></span>
+<span id="cb141-11">trainScore <span class="op" style="color: #5E5E5E;">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv" style="color: #AD0000;">0</span>], trainPredict[:,<span class="dv" style="color: #AD0000;">0</span>]))</span>
+<span id="cb141-12"><span class="bu" style="color: null;">print</span>(<span class="st" style="color: #20794D;">'Train Score: </span><span class="sc" style="color: #5E5E5E;">%.2f</span><span class="st" style="color: #20794D;"> RMSE'</span> <span class="op" style="color: #5E5E5E;">%</span> (trainScore))</span>
+<span id="cb141-13">testScore <span class="op" style="color: #5E5E5E;">=</span> math.sqrt(mean_squared_error(testY[<span class="dv" style="color: #AD0000;">0</span>], testPredict[:,<span class="dv" style="color: #AD0000;">0</span>]))</span>
+<span id="cb141-14"><span class="bu" style="color: null;">print</span>(<span class="st" style="color: #20794D;">'Test Score: </span><span class="sc" style="color: #5E5E5E;">%.2f</span><span class="st" style="color: #20794D;"> RMSE'</span> <span class="op" style="color: #5E5E5E;">%</span> (testScore))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/39 [..............................] - ETA: 21s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>28/39 [====================&gt;.........] - ETA: 0s </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/39 [==============================] - 1s 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/17 [&gt;.............................] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 [==============================] - 0s 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Train Score: 1.88 RMSE
+Test Score: 3.80 RMSE</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb148" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><span class="co" style="color: #5E5E5E;"># Graficamos los resultados </span></span>
+<span id="cb148-2"></span>
+<span id="cb148-3">trainPredictPlot <span class="op" style="color: #5E5E5E;">=</span> np.empty_like(dataset)</span>
+<span id="cb148-4">trainPredictPlot[:, :] <span class="op" style="color: #5E5E5E;">=</span> np.nan</span>
+<span id="cb148-5">trainPredictPlot[look_back:<span class="bu" style="color: null;">len</span>(trainPredict)<span class="op" style="color: #5E5E5E;">+</span>look_back, :] <span class="op" style="color: #5E5E5E;">=</span> trainPredict</span>
+<span id="cb148-6"></span>
+<span id="cb148-7">testPredictPlot <span class="op" style="color: #5E5E5E;">=</span> np.empty_like(dataset)</span>
+<span id="cb148-8">testPredictPlot[:, :] <span class="op" style="color: #5E5E5E;">=</span> np.nan</span>
+<span id="cb148-9">testPredictPlot[<span class="bu" style="color: null;">len</span>(trainPredict)<span class="op" style="color: #5E5E5E;">+</span>(look_back<span class="op" style="color: #5E5E5E;">*</span><span class="dv" style="color: #AD0000;">2</span>)<span class="op" style="color: #5E5E5E;">+</span><span class="dv" style="color: #AD0000;">1</span>:<span class="bu" style="color: null;">len</span>(dataset)<span class="op" style="color: #5E5E5E;">-</span><span class="dv" style="color: #AD0000;">1</span>, :] <span class="op" style="color: #5E5E5E;">=</span> testPredict</span>
+<span id="cb148-10"></span>
+<span id="cb148-11">plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Precio Historico"</span>)</span>
+<span id="cb148-12">plt.plot(trainPredictPlot, label <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Datos Entrenamiento"</span>)</span>
+<span id="cb148-13">plt.plot(testPredictPlot, label <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Predicción de Precio"</span>)</span>
+<span id="cb148-14">plt.legend()</span>
+<span id="cb148-15">plt.title(<span class="st" style="color: #20794D;">'Indice de AAPL'</span>)</span>
+<span id="cb148-16">plt.xlabel(<span class="st" style="color: #20794D;">'días'</span>)</span>
+<span id="cb148-17">plt.ylabel(<span class="st" style="color: #20794D;">'precio de cierre (Close)'</span>)</span>
+<span id="cb148-18">plt.show()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="https://mm218.dev/posts/RN/index_files/figure-html/cell-17-output-1.png" width="593" height="449"></p>
+</div>
+</div>
+<p>Un ejercicio interesante para el lector podría ser, asumir el reto de tratar de mejorar las métricas <code>RMSE</code> para Train como para el Test. Una posible alternativa es utilizar más capas intermedias. Intenta asumir el reto y comenta tus resultados aquí en el post.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>RNN</category>
+  <category>LSTM</category>
+  <category>Tensorflow</category>
+  <category>Python</category>
+  <guid>https://mm218.dev/posts/RN/index.html</guid>
+  <pubDate>Tue, 23 May 2023 06:00:00 GMT</pubDate>
+  <media:content url="https://mm218.dev/posts/RN/fondo.png" medium="image" type="image/png" height="71" width="144"/>
+</item>
 <item>
   <title>Estructuras de Mercado con Python</title>
   <dc:creator>Juan Isaula</dc:creator>
-  <link>https://mm218.dev/posts/estructuras_mercado/index.html</link>
+  <link>https://mm218.dev/posts/port_mg/estructuras_mercado/index.html</link>
   <description><![CDATA[ 
 
 
@@ -60,7 +920,7 @@
 <p>Por tanto, se dice que el beneficio de una empresa precio-aceptante se maximiza produciendo la cantidad de output para la cual el costo marginal de la última unidad producida es igual al precio de mercado, tal como se aprecia en el siguiente gráfico</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mm218.dev/posts/estructuras_mercado/equilibrio.jpeg" class="img-fluid figure-img"></p>
+<p><img src="https://mm218.dev/posts/port_mg/estructuras_mercado/equilibrio.jpeg" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Cantidad de producto que maximiza el beneficio de una empresa precio-aceptante</figcaption><p></p>
 </figure>
 </div>
@@ -154,10 +1014,10 @@
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">plot(CT, CT<span class="op" style="color: #5E5E5E;">/</span>Q, CV, CM, (Q,<span class="dv" style="color: #AD0000;">0</span>,<span class="dv" style="color: #AD0000;">100</span>), xlim <span class="op" style="color: #5E5E5E;">=</span> (<span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">100</span>), ylim <span class="op" style="color: #5E5E5E;">=</span> (<span class="dv" style="color: #AD0000;">0</span>,<span class="dv" style="color: #AD0000;">100</span>), xlabel <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"Q"</span>, ylabel <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"P"</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/estructuras_mercado/index_files/figure-html/cell-6-output-1.png" width="661" height="468"></p>
+<p><img src="https://mm218.dev/posts/port_mg/estructuras_mercado/index_files/figure-html/cell-6-output-1.png" width="661" height="468"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;sympy.plotting.plot.Plot at 0x1997ad7ef40&gt;</code></pre>
+<pre><code>&lt;sympy.plotting.plot.Plot at 0x27e122c6aa0&gt;</code></pre>
 </div>
 </div>
 <p>Puedes notar lo rápido y fácil que resulta realizar estos procedimientos con Python y la utilidad que puede brindarte en caso de que trabajes con volumnes de datos.</p>
@@ -222,10 +1082,10 @@
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">plot(CT,CM,CT<span class="op" style="color: #5E5E5E;">/</span>Q,(Q,<span class="dv" style="color: #AD0000;">0</span>,<span class="dv" style="color: #AD0000;">60</span>), xlim<span class="op" style="color: #5E5E5E;">=</span>(<span class="dv" style="color: #AD0000;">0</span>,<span class="dv" style="color: #AD0000;">5</span>), ylim<span class="op" style="color: #5E5E5E;">=</span>(<span class="dv" style="color: #AD0000;">0</span>,<span class="dv" style="color: #AD0000;">30</span>), xlabel<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'Q'</span>, ylabel<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">'CT,CM'</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/estructuras_mercado/index_files/figure-html/cell-11-output-1.png" width="661" height="468"></p>
+<p><img src="https://mm218.dev/posts/port_mg/estructuras_mercado/index_files/figure-html/cell-11-output-1.png" width="661" height="468"></p>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>&lt;sympy.plotting.plot.Plot at 0x1997b621bb0&gt;</code></pre>
+<pre><code>&lt;sympy.plotting.plot.Plot at 0x27e0c90e830&gt;</code></pre>
 </div>
 </div>
 <p>Recuerde que todo este análisis se realizo para un mercado en competencia perfecta a corto plazo.</p>
@@ -241,9 +1101,9 @@
   <category>CVP</category>
   <category>CTP</category>
   <category>Python</category>
-  <guid>https://mm218.dev/posts/estructuras_mercado/index.html</guid>
+  <guid>https://mm218.dev/posts/port_mg/estructuras_mercado/index.html</guid>
   <pubDate>Thu, 13 Apr 2023 06:00:00 GMT</pubDate>
-  <media:content url="https://mm218.dev/posts/estructuras_mercado/estruct_mercd.jpeg" medium="image" type="image/jpeg"/>
+  <media:content url="https://mm218.dev/posts/port_mg/estructuras_mercado/estruct_mercd.jpeg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Portfolio management</title>

@@ -2,7 +2,8 @@
   {
     "listing": "/blog.html",
     "items": [
-      "/posts/estructuras_mercado/index.html",
+      "/posts/RN/index.html",
+      "/posts/port_mg/estructuras_mercado/index.html",
       "/posts/port_mg/index.html",
       "/posts/tidyverse/index.html",
       "/posts/post-with-code/index.html",
