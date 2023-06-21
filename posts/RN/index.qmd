@@ -1,0 +1,261 @@
+---
+title: "Redes Neuronales Recurrentes (LSTM)"
+subtitle: "Pronósticos de índice AAPL"
+author: "Juan Isaula"
+date: "2023-05-23"
+categories: [RNN, LSTM, Tensorflow, Python]
+image: "fondo.png"
+---
+
+## 
+
+Las redes neuronales recurrentes son una arquitectura bastante empleada puesto que emplean los output de salida para retroalimentarse y continuar prediciendo un output.
+
+![](Figure.png)
+
+### Usos
+
+-   Principalmente sirve para contextos donde el orden importa y sirve como predictor recurrente (series de tiempo, textos, audios)
+
+-   Sin embargo, ¿que tanto recordar el pasado? ¿cuál es la consecuencia en el rendimiento y demora de estimación?
+
+-   Sus tipos más utilizados son `LSTM` y `GRU`
+
+En este post nos enfocaremos en utilizar, describir y simular la red LSTM.
+
+### Aplicaciones 
+
+-   Predictor de la siguiente palabra
+
+-   Series de tiempo
+
+-   No recomendable para transversal
+
+## Red de Memoria de Corto y Largo Plazo (LSTM)
+
+Las redes LSTM (Long Short-Term Memory) son un tipo especial de redes neuronales recurrentes diseñadas con celdas de memoria que mantienen su estado a largo plazo. El principal objetivo de este tipo de redes es la solución del desvanecimiento del gradiente experimentado en las redes recurrentes. Globalmente, el flujo computacional de LSTM se ve de la siguiente manera:
+
+![Flujo computacional de LSTM](Figure%204.16.png)
+
+Las redes neuronales recurrentes pasan solo un estado oculto $h_t$ a través de cada iteración. Pero LSTM pasa dos vectores: $h_t-$estado oculto *(memoria a corto plazo) y* $c_t-$estado celular *(memoria a largo plazo).*
+
+Las salidas de la celda LSTM se calculan a traves de las fórmulas que se muestran a continuación:
+
+$$\begin{eqnarray}
+i_t &=& \sigma(w_{ii}x_t + b_ii + w_{hi}h_{(t-1)} + b_{hi})\\[0.2cm]
+f_t &=& \sigma(w_{if}x_t + b_{if} + w_{hj}h_{(t-1)} + b_{hf})\\[0.2cm]
+g_t &=& \tanh(w_{ig}x_t + b_{ig} + w_{hg}h_{(t-1)} + b_{hn})\\[0.2cm]
+o_t &=& \sigma(w_{io}x_t + b_{io} + w_{ho}h_{(t-1)} + b_{ho})\\[0.2cm]
+c_t &=& f_t \circ c_{t-1} + i_t\circ g_t\\[0.2cm]
+h_t &=& o_t \circ \tanh(c_t)
+\end{eqnarray}$$
+
+donde:
+
+-   $\sigma$ es la función sigmoidea
+
+-   $\circ$ es el producto de Hadamard, que es:
+
+    $$
+    \begin{bmatrix}
+    a_1 \\
+    a_2 \\
+    a_3
+    \end{bmatrix} \circ 
+    \begin{bmatrix}
+    b_1 \\
+    b_2 \\
+    b_3 
+    \end{bmatrix} = \begin{bmatrix}
+    a_1b_1\\
+    a_2b_2\\
+    a_3b_3
+    \end{bmatrix}
+    $$
+
+### Variables
+
+1.  $i_t$ `(puerta de entrada)` es la variable que se utiliza para actualizar el estado de la celda $c_t$. El estado previamente oculto $c_t$ y la entrada secuencial actual $x_t$ se dan como entrada a una función sigmoidea. Si la salida está cerca a uno, más importante es la información.
+
+2.  $f_t$ `(puerta de olvido)` es la variable que decide que información debe olvidarse en el estado de celda $c_t$. El estadp previamente oculto $h_t$ y la entrada de secuencia $x_t$ se dan como entradas a una función sigmoidea. Si la salida $f_t$ está cerca de cero, entonces la información puede olvidarse, mientras que si la salida esta cerca de uno, la información debe almacenarse.
+
+3.  $g_t$ representa información importante potencialmente nueva para el estado celular $c_t$.
+
+4.  $c_t$ `(estado celular)` es una suma de:
+
+    -   Estado de celada anterior $c_{t-1}$ con alguna información olvidada $f_t$.
+
+    -   Nueva información de $g_t$.
+
+<!-- -->
+
+5.  $o_t$ `(puerta de salida)` es la variable para actualizar el estado oculto $h_t$.
+
+6.  $h_t$ `(estado oculto)` es el siguiente estado oculto que se calcula seleccionando la información importante $o_t$ del estado de celda $c_t$.
+
+La siguiente figura muestra el gráfico computacional de la `celda` `LSTM:`
+
+![Gráfico computacional de LSTM](Figure%204.17.png)
+
+La red LSTM tiene los siguientes parámetros, que se ajustan durante el entrenamiento:
+
+-   $w_{ii}, w_{hi}, w_{if}, w_{hf}, w_{ig}, w_{hg}, w_{io}, w_{ho}$ - Pesos
+
+-   $b_{ii}, b_{hi}, b_{if}, b_{hf}, b_{ig}, b_{io}, b_{ho}$ - Sesgos
+
+## Simulación de Pronóstico Usando LSTM con Python
+
+El pronóstico que realizamos para poner en marcha nuestro modelo LSTM es sobre el precio de cierre (close) del índice bursátil de Apple (AAPL). La librería o paquete principal para construcción de nuestro modelo fue `Tensorflow`. A continuación el lector puede apreciar la codificación que se llevó a cabo para poder construir nuestro modelo.
+
+```{python}
+# Librerías 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from pandas import datetime
+import math, time
+import itertools
+from sklearn import preprocessing
+import datetime
+from operator import itemgetter
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation
+from keras.layers import LSTM
+from keras.models import load_model
+import keras
+import h5py
+import requests
+import os
+```
+
+```{python}
+
+# Cargamos nuestro Dataset
+df = pd.read_csv("prices-split-adjusted.csv", index_col = 0)
+```
+
+```{python}
+# Graficamos el precio de cierre (Close) de AAPL
+plt.figure(figsize=(15, 5));
+plt.subplot(1,2,1);
+plt.plot(df[df.symbol == 'EQIX'].close.values, color='green', label='close')
+plt.title('Indice de AAPL')
+plt.xlabel('días')
+plt.ylabel('precio de cierre (Close)')
+plt.legend(loc='best')
+```
+
+```{python}
+# data_df es nuestra data que comenzara a tratarse y posterioremente con la cual
+# se estara trabajando el resto del proyecto
+data_df = pd.read_csv("prices-split-adjusted.csv", index_col = 0)
+data_df.head()
+```
+
+```{python}
+data_df = data_df[data_df.symbol == 'AAPL']
+data_df.drop(['symbol'],1,inplace=True)
+data_df.head()
+```
+
+```{python}
+data_df['date'] = data_df.index
+data_df.head()
+```
+
+```{python}
+data_df['date'] = pd.to_datetime(data_df['date'])
+```
+
+```{python}
+min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
+dataset = min_max_scaler.fit_transform(data_df['close'].values.reshape(-1, 1))
+```
+
+```{python}
+train_size = int(len(dataset) * 0.7)
+test_size = len(dataset) - train_size
+train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
+print(len(train), len(test))
+```
+
+```{python}
+# create_dataset: convertir una matriz de valores en una matriz de conjunto de datos
+def create_dataset(dataset, look_back=15):
+    dataX, dataY = [], []
+    for i in range(len(dataset)-look_back-1):
+        a = dataset[i:(i+look_back), 0]
+        dataX.append(a)
+        dataY.append(dataset[i + look_back, 0])
+    return np.array(dataX), np.array(dataY)
+```
+
+```{python}
+x_train, y_train = create_dataset(train, look_back=15)
+x_test, y_test = create_dataset(test, look_back=15)
+```
+
+```{python}
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+```
+
+```{python}
+x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
+x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
+```
+
+```{python}
+# Creamos y entrenamos el modelo LSTM
+look_back = 15
+model = Sequential()
+model.add(LSTM(40, input_shape=(1, look_back)))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam')
+model.fit(x_train, y_train, epochs=60, batch_size=12, verbose=2)
+```
+
+```{python}
+# Metricas utilizadas en el modelo 
+
+trainPredict = model.predict(x_train)
+testPredict = model.predict(x_test)
+# invertimos las predicciones
+trainPredict = min_max_scaler.inverse_transform(trainPredict)
+trainY = min_max_scaler.inverse_transform([y_train])
+testPredict = min_max_scaler.inverse_transform(testPredict)
+testY = min_max_scaler.inverse_transform([y_test])
+# calculate root mean squared 
+trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
+print('Train Score: %.2f RMSE' % (trainScore))
+testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
+print('Test Score: %.2f RMSE' % (testScore))
+```
+
+```{python}
+# Graficamos los resultados 
+
+trainPredictPlot = np.empty_like(dataset)
+trainPredictPlot[:, :] = np.nan
+trainPredictPlot[look_back:len(trainPredict)+look_back, :] = trainPredict
+
+testPredictPlot = np.empty_like(dataset)
+testPredictPlot[:, :] = np.nan
+testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
+
+plt.plot(min_max_scaler.inverse_transform(dataset), label = "Precio Historico")
+plt.plot(trainPredictPlot, label = "Datos Entrenamiento")
+plt.plot(testPredictPlot, label = "Predicción de Precio")
+plt.legend()
+plt.title('Indice de AAPL')
+plt.xlabel('días')
+plt.ylabel('precio de cierre (Close)')
+plt.show()
+```
+
+Un ejercicio interesante para el lector podría ser, asumir el reto de tratar de mejorar las métricas `RMSE` para Train como para el Test. Una posible alternativa es utilizar más capas intermedias. Intenta asumir el reto y comenta tus resultados aquí en el post.
