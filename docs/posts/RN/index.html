@@ -368,7 +368,7 @@ a_3b_3
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15680\3683430178.py:5: FutureWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22428\3683430178.py:5: FutureWarning:
 
 The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead.
 </code></pre>
@@ -388,7 +388,7 @@ The pandas.datetime class is deprecated and will be removed from pandas in a fut
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;matplotlib.legend.Legend at 0x1eed0f0af50&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x1e62400af50&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-4-output-2.png" width="580" height="449"></p>
@@ -480,7 +480,7 @@ The pandas.datetime class is deprecated and will be removed from pandas in a fut
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_df.drop([<span class="st">'symbol'</span>],<span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15680\1763401402.py:2: FutureWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22428\1763401402.py:2: FutureWarning:
 
 In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
 </code></pre>
@@ -686,391 +686,511 @@ In a future version of pandas all arguments of DataFrame.drop except for the arg
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>model.add(LSTM(<span class="dv">40</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, look_back)))</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">1</span>))</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mean_squared_error'</span>, optimizer<span class="op">=</span><span class="st">'adam'</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">60</span>, batch_size<span class="op">=</span><span class="dv">12</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">80</span>, batch_size<span class="op">=</span><span class="dv">12</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 1/60</code></pre>
+<pre><code>Epoch 1/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 3s - loss: 0.0338 - 3s/epoch - 31ms/step</code></pre>
+<pre><code>102/102 - 3s - loss: 0.0113 - 3s/epoch - 32ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 2/60</code></pre>
+<pre><code>Epoch 2/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 9.9663e-04 - 222ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 6.3842e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 3/60</code></pre>
+<pre><code>Epoch 3/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 6.5925e-04 - 214ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 5.7844e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 4/60</code></pre>
+<pre><code>Epoch 4/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 6.0674e-04 - 215ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 5.6023e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 5/60</code></pre>
+<pre><code>Epoch 5/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 5.8148e-04 - 215ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 5.1903e-04 - 263ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 6/60</code></pre>
+<pre><code>Epoch 6/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 5.5606e-04 - 213ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 4.8845e-04 - 257ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 7/60</code></pre>
+<pre><code>Epoch 7/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 5.4358e-04 - 209ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 4.5870e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 8/60</code></pre>
+<pre><code>Epoch 8/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 5.1103e-04 - 210ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 4.3559e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 9/60</code></pre>
+<pre><code>Epoch 9/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 4.8448e-04 - 211ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 4.0958e-04 - 261ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 10/60</code></pre>
+<pre><code>Epoch 10/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 4.6867e-04 - 208ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 3.9100e-04 - 266ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 11/60</code></pre>
+<pre><code>Epoch 11/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 4.4561e-04 - 209ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 3.6612e-04 - 263ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 12/60</code></pre>
+<pre><code>Epoch 12/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 4.3198e-04 - 215ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 3.5953e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 13/60</code></pre>
+<pre><code>Epoch 13/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 4.1709e-04 - 228ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 3.2104e-04 - 249ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 14/60</code></pre>
+<pre><code>Epoch 14/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.9856e-04 - 247ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 3.0965e-04 - 257ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 15/60</code></pre>
+<pre><code>Epoch 15/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.9495e-04 - 253ms/epoch - 2ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.8168e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 16/60</code></pre>
+<pre><code>Epoch 16/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.5599e-04 - 259ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.5952e-04 - 251ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 17/60</code></pre>
+<pre><code>Epoch 17/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.6534e-04 - 260ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.3784e-04 - 252ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 18/60</code></pre>
+<pre><code>Epoch 18/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.2957e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.3917e-04 - 255ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 19/60</code></pre>
+<pre><code>Epoch 19/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.1943e-04 - 260ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.6529e-04 - 253ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 20/60</code></pre>
+<pre><code>Epoch 20/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 3.2481e-04 - 256ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.2736e-04 - 251ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 21/60</code></pre>
+<pre><code>Epoch 21/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.9763e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.2051e-04 - 257ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 22/60</code></pre>
+<pre><code>Epoch 22/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.8552e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1977e-04 - 265ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 23/60</code></pre>
+<pre><code>Epoch 23/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.8551e-04 - 260ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.4310e-04 - 261ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 24/60</code></pre>
+<pre><code>Epoch 24/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.7440e-04 - 263ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.3080e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 25/60</code></pre>
+<pre><code>Epoch 25/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.4704e-04 - 262ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9992e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 26/60</code></pre>
+<pre><code>Epoch 26/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.4839e-04 - 280ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1494e-04 - 251ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 27/60</code></pre>
+<pre><code>Epoch 27/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.5600e-04 - 283ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1917e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 28/60</code></pre>
+<pre><code>Epoch 28/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.4723e-04 - 263ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.0118e-04 - 269ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 29/60</code></pre>
+<pre><code>Epoch 29/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.3212e-04 - 265ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1571e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 30/60</code></pre>
+<pre><code>Epoch 30/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.3427e-04 - 260ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9306e-04 - 255ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 31/60</code></pre>
+<pre><code>Epoch 31/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.3414e-04 - 265ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.5637e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 32/60</code></pre>
+<pre><code>Epoch 32/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.5744e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9886e-04 - 256ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 33/60</code></pre>
+<pre><code>Epoch 33/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.1674e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1006e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 34/60</code></pre>
+<pre><code>Epoch 34/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.0715e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8493e-04 - 266ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 35/60</code></pre>
+<pre><code>Epoch 35/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.1523e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9396e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 36/60</code></pre>
+<pre><code>Epoch 36/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.1403e-04 - 274ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9777e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 37/60</code></pre>
+<pre><code>Epoch 37/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.9267e-04 - 289ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8756e-04 - 259ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 38/60</code></pre>
+<pre><code>Epoch 38/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8953e-04 - 285ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8287e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 39/60</code></pre>
+<pre><code>Epoch 39/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.9211e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.7400e-04 - 255ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 40/60</code></pre>
+<pre><code>Epoch 40/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.1431e-04 - 267ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8051e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 41/60</code></pre>
+<pre><code>Epoch 41/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8277e-04 - 275ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8086e-04 - 267ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 42/60</code></pre>
+<pre><code>Epoch 42/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8529e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 2.1853e-04 - 267ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 43/60</code></pre>
+<pre><code>Epoch 43/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7988e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.7517e-04 - 256ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 44/60</code></pre>
+<pre><code>Epoch 44/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8537e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.9113e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 45/60</code></pre>
+<pre><code>Epoch 45/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8835e-04 - 262ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6536e-04 - 269ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 46/60</code></pre>
+<pre><code>Epoch 46/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.9919e-04 - 269ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.7508e-04 - 264ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 47/60</code></pre>
+<pre><code>Epoch 47/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8098e-04 - 265ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8322e-04 - 256ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 48/60</code></pre>
+<pre><code>Epoch 48/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8758e-04 - 274ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6636e-04 - 259ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 49/60</code></pre>
+<pre><code>Epoch 49/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7596e-04 - 272ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.7943e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 50/60</code></pre>
+<pre><code>Epoch 50/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 2.0812e-04 - 273ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8184e-04 - 255ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 51/60</code></pre>
+<pre><code>Epoch 51/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.8111e-04 - 295ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.8314e-04 - 254ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 52/60</code></pre>
+<pre><code>Epoch 52/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7374e-04 - 264ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6062e-04 - 259ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 53/60</code></pre>
+<pre><code>Epoch 53/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.6604e-04 - 268ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6473e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 54/60</code></pre>
+<pre><code>Epoch 54/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7562e-04 - 293ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6214e-04 - 255ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 55/60</code></pre>
+<pre><code>Epoch 55/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7096e-04 - 269ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.7255e-04 - 260ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 56/60</code></pre>
+<pre><code>Epoch 56/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.6818e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.5994e-04 - 268ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 57/60</code></pre>
+<pre><code>Epoch 57/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.5963e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6509e-04 - 271ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 58/60</code></pre>
+<pre><code>Epoch 58/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.7307e-04 - 261ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6058e-04 - 258ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 59/60</code></pre>
+<pre><code>Epoch 59/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.6153e-04 - 266ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.5973e-04 - 257ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 60/60</code></pre>
+<pre><code>Epoch 60/80</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>102/102 - 0s - loss: 1.6028e-04 - 274ms/epoch - 3ms/step</code></pre>
+<pre><code>102/102 - 0s - loss: 1.6962e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 61/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7296e-04 - 257ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 62/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8389e-04 - 250ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 63/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6510e-04 - 255ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 64/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5845e-04 - 255ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 65/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5989e-04 - 255ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 66/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6230e-04 - 254ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 67/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9168e-04 - 253ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 68/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.4577e-04 - 273ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 69/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5320e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 70/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7691e-04 - 252ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 71/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5635e-04 - 268ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 72/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.4415e-04 - 265ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 73/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6942e-04 - 262ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 74/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.4780e-04 - 266ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 75/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5037e-04 - 266ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 76/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6177e-04 - 259ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 77/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.5421e-04 - 253ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 78/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6364e-04 - 254ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 79/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6383e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 80/80</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.4784e-04 - 266ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>&lt;keras.callbacks.History at 0x1eed19e78e0&gt;</code></pre>
+<pre><code>&lt;keras.callbacks.History at 0x1e624aeb910&gt;</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metricas utilizadas en el modelo </span></span>
-<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
-<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
-<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co"># invertimos las predicciones</span></span>
-<span id="cb141-6"><a href="#cb141-6" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
-<span id="cb141-7"><a href="#cb141-7" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
-<span id="cb141-8"><a href="#cb141-8" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
-<span id="cb141-9"><a href="#cb141-9" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
-<span id="cb141-10"><a href="#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate root mean squared </span></span>
-<span id="cb141-11"><a href="#cb141-11" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb141-12"><a href="#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
-<span id="cb141-13"><a href="#cb141-13" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb141-14"><a href="#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metricas utilizadas en el modelo </span></span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="#cb181-3" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
+<span id="cb181-4"><a href="#cb181-4" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
+<span id="cb181-5"><a href="#cb181-5" aria-hidden="true" tabindex="-1"></a><span class="co"># invertimos las predicciones</span></span>
+<span id="cb181-6"><a href="#cb181-6" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
+<span id="cb181-7"><a href="#cb181-7" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
+<span id="cb181-8"><a href="#cb181-8" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
+<span id="cb181-9"><a href="#cb181-9" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
+<span id="cb181-10"><a href="#cb181-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate root mean squared </span></span>
+<span id="cb181-11"><a href="#cb181-11" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb181-12"><a href="#cb181-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
+<span id="cb181-13"><a href="#cb181-13" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb181-14"><a href="#cb181-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 1/39 [..............................] - ETA: 21s</code></pre>
+<pre><code> 1/39 [..............................] - ETA: 22s</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>28/39 [====================&gt;.........] - ETA: 0s </code></pre>
+<pre><code>26/39 [===================&gt;..........] - ETA: 0s </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>39/39 [==============================] - 1s 2ms/step</code></pre>
@@ -1082,29 +1202,29 @@ In a future version of pandas all arguments of DataFrame.drop except for the arg
 <pre><code>17/17 [==============================] - 0s 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train Score: 1.88 RMSE
-Test Score: 3.80 RMSE</code></pre>
+<pre><code>Train Score: 1.49 RMSE
+Test Score: 2.44 RMSE</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficamos los resultados </span></span>
-<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
-<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
-<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
-<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
-<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
-<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
-<span id="cb148-16"><a href="#cb148-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
-<span id="cb148-17"><a href="#cb148-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
-<span id="cb148-18"><a href="#cb148-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficamos los resultados </span></span>
+<span id="cb188-2"><a href="#cb188-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-3"><a href="#cb188-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb188-4"><a href="#cb188-4" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb188-5"><a href="#cb188-5" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
+<span id="cb188-6"><a href="#cb188-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-7"><a href="#cb188-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb188-8"><a href="#cb188-8" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb188-9"><a href="#cb188-9" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
+<span id="cb188-10"><a href="#cb188-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb188-11"><a href="#cb188-11" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
+<span id="cb188-12"><a href="#cb188-12" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
+<span id="cb188-13"><a href="#cb188-13" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
+<span id="cb188-14"><a href="#cb188-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb188-15"><a href="#cb188-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
+<span id="cb188-16"><a href="#cb188-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
+<span id="cb188-17"><a href="#cb188-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
+<span id="cb188-18"><a href="#cb188-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-17-output-1.png" width="593" height="449"></p>
 </div>
