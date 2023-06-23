@@ -19,6 +19,10 @@ Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar informa
 
 -   [Aula virtual Classroom](https://classroom.google.com/c/NTU0MTk3NDM2MzEw?cjc=kxeyk6r)
 
+<h4>Modulo II - Teoria del Productor</h4>
+
+-   [Elasticidad Sustitución, Función de costos y matriz sustitución](https://rpubs.com/Juan-Isaula/1057243)
+
 <h5>Videos</h5>
 
 1.  [Comandos Generales Python](https://youtu.be/tEAe82p6mAc)
