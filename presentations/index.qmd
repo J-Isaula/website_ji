@@ -27,6 +27,10 @@ Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar informa
 
 1.  [Comandos Generales Python](https://youtu.be/tEAe82p6mAc)
 
+<h4>Modulo III - Estructuras de Mercado</h4>
+
+-   [Ejercicios equilibro a corto plazo - Competencia Perfecta](https://www.kaggle.com/code/juanisaula/microeconom-a-competencia-perfecta)
+
 <h5>Asignaciones</h5>
 
 -   [Tarea I](https://drive.google.com/file/d/1tUYGfeYfEuzw5lQnxp4PurJmtz9PYCR8/view?usp=sharing)
