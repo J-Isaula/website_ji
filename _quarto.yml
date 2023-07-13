@@ -34,6 +34,9 @@ website:
         href: blog.html
       - text: "Dashboards"
         href: about.html
+      - text: "Historias"
+        href: sobre_juan.html
+        
         
   page-footer:
     left: "© Copyright 2022 Juan Isaula"

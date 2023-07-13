@@ -1,0 +1,15 @@
+---
+title: "Historias"
+---
+
+**Noche de Cine - 8/07/2023**
+
+![](cine.jpeg){width="13.1cm"}
+
+**Equipo de Trabajo - IHSS**
+
+![](trabajo.jpeg){width="13.1cm"}
+
+**Festejando Graduación (Lic. Matemáticas) de Amigos**
+
+![](amigos.jpeg){width="13.1cm"}
