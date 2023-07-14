@@ -21,9 +21,9 @@ page-layout: article
 ####################
 
 #Puedes omitir esta parte en el primer paso.
-format:
-  html:
-    include-after-body: ../footer.html
+#format:
+ # html:
+  #  include-after-body: ../footer.html
     
 
 comments: 
