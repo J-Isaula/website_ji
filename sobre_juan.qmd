@@ -2,6 +2,10 @@
 title: "Historias"
 ---
 
+**Participación en conversatorio estudiantes egresados de la Lic. Matemáticas UNAH 2023**
+
+![](conversatorio.jpeg){width="13.3cm"}
+
 **Noche de Cine - 8/07/2023**
 
 ![](cine.jpeg){width="13.1cm"}
