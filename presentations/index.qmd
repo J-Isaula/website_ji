@@ -30,6 +30,7 @@ Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar informa
 <h4>Modulo III - Estructuras de Mercado</h4>
 
 -   [Ejercicios equilibro a corto plazo - Competencia Perfecta](https://www.kaggle.com/code/juanisaula/microeconom-a-competencia-perfecta)
+-   [Competencia Perfecta: Largo y Corto Plazo](https://youtu.be/6d4HtvQE6hs)
 
 <h5>Asignaciones</h5>
 
