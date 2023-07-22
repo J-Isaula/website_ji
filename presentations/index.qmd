@@ -7,6 +7,12 @@ Saludos! Bienvenido a esta sección de mi website. Aquí podra encontrar informa
 
 <h1>2023</h1>
 
+<h2>Estadística Aplicada - Maestría UNAH</h2>
+
+Este apartado está dedicado a los estudiantes de la maestría en Formulación, Gestión y Evaluación de Proyectos de la UNAH. Donde podrán encontrar el contenido sobre el taller de ***fundamentos estadísticos utilizando el Software de `R`***. Mismo que tuve la oportunidad de impartirles.
+
+-   [Fundamentos estadísticos utilizando el Software de R](https://rpubs.com/Juan-Isaula/1065080)
+
 <h2>Microeconomía II - UNAH</h2>
 
 -   [Programa del curso](https://rpubs.com/Juan-Isaula/1044986)
