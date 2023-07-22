@@ -13,6 +13,8 @@ Este apartado está dedicado a los estudiantes de la maestría en Formulación, 
 
 -   [Fundamentos estadísticos utilizando el Software de R](https://rpubs.com/Juan-Isaula/1065080)
 
+-   [Libro sobre fundamentos estadísticos con R - Juan Isaula](https://j-isaula.github.io/Fudamentos_estadisticos_con_R/)
+
     -   Bases de datos utilizadas
 
         -   [co2.csv](https://drive.google.com/file/d/1WkpTw2l98euLOg8tzatGynkom1CvzGxb/view?usp=sharing)
