@@ -2,6 +2,12 @@
 title: "Historias"
 ---
 
+En esta sección de mi `website` conoceras un poco de las diferentes actividades que realizó o he realizado en algunos de mis días.
+
+**Linda Experiencia, impartiendo el curso sobre fundamentos estadísticos utilizando el software de R a estudiantes de la maestría en Gestión de Proyectos de la UNAH.**
+
+![](maestria_cr.png){fig-align="left" width="13.3cm"}
+
 **Participación en conversatorio estudiantes egresados de la Lic. Matemáticas UNAH 2023**
 
 ![](conversatorio.jpeg){width="13.3cm"}
