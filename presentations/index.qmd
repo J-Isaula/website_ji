@@ -45,11 +45,13 @@ Este apartado está dedicado a los estudiantes de la maestría en Formulación, 
 
 -   [Ejercicios equilibro a corto plazo - Competencia Perfecta](https://www.kaggle.com/code/juanisaula/microeconom-a-competencia-perfecta)
 -   [Competencia Perfecta: Largo y Corto Plazo](https://youtu.be/6d4HtvQE6hs)
+-   [Presentaciones sobre Monopolios](https://rpubs.com/Juan-Isaula/1065998)
 
 <h5>Asignaciones</h5>
 
 -   [Tarea I](https://drive.google.com/file/d/1tUYGfeYfEuzw5lQnxp4PurJmtz9PYCR8/view?usp=sharing)
 -   [Tarea 3 - Teoría del Productor](https://rpubs.com/Juan-Isaula/1058573)
+-   [Tarea Final - Estructuras de Mercado utilizando Python](https://rpubs.com/Juan-Isaula/1066709)
 
 <h4>Bibliografía Recomendada</h4>
 
