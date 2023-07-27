@@ -323,9 +323,11 @@ a_3b_3
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keras</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22384\2715629406.py:4: FutureWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_18244\2001173417.py:4: FutureWarning:
 
 The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead.
 </code></pre>
@@ -415,16 +417,11 @@ The pandas.datetime class is deprecated and will be removed from pandas in a fut
 </div>
 </div>
 </div>
+<p>Este bloque de código fue de mucha utilidad, dado que aquí filtramos de nuestro dataset unicamente la información para el indice de AAPL y visualizamos la data.</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> data_df[data_df.symbol <span class="op">==</span> <span class="st">'AAPL'</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_df.drop([<span class="st">'symbol'</span>],<span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22384\1763401402.py:2: FutureWarning:
-
-In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
-</code></pre>
-</div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -497,23 +494,24 @@ In a future version of pandas all arguments of DataFrame.drop except for the arg
 </div>
 <p>Preliminarmente con este bloque de código podemos ver como se comporta la serie correspondiente al precio de cierre de las acciones de AAPL.</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.plot(df[df.symbol <span class="op">==</span> <span class="st">'EQIX'</span>].close.values, color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'close'</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.plot(df[df.symbol <span class="op">==</span> <span class="st">'EQIX'</span>].close.values, color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'close'</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;matplotlib.legend.Legend at 0x22b528dd090&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x271a29a36d0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-4-output-2.png" width="580" height="449"></p>
+<p><img src="index_files/figure-html/cell-6-output-2.png" width="580" height="449"></p>
 </div>
 </div>
+<p>Necesitamos manipular nuestro campo de fecha para poder manipularlas como lo que son en realidad (fechas).</p>
 <div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> data_df.index</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> data_df.index</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
@@ -592,40 +590,42 @@ In a future version of pandas all arguments of DataFrame.drop except for the arg
 </div>
 </div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data_df[<span class="st">'date'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data_df[<span class="st">'date'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Transformamos los datos con <code>MinMaxScaler()</code> para que se distribuyan normal estándar, recuerde que esto es con media cero y varianza 1.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>min_max_scaler <span class="op">=</span> preprocessing.MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> min_max_scaler.fit_transform(data_df[<span class="st">'close'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>min_max_scaler <span class="op">=</span> preprocessing.MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> min_max_scaler.fit_transform(data_df[<span class="st">'close'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Dividimos la data en datos de entrenamiento (train), tomando el 70% de los datos para entrenar nuestro modelo y un 20% para prueba (test).</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(dataset) <span class="op">*</span> <span class="fl">0.7</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> dataset[<span class="dv">0</span>:train_size,:], dataset[train_size:<span class="bu">len</span>(dataset),:]</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(train), <span class="bu">len</span>(test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(dataset) <span class="op">*</span> <span class="fl">0.7</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> dataset[<span class="dv">0</span>:train_size,:], dataset[train_size:<span class="bu">len</span>(dataset),:]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(train), <span class="bu">len</span>(test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1233 529</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create_dataset: convertir una matriz de valores en una matriz de conjunto de datos</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataset(dataset, look_back<span class="op">=</span><span class="dv">15</span>):</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    dataX, dataY <span class="op">=</span> [], []</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dataset)<span class="op">-</span>look_back<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> dataset[i:(i<span class="op">+</span>look_back), <span class="dv">0</span>]</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        dataX.append(a)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        dataY.append(dataset[i <span class="op">+</span> look_back, <span class="dv">0</span>])</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(dataX), np.array(dataY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convertir una matriz de valores en una matriz de conjunto de datos</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataset(dataset, look_back<span class="op">=</span><span class="dv">15</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    dataX, dataY <span class="op">=</span> [], []</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dataset)<span class="op">-</span>look_back<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> dataset[i:(i<span class="op">+</span>look_back), <span class="dv">0</span>]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        dataX.append(a)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        dataY.append(dataset[i <span class="op">+</span> look_back, <span class="dv">0</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(dataX), np.array(dataY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x_train, y_train <span class="op">=</span> create_dataset(train, look_back<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_test, y_test <span class="op">=</span> create_dataset(test, look_back<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_train, y_train <span class="op">=</span> create_dataset(train, look_back<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x_test, y_test <span class="op">=</span> create_dataset(test, look_back<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(1217, 15)
 (1217,)
@@ -634,237 +634,240 @@ In a future version of pandas all arguments of DataFrame.drop except for the arg
 </div>
 </div>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> np.reshape(x_train, (x_train.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_train.shape[<span class="dv">1</span>]))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> np.reshape(x_test, (x_test.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_test.shape[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> np.reshape(x_train, (x_train.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_train.shape[<span class="dv">1</span>]))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> np.reshape(x_test, (x_test.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_test.shape[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Comenzamos a crear y entrenar nuestro modelo <code>LSTM</code>.</p>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>look_back <span class="op">=</span> <span class="dv">15</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Sequential()</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>model.add(LSTM(<span class="dv">20</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, look_back)))</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">1</span>))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mean_squared_error'</span>, optimizer<span class="op">=</span><span class="st">'adam'</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">90</span>, batch_size<span class="op">=</span><span class="dv">8</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>look_back <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Sequential()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>model.add(LSTM(<span class="dv">20</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, look_back)))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">1</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mean_squared_error'</span>, optimizer<span class="op">=</span><span class="st">'adam'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">90</span>, batch_size<span class="op">=</span><span class="dv">8</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Epoch 1/90
-153/153 - 3s - loss: 0.0144 - 3s/epoch - 18ms/step
+153/153 - 2s - loss: 0.0119 - 2s/epoch - 14ms/step
 Epoch 2/90
-153/153 - 0s - loss: 7.3287e-04 - 303ms/epoch - 2ms/step
+153/153 - 0s - loss: 9.6276e-04 - 288ms/epoch - 2ms/step
 Epoch 3/90
-153/153 - 0s - loss: 6.2582e-04 - 327ms/epoch - 2ms/step
+153/153 - 0s - loss: 8.8813e-04 - 292ms/epoch - 2ms/step
 Epoch 4/90
-153/153 - 0s - loss: 5.8566e-04 - 297ms/epoch - 2ms/step
+153/153 - 0s - loss: 8.3095e-04 - 278ms/epoch - 2ms/step
 Epoch 5/90
-153/153 - 0s - loss: 5.5215e-04 - 277ms/epoch - 2ms/step
+153/153 - 0s - loss: 7.8288e-04 - 272ms/epoch - 2ms/step
 Epoch 6/90
-153/153 - 0s - loss: 5.0818e-04 - 282ms/epoch - 2ms/step
+153/153 - 0s - loss: 7.1542e-04 - 283ms/epoch - 2ms/step
 Epoch 7/90
-153/153 - 0s - loss: 4.6773e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 6.7978e-04 - 269ms/epoch - 2ms/step
 Epoch 8/90
-153/153 - 0s - loss: 4.4348e-04 - 271ms/epoch - 2ms/step
+153/153 - 0s - loss: 6.3023e-04 - 289ms/epoch - 2ms/step
 Epoch 9/90
-153/153 - 0s - loss: 4.0881e-04 - 271ms/epoch - 2ms/step
+153/153 - 0s - loss: 5.9592e-04 - 279ms/epoch - 2ms/step
 Epoch 10/90
-153/153 - 0s - loss: 3.5949e-04 - 272ms/epoch - 2ms/step
+153/153 - 0s - loss: 5.1601e-04 - 263ms/epoch - 2ms/step
 Epoch 11/90
-153/153 - 0s - loss: 3.2554e-04 - 267ms/epoch - 2ms/step
+153/153 - 0s - loss: 4.7350e-04 - 274ms/epoch - 2ms/step
 Epoch 12/90
-153/153 - 0s - loss: 3.2272e-04 - 284ms/epoch - 2ms/step
+153/153 - 0s - loss: 4.2442e-04 - 278ms/epoch - 2ms/step
 Epoch 13/90
-153/153 - 0s - loss: 3.0798e-04 - 294ms/epoch - 2ms/step
+153/153 - 0s - loss: 4.0850e-04 - 278ms/epoch - 2ms/step
 Epoch 14/90
-153/153 - 0s - loss: 2.8015e-04 - 277ms/epoch - 2ms/step
+153/153 - 0s - loss: 3.8631e-04 - 270ms/epoch - 2ms/step
 Epoch 15/90
-153/153 - 0s - loss: 2.6102e-04 - 305ms/epoch - 2ms/step
+153/153 - 0s - loss: 3.4026e-04 - 287ms/epoch - 2ms/step
 Epoch 16/90
-153/153 - 0s - loss: 2.5473e-04 - 286ms/epoch - 2ms/step
+153/153 - 0s - loss: 3.0195e-04 - 279ms/epoch - 2ms/step
 Epoch 17/90
-153/153 - 0s - loss: 2.5740e-04 - 274ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.8499e-04 - 271ms/epoch - 2ms/step
 Epoch 18/90
-153/153 - 0s - loss: 2.3218e-04 - 276ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.8213e-04 - 273ms/epoch - 2ms/step
 Epoch 19/90
-153/153 - 0s - loss: 2.4220e-04 - 284ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.8426e-04 - 280ms/epoch - 2ms/step
 Epoch 20/90
-153/153 - 0s - loss: 2.3475e-04 - 278ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.6981e-04 - 274ms/epoch - 2ms/step
 Epoch 21/90
-153/153 - 0s - loss: 2.4080e-04 - 274ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.7207e-04 - 269ms/epoch - 2ms/step
 Epoch 22/90
-153/153 - 0s - loss: 2.1525e-04 - 285ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.4794e-04 - 272ms/epoch - 2ms/step
 Epoch 23/90
-153/153 - 0s - loss: 1.9898e-04 - 274ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.2445e-04 - 274ms/epoch - 2ms/step
 Epoch 24/90
-153/153 - 0s - loss: 1.9950e-04 - 278ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.4292e-04 - 265ms/epoch - 2ms/step
 Epoch 25/90
-153/153 - 0s - loss: 2.0529e-04 - 278ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.3801e-04 - 274ms/epoch - 2ms/step
 Epoch 26/90
-153/153 - 0s - loss: 1.9305e-04 - 277ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.1008e-04 - 271ms/epoch - 2ms/step
 Epoch 27/90
-153/153 - 0s - loss: 1.8783e-04 - 277ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.2027e-04 - 291ms/epoch - 2ms/step
 Epoch 28/90
-153/153 - 0s - loss: 1.9714e-04 - 279ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.3405e-04 - 303ms/epoch - 2ms/step
 Epoch 29/90
-153/153 - 0s - loss: 1.7969e-04 - 294ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.1462e-04 - 273ms/epoch - 2ms/step
 Epoch 30/90
-153/153 - 0s - loss: 1.8689e-04 - 291ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.3080e-04 - 273ms/epoch - 2ms/step
 Epoch 31/90
-153/153 - 0s - loss: 1.8982e-04 - 320ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9909e-04 - 279ms/epoch - 2ms/step
 Epoch 32/90
-153/153 - 0s - loss: 1.9369e-04 - 279ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.0332e-04 - 289ms/epoch - 2ms/step
 Epoch 33/90
-153/153 - 0s - loss: 1.9933e-04 - 277ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9911e-04 - 270ms/epoch - 2ms/step
 Epoch 34/90
-153/153 - 0s - loss: 2.0339e-04 - 269ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9420e-04 - 278ms/epoch - 2ms/step
 Epoch 35/90
-153/153 - 0s - loss: 1.9237e-04 - 272ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8527e-04 - 282ms/epoch - 2ms/step
 Epoch 36/90
-153/153 - 0s - loss: 1.7185e-04 - 270ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8217e-04 - 272ms/epoch - 2ms/step
 Epoch 37/90
-153/153 - 0s - loss: 1.6439e-04 - 260ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.0329e-04 - 269ms/epoch - 2ms/step
 Epoch 38/90
-153/153 - 0s - loss: 1.7969e-04 - 265ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7543e-04 - 270ms/epoch - 2ms/step
 Epoch 39/90
-153/153 - 0s - loss: 1.7865e-04 - 308ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8637e-04 - 268ms/epoch - 2ms/step
 Epoch 40/90
-153/153 - 0s - loss: 1.5508e-04 - 283ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9488e-04 - 269ms/epoch - 2ms/step
 Epoch 41/90
-153/153 - 0s - loss: 1.6661e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7651e-04 - 280ms/epoch - 2ms/step
 Epoch 42/90
-153/153 - 0s - loss: 1.6076e-04 - 262ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7406e-04 - 271ms/epoch - 2ms/step
 Epoch 43/90
-153/153 - 0s - loss: 1.8203e-04 - 269ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8201e-04 - 276ms/epoch - 2ms/step
 Epoch 44/90
-153/153 - 0s - loss: 1.6055e-04 - 264ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.0165e-04 - 272ms/epoch - 2ms/step
 Epoch 45/90
-153/153 - 0s - loss: 1.5235e-04 - 261ms/epoch - 2ms/step
+153/153 - 0s - loss: 2.0059e-04 - 275ms/epoch - 2ms/step
 Epoch 46/90
-153/153 - 0s - loss: 1.6118e-04 - 273ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7266e-04 - 274ms/epoch - 2ms/step
 Epoch 47/90
-153/153 - 0s - loss: 1.7323e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7451e-04 - 266ms/epoch - 2ms/step
 Epoch 48/90
-153/153 - 0s - loss: 1.5603e-04 - 285ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8333e-04 - 272ms/epoch - 2ms/step
 Epoch 49/90
-153/153 - 0s - loss: 1.5801e-04 - 285ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7878e-04 - 269ms/epoch - 2ms/step
 Epoch 50/90
-153/153 - 0s - loss: 1.5858e-04 - 270ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9194e-04 - 280ms/epoch - 2ms/step
 Epoch 51/90
-153/153 - 0s - loss: 1.5804e-04 - 270ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7421e-04 - 267ms/epoch - 2ms/step
 Epoch 52/90
-153/153 - 0s - loss: 1.5132e-04 - 279ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8509e-04 - 276ms/epoch - 2ms/step
 Epoch 53/90
-153/153 - 0s - loss: 1.4734e-04 - 278ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8356e-04 - 279ms/epoch - 2ms/step
 Epoch 54/90
-153/153 - 0s - loss: 1.6771e-04 - 272ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7766e-04 - 271ms/epoch - 2ms/step
 Epoch 55/90
-153/153 - 0s - loss: 1.7266e-04 - 262ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5567e-04 - 276ms/epoch - 2ms/step
 Epoch 56/90
-153/153 - 0s - loss: 1.4392e-04 - 268ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7006e-04 - 272ms/epoch - 2ms/step
 Epoch 57/90
-153/153 - 0s - loss: 1.6880e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5956e-04 - 271ms/epoch - 2ms/step
 Epoch 58/90
-153/153 - 0s - loss: 1.6696e-04 - 267ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5452e-04 - 269ms/epoch - 2ms/step
 Epoch 59/90
-153/153 - 0s - loss: 1.3825e-04 - 267ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.6344e-04 - 271ms/epoch - 2ms/step
 Epoch 60/90
-153/153 - 0s - loss: 1.5644e-04 - 286ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5703e-04 - 276ms/epoch - 2ms/step
 Epoch 61/90
-153/153 - 0s - loss: 1.5604e-04 - 283ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.6866e-04 - 269ms/epoch - 2ms/step
 Epoch 62/90
-153/153 - 0s - loss: 1.5187e-04 - 268ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5820e-04 - 272ms/epoch - 2ms/step
 Epoch 63/90
-153/153 - 0s - loss: 1.4693e-04 - 271ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4862e-04 - 270ms/epoch - 2ms/step
 Epoch 64/90
-153/153 - 0s - loss: 1.5686e-04 - 265ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4398e-04 - 274ms/epoch - 2ms/step
 Epoch 65/90
-153/153 - 0s - loss: 1.4721e-04 - 262ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4715e-04 - 277ms/epoch - 2ms/step
 Epoch 66/90
-153/153 - 0s - loss: 1.5262e-04 - 265ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5672e-04 - 270ms/epoch - 2ms/step
 Epoch 67/90
-153/153 - 0s - loss: 1.5268e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5291e-04 - 279ms/epoch - 2ms/step
 Epoch 68/90
-153/153 - 0s - loss: 1.4894e-04 - 265ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5207e-04 - 270ms/epoch - 2ms/step
 Epoch 69/90
-153/153 - 0s - loss: 1.4569e-04 - 263ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4768e-04 - 266ms/epoch - 2ms/step
 Epoch 70/90
-153/153 - 0s - loss: 1.5435e-04 - 260ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.6930e-04 - 273ms/epoch - 2ms/step
 Epoch 71/90
-153/153 - 0s - loss: 1.5697e-04 - 270ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.8949e-04 - 271ms/epoch - 2ms/step
 Epoch 72/90
-153/153 - 0s - loss: 1.3938e-04 - 271ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5904e-04 - 268ms/epoch - 2ms/step
 Epoch 73/90
-153/153 - 0s - loss: 1.6325e-04 - 268ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.9100e-04 - 272ms/epoch - 2ms/step
 Epoch 74/90
-153/153 - 0s - loss: 1.4462e-04 - 275ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4562e-04 - 279ms/epoch - 2ms/step
 Epoch 75/90
-153/153 - 0s - loss: 1.6269e-04 - 262ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5246e-04 - 276ms/epoch - 2ms/step
 Epoch 76/90
-153/153 - 0s - loss: 1.4115e-04 - 274ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4978e-04 - 270ms/epoch - 2ms/step
 Epoch 77/90
-153/153 - 0s - loss: 1.5824e-04 - 281ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7064e-04 - 279ms/epoch - 2ms/step
 Epoch 78/90
-153/153 - 0s - loss: 1.5657e-04 - 275ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4964e-04 - 280ms/epoch - 2ms/step
 Epoch 79/90
-153/153 - 0s - loss: 1.4743e-04 - 275ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.6193e-04 - 272ms/epoch - 2ms/step
 Epoch 80/90
-153/153 - 0s - loss: 1.4593e-04 - 268ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5477e-04 - 270ms/epoch - 2ms/step
 Epoch 81/90
-153/153 - 0s - loss: 1.6640e-04 - 284ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4173e-04 - 276ms/epoch - 2ms/step
 Epoch 82/90
-153/153 - 0s - loss: 1.6029e-04 - 283ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4961e-04 - 283ms/epoch - 2ms/step
 Epoch 83/90
-153/153 - 0s - loss: 1.4648e-04 - 278ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5209e-04 - 277ms/epoch - 2ms/step
 Epoch 84/90
-153/153 - 0s - loss: 1.4501e-04 - 264ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5614e-04 - 363ms/epoch - 2ms/step
 Epoch 85/90
-153/153 - 0s - loss: 1.5148e-04 - 266ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4769e-04 - 309ms/epoch - 2ms/step
 Epoch 86/90
-153/153 - 0s - loss: 1.4457e-04 - 272ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4400e-04 - 275ms/epoch - 2ms/step
 Epoch 87/90
-153/153 - 0s - loss: 1.4235e-04 - 270ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.4312e-04 - 308ms/epoch - 2ms/step
 Epoch 88/90
-153/153 - 0s - loss: 1.5492e-04 - 260ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.7844e-04 - 294ms/epoch - 2ms/step
 Epoch 89/90
-153/153 - 0s - loss: 1.4852e-04 - 273ms/epoch - 2ms/step
+153/153 - 0s - loss: 1.5337e-04 - 335ms/epoch - 2ms/step
 Epoch 90/90
-153/153 - 0s - loss: 1.4412e-04 - 262ms/epoch - 2ms/step</code></pre>
+153/153 - 0s - loss: 1.4771e-04 - 296ms/epoch - 2ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>&lt;keras.callbacks.History at 0x22b61ae1090&gt;</code></pre>
+<pre><code>&lt;keras.callbacks.History at 0x271a2fc1030&gt;</code></pre>
 </div>
 </div>
+<p>Evaluamos nuestro modelo, utilizando la métrica del RMSE para los datos de train y test.</p>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># invertimos las predicciones</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate root mean squared e</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># invertimos las predicciones</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate root mean squared e</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 1/39 [..............................] - ETA: 13s39/39 [==============================] - 0s 1ms/step
- 1/17 [&gt;.............................] - ETA: 0s17/17 [==============================] - 0s 1ms/step
-Train Score: 1.39 RMSE
-Test Score: 2.27 RMSE</code></pre>
+<pre><code> 1/39 [..............................] - ETA: 14s37/39 [===========================&gt;..] - ETA: 0s 39/39 [==============================] - 0s 1ms/step
+ 1/17 [&gt;.............................] - ETA: 0s17/17 [==============================] - 0s 3ms/step
+Train Score: 1.18 RMSE
+Test Score: 1.88 RMSE</code></pre>
 </div>
 </div>
+<p>Finalmente, observamos nuestro resultados gráficamente</p>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shift train predictions for plotting</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shift test predictions for plotting</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot baseline and predictions</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shift train predictions for plotting</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># shift test predictions for plotting</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot baseline and predictions</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="index_files/figure-html/cell-17-output-1.png" width="575" height="411"></p>
 </div>
