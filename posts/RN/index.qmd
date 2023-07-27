@@ -81,8 +81,175 @@ La red LSTM tiene los siguientes parámetros, que se ajustan durante el entrenam
 
 -   $b_{ii}, b_{hi}, b_{if}, b_{hf}, b_{ig}, b_{io}, b_{ho}$ - Sesgos
 
-```{python}
+Los modelos LSTM son lo suficientemente potentes como para aprender los comportamientos pasados más importantes y comprender si esos comportamientos pasados son características importantes para hacer predicciones futuras. Hay varias aplicaciones en las que las LSTM se utilizan mucho. Aplicaciones como reconocimiento de voz, composición musical, reconocimiento de escritura a mano.
 
+Particularmente considero que las LSTM es como un modelo que tiene su propia memoria y que puede comportarse como un humano inteligente en la toma de desiciones.
+
+## Pronósticos para el índice de AAPL utilizando una red LSTM
+
+A continuación realizaremos un ejercicio donde intentamos pronósticar el precio de cierre (Close) del índice de AAPL, la data la puede encontrar dando click en [prices-split-adjusted.csv](https://drive.google.com/file/d/1xtSPf1AcXKzOgpe8pvzQZN5HB40F-w5y/view?usp=sharing) .
+
+Comenzamos importando las librerías a utilizar.
+
+```{python warning = false}
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from pandas import datetime
+import math, time
+import itertools
+from sklearn import preprocessing
+import datetime
+from operator import itemgetter
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation
+from keras.layers import LSTM
+from keras.models import load_model
+import keras
+import h5py
+import requests
+import os
+import warnings
+warnings.filterwarnings('ignore')
+
 ```
+
+Cargamos el DataSet y lo almacenamos en la variable `df` y `data_df`. La data almacenada en `data_df` es la que utilizaremos para realizar todo nuestro estudio.
+
+```{python}
+df = pd.read_csv("prices-split-adjusted.csv", index_col = 0)
+```
+
+```{python}
+data_df = pd.read_csv("prices-split-adjusted.csv", index_col = 0)
+data_df.head()
+```
+
+Este bloque de código fue de mucha utilidad, dado que aquí filtramos de nuestro dataset unicamente la información para el indice de AAPL y visualizamos la data.
+
+```{python}
+data_df = data_df[data_df.symbol == 'AAPL']
+data_df.drop(['symbol'],1,inplace=True)
+data_df.head()
+```
+
+Preliminarmente con este bloque de código podemos ver como se comporta la serie correspondiente al precio de cierre de las acciones de AAPL.
+
+```{python}
+plt.figure(figsize=(15, 5));
+plt.subplot(1,2,1);
+plt.plot(df[df.symbol == 'EQIX'].close.values, color='green', label='close')
+plt.title('Indice de AAPL')
+plt.xlabel('días')
+plt.ylabel('precio de cierre (Close)')
+plt.legend(loc='best')
+```
+
+Necesitamos manipular nuestro campo de fecha para poder manipularlas como lo que son en realidad (fechas).
+
+```{python}
+data_df['date'] = data_df.index
+data_df.head()
+```
+
+```{python}
+data_df['date'] = pd.to_datetime(data_df['date'])
+```
+
+Transformamos los datos con `MinMaxScaler()` para que se distribuyan normal estándar, recuerde que esto es con media cero y varianza 1.
+
+```{python}
+min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0, 1))
+dataset = min_max_scaler.fit_transform(data_df['close'].values.reshape(-1, 1))
+```
+
+Dividimos la data en datos de entrenamiento (train), tomando el 70% de los datos para entrenar nuestro modelo y un 20% para prueba (test).
+
+```{python}
+train_size = int(len(dataset) * 0.7)
+test_size = len(dataset) - train_size
+train, test = dataset[0:train_size,:], dataset[train_size:len(dataset),:]
+print(len(train), len(test))
+```
+
+```{python}
+# convertir una matriz de valores en una matriz de conjunto de datos
+def create_dataset(dataset, look_back=15):
+    dataX, dataY = [], []
+    for i in range(len(dataset)-look_back-1):
+        a = dataset[i:(i+look_back), 0]
+        dataX.append(a)
+        dataY.append(dataset[i + look_back, 0])
+    return np.array(dataX), np.array(dataY)
+```
+
+```{python}
+x_train, y_train = create_dataset(train, look_back=15)
+x_test, y_test = create_dataset(test, look_back=15)
+```
+
+```{python}
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+```
+
+```{python}
+x_train = np.reshape(x_train, (x_train.shape[0], 1, x_train.shape[1]))
+x_test = np.reshape(x_test, (x_test.shape[0], 1, x_test.shape[1]))
+```
+
+Comenzamos a crear y entrenar nuestro modelo `LSTM`.
+
+```{python}
+look_back = 15
+model = Sequential()
+model.add(LSTM(20, input_shape=(1, look_back)))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam')
+model.fit(x_train, y_train, epochs=90, batch_size=8, verbose=2)
+```
+
+Evaluamos nuestro modelo, utilizando la métrica del RMSE para los datos de train y test.
+
+```{python}
+trainPredict = model.predict(x_train)
+testPredict = model.predict(x_test)
+# Invertimos las predicciones, dado que las habiamos transformado con MinMaxScaler
+trainPredict = min_max_scaler.inverse_transform(trainPredict)
+trainY = min_max_scaler.inverse_transform([y_train])
+testPredict = min_max_scaler.inverse_transform(testPredict)
+testY = min_max_scaler.inverse_transform([y_test])
+# calculamos el RMSE
+trainScore = math.sqrt(mean_squared_error(trainY[0], trainPredict[:,0]))
+print('Train Score: %.2f RMSE' % (trainScore))
+testScore = math.sqrt(mean_squared_error(testY[0], testPredict[:,0]))
+print('Test Score: %.2f RMSE' % (testScore))
+```
+
+Finalmente, observamos nuestro resultados gráficamente
+
+```{python}
+
+trainPredictPlot = np.empty_like(dataset)
+trainPredictPlot[:, :] = np.nan
+trainPredictPlot[look_back:len(trainPredict)+look_back, :] = trainPredict
+
+testPredictPlot = np.empty_like(dataset)
+testPredictPlot[:, :] = np.nan
+testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
+
+plt.plot(min_max_scaler.inverse_transform(dataset), label = "Precio Historico")
+plt.plot(trainPredictPlot, label = "Datos Entrenamiento")
+plt.plot(testPredictPlot, label = "Predicción de Precio")
+plt.legend()
+plt.show()
+```
+
+Note que nuestros resultados son muy buenos, sin embargo, podrían mejorarse, quizas aplicando más capas ocultas a nuestra red, recuerde que solo utilizamos 20. Este podría ser un buen ejercicio para que usted intente mejorar estos resultados.
+
+Recuerda que puedes comentar este post, agradeceria que lo hagas ya sea para alguna sugerencia u observación. Saludos espero hayas conocido un poco sobre este tipo de Red Neuronal en particular y su potente poder predectivo.
