@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.475">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Juan Isaula">
+<meta name="dcterms.date" content="2023-04-13">
+
+<title>Juan Isaula - Estructuras de Mercado con Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Juan Isaula - Estructuras de Mercado con Python">
+<meta property="og:description" content="Competencia Perfecta, Monopolio y Oligopolio">
+<meta property="og:image" content="https://mm218.dev/posts\estructuras_mercado\estruct_mercd.jpeg">
+<meta property="og:site-name" content="Juan Isaula">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:title" content="Juan Isaula - Estructuras de Mercado con Python">
+<meta name="twitter:description" content="Competencia Perfecta, Monopolio y Oligopolio">
+<meta name="twitter:image" content="https://mm218.dev/posts\estructuras_mercado\estruct_mercd.jpeg">
+<meta name="twitter:creator" content="@MikeMahoney218">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Juan Isaula</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../papers">
+ <span class="menu-text">Papers</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentations">
+ <span class="menu-text">Cursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#qué-aprenderá" id="toc-qué-aprenderá" class="nav-link active" data-scroll-target="#qué-aprenderá">Qué aprenderá</a></li>
+  <li><a href="#competencia-perfecta" id="toc-competencia-perfecta" class="nav-link" data-scroll-target="#competencia-perfecta">Competencia Perfecta</a>
+  <ul class="collapse">
+  <li><a href="#condiciones-necesaria-para-la-competencia-perfecta" id="toc-condiciones-necesaria-para-la-competencia-perfecta" class="nav-link" data-scroll-target="#condiciones-necesaria-para-la-competencia-perfecta">Condiciones necesaria para la competencia perfecta</a></li>
+  <li><a href="#libre-entrada-y-salida" id="toc-libre-entrada-y-salida" class="nav-link" data-scroll-target="#libre-entrada-y-salida">Libre entrada y salida</a>
+  <ul class="collapse">
+  <li><a href="#regla-de-producción-optima" id="toc-regla-de-producción-optima" class="nav-link" data-scroll-target="#regla-de-producción-optima">Regla de Producción Optima</a></li>
+  <li><a href="#función-de-benenficios" id="toc-función-de-benenficios" class="nav-link" data-scroll-target="#función-de-benenficios">Función de Benenficios</a></li>
+  <li><a href="#tomador-de-precios" id="toc-tomador-de-precios" class="nav-link" data-scroll-target="#tomador-de-precios">Tomador de Precios</a></li>
+  </ul></li>
+  <li><a href="#costes-y-producción-en-el-corto-plazo" id="toc-costes-y-producción-en-el-corto-plazo" class="nav-link" data-scroll-target="#costes-y-producción-en-el-corto-plazo">Costes y Producción en el Corto Plazo</a></li>
+  <li><a href="#ejemplo-1--corto-plazo" id="toc-ejemplo-1--corto-plazo" class="nav-link" data-scroll-target="#ejemplo-1--corto-plazo">Ejemplo # 1- Corto Plazo</a>
+  <ul class="collapse">
+  <li><a href="#ejemplo-2---corto-plazo" id="toc-ejemplo-2---corto-plazo" class="nav-link" data-scroll-target="#ejemplo-2---corto-plazo">Ejemplo # 2 - Corto Plazo</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Estructuras de Mercado con Python</h1>
+<p class="subtitle lead">Competencia Perfecta, Monopolio y Oligopolio</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">CMg</div>
+    <div class="quarto-category">CVP</div>
+    <div class="quarto-category">CTP</div>
+    <div class="quarto-category">Python</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Juan Isaula </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 13, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Este post tiene como objetivo dar a conocer la importancia del <code>software</code> de <code>Python</code> en el ambito microeconomico, particularmente en este caso hablamos de las diferentes <code>estructuras de mercado</code>; <code>competencia perfecta</code>, <code>monopolio</code> y <code>oligopolio</code>.</p>
+<section id="qué-aprenderá" class="level3">
+<h3 class="anchored" data-anchor-id="qué-aprenderá">Qué aprenderá</h3>
+<ul>
+<li><p>El comportamiento de la industria en el <strong>corto plazo</strong> y en el <strong>largo plazo</strong></p></li>
+<li><p><strong>Curva de oferta de la industria</strong> a corto plazo y largo plazo</p></li>
+</ul>
+</section>
+<section id="competencia-perfecta" class="level1">
+<h1>Competencia Perfecta</h1>
+<p>Un <strong>productor precio-aceptante</strong> es aquel cuyas acciones no tienen efecto sobre el precio de mercado del bien que vende</p>
+<p>Un <strong>consumidor precio-aceptante</strong> es aquel cuyas acciones no tienen efecto sobre el precio de mercado del bien que compra.</p>
+<p>Un <strong>mercado perfectamente competitivo</strong> es quel en el cual todos los participantes son precio-aceptantes.</p>
+<p>Una <strong>industria perfectamente competitiva</strong> es aquella en la cual los productores son precio-aceptantes.</p>
+<section id="condiciones-necesaria-para-la-competencia-perfecta" class="level2">
+<h2 class="anchored" data-anchor-id="condiciones-necesaria-para-la-competencia-perfecta">Condiciones necesaria para la competencia perfecta</h2>
+<ul>
+<li><p>Muchos productores, ninguno de los cuales tiene una gran cuota de mercado.</p></li>
+<li><p>Una industria puede ser perfectamente competitiva sólo si los consumidores consideran como equivalentes a los productos de todos los productores (<strong>producto homogéneo</strong>)</p></li>
+</ul>
+</section>
+<section id="libre-entrada-y-salida" class="level2">
+<h2 class="anchored" data-anchor-id="libre-entrada-y-salida">Libre entrada y salida</h2>
+<p>Existe <strong>libre entrada y salida en una industria</strong> cuando nuevos productores pueden entrar facilmente en esa industria a los que ya estan en ella pueden abondonarla sin coste alguno.</p>
+<section id="regla-de-producción-optima" class="level3">
+<h3 class="anchored" data-anchor-id="regla-de-producción-optima">Regla de Producción Optima</h3>
+<p>La <strong>regla de producción optima</strong> dice que el beneficio se maximiza cuando se produce la cantidad de output para la cual el ingreso marginal de la última unidad de output producida es igual a su coste marginal.</p>
+<p><span class="math display">\[
+IMg = CMg
+\]</span></p>
+</section>
+<section id="función-de-benenficios" class="level3">
+<h3 class="anchored" data-anchor-id="función-de-benenficios">Función de Benenficios</h3>
+<p>La función de beneficios <span class="math inline">\((\pi)\)</span> representa las diferencias entre los costos totales, <span class="math inline">\(C(Q)\)</span> e ingresos totales,<span class="math inline">\(R(Q)\)</span> , de las empresas</p>
+<p><span class="math display">\[
+\pi = R(Q) - C(Q)
+\]</span></p>
+</section>
+<section id="tomador-de-precios" class="level3">
+<h3 class="anchored" data-anchor-id="tomador-de-precios">Tomador de Precios</h3>
+<p>Precio igual al costo marginal</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+CMg = IMg = P
+\end{eqnarray*}
+\]</span></p>
+<p>Por tanto, se dice que el beneficio de una empresa precio-aceptante se maximiza produciendo la cantidad de output para la cual el costo marginal de la última unidad producida es igual al precio de mercado, tal como se aprecia en el siguiente gráfico</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="equilibrio.jpeg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Cantidad de producto que maximiza el beneficio de una empresa precio-aceptante</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="costes-y-producción-en-el-corto-plazo" class="level2">
+<h2 class="anchored" data-anchor-id="costes-y-producción-en-el-corto-plazo">Costes y Producción en el Corto Plazo</h2>
+<p>En el corto plazo tenemos las siguientes condiciones de producción de empresas competitivas</p>
+<table class="table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 92%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Condiciones</th>
+<th>Resultados</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P &gt; CVMe mínimo</td>
+<td>La empresa produce en el corto plazo. Si P &lt; CTMe mínimo, la empresa cubre sus costos variables y parte de sus costes fijos pero no todos. Si P &gt; CTMe mínimo, la empresa cubre todos sus costes variables y sus costes fijos.</td>
+</tr>
+<tr class="even">
+<td>P = CVMe mínimo</td>
+<td>La empresa es indiferente entre producir en el corto plazo o no producir. Cubre exactamente sus costes variables.</td>
+</tr>
+<tr class="odd">
+<td>P &lt; CVMe mínimo</td>
+<td>La empresa cierra en el corto plazo. No cubre sus costes variables.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejemplo-1--corto-plazo" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-1--corto-plazo">Ejemplo # 1- Corto Plazo</h2>
+<p>Primero resolveremos el siguiente ejercicio de manera manual y posteriormente lo resolveremos en Python.</p>
+<p>Suponga que la empresa tiene una curva de costos de corto plazo dada por</p>
+<p><span class="math display">\[
+C(Q) = 100 + 20Q + Q^2
+\]</span></p>
+<ul>
+<li><p>¿Cuál es la ecuación para el costo variable Medio?</p></li>
+<li><p>¿Cuál es el valor mínimo para el costo variable promedio?</p></li>
+<li><p>¿Cuál es la curva de oferta de corto plazo?</p></li>
+</ul>
+<p><strong><em>Solución</em></strong></p>
+<ul>
+<li><p>Dada la función de costo <span class="math inline">\(C(Q) = 100 + 20Q + Q^2\)</span> es claro que el costo variable, CV, esta dado por <span class="math display">\[CV = 20Q + Q^2\]</span> por tanto su costo variable promedio es <span class="math display">\[CVMe = \frac{CV}{Q} = 20 + Q\]</span></p></li>
+<li><p>Ahora bien, su costo marginal sabemos que unicamente requiere aplicar la regla de diferenciación, ya que <span class="math display">\[CMg = \frac{\partial C(Q)}{\partial Q} = 20 + 2Q\]</span></p></li>
+<li><p>Si queremos encontrar el costo variable promedio mínimo, <span class="math display">\[CVMe_{\min}\]</span>, se obtiene como <span class="math display">\[CMg = CVMe \longrightarrow Q = \fbox{0}\]</span></p></li>
+<li><p>Entonces la función de oferta es: <span class="math display">\[\begin{eqnarray*}CMg &amp;=&amp; p\\[0.2cm] 20 + 2Q &amp;=&amp; P\\[0.2cm] Q(P) &amp;=&amp; \frac{P}{2} - 10 \end{eqnarray*}\]</span></p></li>
+</ul>
+<p>Por tanto, también podemos obtener el precio de equilibrio, ya que <span class="math display">\[0 = \frac{P}{2} - 10 \longrightarrow P = \fbox{20}\]</span></p>
+<p>Ahora, encontremos estos resultados en Python:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Paquete previo </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Q <span class="op">=</span> symbols(<span class="st">"Q"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># función de costo de corto plazo </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>CT <span class="op">=</span> <span class="dv">100</span> <span class="op">+</span> <span class="dv">20</span><span class="op">*</span>Q <span class="op">+</span> Q<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># costo variale promedio </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>CV <span class="op">=</span> <span class="dv">20</span> <span class="op">+</span> Q </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Encontrar el costo variable minimo </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero: costo marginal</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>CM <span class="op">=</span> diff(CT,Q)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># igualar costo marginal y costo variable promedio </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>solve(Eq(CM,CV))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>[0]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cantidad <span class="op">=</span> solve(Eq(CM,CV))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cantidad[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<p><span class="math inline">\(\displaystyle 0\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> CV.subs({Q:cantidad[<span class="dv">0</span>]})</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>P</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<p><span class="math inline">\(\displaystyle 20\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot(CT, CT<span class="op">/</span>Q, CV, CM, (Q,<span class="dv">0</span>,<span class="dv">100</span>), xlim <span class="op">=</span> (<span class="dv">0</span>, <span class="dv">100</span>), ylim <span class="op">=</span> (<span class="dv">0</span>,<span class="dv">100</span>), xlabel <span class="op">=</span> <span class="st">"Q"</span>, ylabel <span class="op">=</span> <span class="st">"P"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-6-output-1.png" width="661" height="468"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>&lt;sympy.plotting.plot.Plot at 0x1997ad7ef40&gt;</code></pre>
+</div>
+</div>
+<p>Puedes notar lo rápido y fácil que resulta realizar estos procedimientos con Python y la utilidad que puede brindarte en caso de que trabajes con volumnes de datos.</p>
+<section id="ejemplo-2---corto-plazo" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-2---corto-plazo">Ejemplo # 2 - Corto Plazo</h3>
+<p>Ahora suponga que la empresa tiene una curva costos en el corto plazo de la siguiente forma:</p>
+<p><span class="math display">\[
+C(Q) = 1 + 10Q + Q^2
+\]</span></p>
+<p>Si la empresa opera en un mercado perfectamente competitivo, donde <span class="math inline">\(P = 12\)</span>, ¿Cuál será los beneficios de la empresa en el corto plazo?</p>
+<p><strong><em>Solución</em></strong></p>
+<p>Sabemos que la función de beneficios esta dada por</p>
+<p><span class="math display">\[
+\pi = R - C
+\]</span></p>
+<p>entonces,</p>
+<p><span class="math display">\[
+\frac{\partial \pi}{\partial Q} = IMg - CMg = 0
+\]</span></p>
+<p>así pues,</p>
+<p><span class="math display">\[
+CMg = 10 + 2Q \hspace{1cm}y\hspace{1cm} IMg = P
+\]</span></p>
+<p>por tanto,</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+CMg &amp;=&amp; IMg\\[0.2cm]
+10 + 2Q &amp;=&amp; P\\[0.2cm]
+Q &amp;=&amp; \frac{P}{2} - 5\\[0.2cm]
+Q &amp;=&amp; \frac{12}{2} - 5, \hspace{2cm}\mbox{ya que P = 12}\\[0.2cm]
+Q &amp;=&amp; \fbox{1}
+\end{eqnarray*}
+\]</span></p>
+<p>entonces,</p>
+<p><span class="math display">\[
+\pi = 12 - (1 + 10 +1) = \fbox{0}
+\]</span></p>
+<p>Ahora veamos esta solución en Python:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Función de costos a corto plazo </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Q <span class="op">=</span> symbols(<span class="st">"Q"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>CT <span class="op">=</span> Q<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">10</span><span class="op">*</span>Q <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> <span class="dv">12</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> P<span class="op">*</span>Q</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># costo marginal</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>CM <span class="op">=</span> diff(CT,Q)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>CM</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>IM <span class="op">=</span> diff(R,Q)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>IM</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>cantidad <span class="op">=</span> solve(Eq(IM,CM))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"El valor de la producción que garantiza un equilibrio será:"</span>, cantidad[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>El valor de la producción que garantiza un equilibrio será: 1</code></pre>
+</div>
+</div>
+<p>Este resultado lo que nos dice es que la empresa oferta una unidad de producción <span class="math inline">\(Q = 1\)</span>.</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Beneficio = IT - CT</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>costo <span class="op">=</span> CT.subs({Q:cantidad[<span class="dv">0</span>]})</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>costo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<p><span class="math inline">\(\displaystyle 12\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ingreso <span class="op">=</span> R.subs({Q:cantidad[<span class="dv">0</span>]})</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ingreso </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<p><span class="math inline">\(\displaystyle 12\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Beneficios <span class="op">=</span> R <span class="op">-</span> CT</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> Beneficios.subs({Q:cantidad[<span class="dv">0</span>]})</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<p><span class="math inline">\(\displaystyle 0\)</span></p>
+</div>
+</div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot(CT,CM,CT<span class="op">/</span>Q,(Q,<span class="dv">0</span>,<span class="dv">60</span>), xlim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">5</span>), ylim<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">30</span>), xlabel<span class="op">=</span><span class="st">'Q'</span>, ylabel<span class="op">=</span><span class="st">'CT,CM'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="index_files/figure-html/cell-11-output-1.png" width="661" height="468"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>&lt;sympy.plotting.plot.Plot at 0x1997b621bb0&gt;</code></pre>
+</div>
+</div>
+<p>Recuerde que todo este análisis se realizo para un mercado en competencia perfecta a corto plazo.</p>
+<p><code>Pronto actualizare para el mercado en competencia perfecta a largo plazo, monopolio, e introducirnos un poco a la teoria de juegos.</code></p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://utteranc.es/client.js" repo="Isaula/blogComments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2022 Juan Isaula</div>   
+  </div>
+</footer>
+
+
+
+</body></html>
