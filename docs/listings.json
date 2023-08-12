@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/XGBoost/index.html",
       "/posts/RN/index.html",
       "/posts/port_mg/estructuras_mercado/index.html",
       "/posts/port_mg/index.html",
