@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://mm218.dev/blog.html</loc>
-    <lastmod>2023-08-12T19:24:02.239Z</lastmod>
+    <lastmod>2023-09-14T05:47:40.367Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/posts/port_mg/index.html</loc>
@@ -71,5 +71,9 @@
   <url>
     <loc>https://mm218.dev/posts/XGBoost/index.html</loc>
     <lastmod>2023-08-12T19:23:46.105Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mm218.dev/posts/risk_score/index.html</loc>
+    <lastmod>2023-09-14T05:47:27.380Z</lastmod>
   </url>
 </urlset>
