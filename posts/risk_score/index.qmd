@@ -1,0 +1,234 @@
+---
+title: "Credit Scoring and Segmentation using Python"
+subtitle: "Machine Learning"
+author: "Juan Isaula"
+date: "2023-09-13"
+categories: [FICO, Credit Scores, Python, sklearn]
+image: "gatito.jpeg"
+---
+
+La calificación crediticia y la segmentación se refieren al proceso de evaluar la solvencia de personas o empresas y dividirlos en distintos grupos según sus perfiles crediticios. Su objetivo es evaluar la probabilidad de que los prestatarios pagen sus deudas y ayuda a las instituciones financieras a tomar decisiones informadas sobre préstamos y gestión del riesgo crediticio. Si desea aprender a calcular `puntajes crediticios` y `segmentar` clientes en función de sus puntajes crediticios, este artículo es para usted. En este artículo, lo guiaré a través de la tarea de segementación y calificación crediticia usando `Python`.
+
+# Calificación crediticia y segmentación: descripción general
+
+El proceso de calcular puntajes crediticios y segmentar clientes en función de sus puntajes crediticios implica varios pasos. En primer lugar, se recopilan y organizan datos relevantes sobre los prestatarios, como:
+
+-   historial de pagos,
+
+-   utilización del crédito
+
+-   historial crediticio
+
+-   combinación de créditos.
+
+Luego, utilizando algoritmos complejos y modelos estadísticos, los datos recopilados se analizan para generar calificaciones crediticias para cada prestatario.
+
+Estos puntajes crediticios son representación numéricas de la solvencia del prestatario e indican la probabilidad de incumplimiento o pago oportuno. Una vez que se calculan los puntajes crediticios, los clientes se segmentan en diferentes categorías de riesgo o niveles de crédito según umbrales predefinidos.
+
+Esta segmentación ayuda a las instituciones financieras a evaluar el riesgo crediticio asociado con cada cliente y a tomar decisiones informadas sobre aprobaciones de préstamos, tasas de interés y límites de crédito. Al clasificar a los clientes en segmentos, las instituciones financieras pueden gestionar mejor sus carteras de préstamos y mitigar eficazmente el riesgo de posibles incumplimientos.
+
+Entonces, para comenzar con la tarea de calificación y segmentación crediticia, primero necesitamos tener los datos apropiados. Encontré un conjuntos de datos ideal para esta tarea. Puede descargar el conjunto de datos desde [Aquí](https://statso.io/credit-scoring-case-study/).
+
+## Calificación crediticia y segmentación usando Python 
+
+Ahora comencemos con la tarea de segmentación y calificación crediticia importando las bibliotecas de Python necesarias y el conjunto de datos
+
+```{python}
+import pandas as pd
+import plotly.graph_objects as go
+import plotly.express as px
+import plotly.io as pio
+pio.templates.default = "plotly_white"
+
+data = pd.read_csv("credit_scoring.csv")
+data.head()
+```
+
+A continuación se muestra la descripción de todas los campos de los datos:
+
+1.   `Age:` representa la edad del individuo
+
+2.  `Gender:` identifica el género del individuo
+
+3.  `Marital Status:` denota el estado civil del individuo
+
+4.  `Education Level:` representa en nivel más alto de educación alcanzado por el individuo.
+
+5.  `Employment Status:` indica el estado de empleo actual del individuo
+
+6.  `Credit Utilization:` refleja la proporción de crédito utilizado por el individuo en comparación con su límite de crédito total disponible.
+
+7.  `Interest Rate:` tasa de interés asociada con el préstamo.
+
+8.  `Payment History:` representa el comportamiento de pago neto mensual de cada cliente, tomando en cuenta factores como pagos a tiempo, pagos atrasados, pagos atrasados e incumplimientos.
+
+9.  `Number of Credit Accounts:` representa el conteo de cuentas de crédito activas que posee la persona.
+
+10. `Loan Amount:` indica el valor monetario del préstamo.
+
+11. `Loan Term:` indica la duraciòn o plazo del préstamo.
+
+12. `Type of Loan:` incluye categorías como "Préstamo personal", "Préstamo para automovil" o potencialmente otro tipos de préstamos.
+
+Ahora echemos un vistazo a las estadísticas de las columnas antes de seguir adelante:
+
+```{python}
+data.info()
+```
+
+Ahora echemos un vistazo a las estadísticas descriptivas de los datos:
+
+```{python}
+data.describe()
+```
+
+Ahora echemos un vistazo a la distribución del índice de utilización del crédito en los datos:
+
+```{python}
+credit_utilization_fig = px.box(data, y='Credit Utilization Ratio',
+                                title='Distribución del índice de utilización del crédito')
+credit_utilization_fig.show()
+```
+
+Ahora echemos un vistazo a la distribución del monto del préstamo en los datos:
+
+```{python}
+loan_amount_fig = px.histogram(data, x='Loan Amount', 
+                               nbins=20, 
+                               title='Distribución del monto del préstamo')
+loan_amount_fig.show()
+```
+
+Luego, echemos un vistazo a la correlación en los datos:
+
+```{python}
+numeric_df = data[['Credit Utilization Ratio', 
+                   'Payment History', 
+                   'Number of Credit Accounts', 
+                   'Loan Amount', 'Interest Rate', 
+                   'Loan Term']]
+correlation_fig = px.imshow(numeric_df.corr(), 
+                            title='Mapa de calor de correlación')
+correlation_fig.show()
+```
+
+## Calcular puntajes de crédito 
+
+El conjunto de datos no tiene ninguna característica que represente los puntajes crediticios de las personas. Para calcular las puntuaciones de crédito, debemos utilizar una técnica adecuada. Existen varias técnicas ampliamente utilizadas para calcular puntajes credeticios, cada una con su propio proceso de cálculo. Un ejemplo es el puntaje `FICO`, es un modelo de calificación crediticia comúnmente utilizado en la industria.
+
+A continuación se muestra cómo podemos implementar el método de puntuación ***FICO*** para calcular las puntuaciones de crédito.
+
+```{python}
+# Definir el mapeo para características categóricas
+education_level_mapping = {'High School': 1, 'Bachelor': 2, 'Master': 3, 'PhD': 4}
+employment_status_mapping = {'Unemployed': 0, 'Employed': 1, 'Self-Employed': 2}
+
+# Aplicar mapeo  a características categóricas
+data['Education Level'] = data['Education Level'].map(education_level_mapping)
+data['Employment Status'] = data['Employment Status'].map(employment_status_mapping)
+
+# Calcule puntajes de crédito utilizando la fórmula FICO completa
+credit_scores = []
+
+for index, row in data.iterrows():
+    payment_history = row['Payment History']
+    credit_utilization_ratio = row['Credit Utilization Ratio']
+    number_of_credit_accounts = row['Number of Credit Accounts']
+    education_level = row['Education Level']
+    employment_status = row['Employment Status']
+    
+    # Apliaue la fórmula FICO para calcular el puntaje crediticio
+    credit_score = (payment_history * 0.35) + (credit_utilization_ratio * 0.30) + (number_of_credit_accounts * 0.15) + (education_level * 0.10) + (employment_status * 0.10)
+    credit_scores.append(credit_score)
+
+# Agregue los puntajes de crédito como una nueva columna al DataFrame
+data['Credit Score'] = credit_scores
+
+data.head()
+```
+
+A continuación se muestra cómo funciona el código anterior:
+
+1.  En primer lugar, define asignaciones para dos características categóricas: *"Nivel de educación"* y *"Estado laboral".* La asignación de *"Nivel de educación"* asigna valores numéricos a diferentes niveles de educación, como *"Escuela secundaria"* asignada a 1*, "Licenciatura"* a *2, "Maestría"* a 3 y *"Doctorado"* a 4. El *"Estado de empleo"* el mapeo asigna valores numéricos a diferentes estados laborales, como *"desempleado"* asignado a 0, *"empleado"* asigna 1 y "*autónomo*" a 2.
+
+2.  A continuación, el código aplica las asignaciones definidas a las columnas correspondientes en el DataFrame. Transforma los valores de las columnas *"Nivel de educación"* y *"Estado de empleo"* de su forma categórica original a las representaciones numéricas asignadas.
+
+3.   Después de eso, el código inicia una iteración sobre cada fila del DataFrame para calcular las puntuaciones de crédito de cada individuo. Recupera los valores de características relevantes, como *"Historial de pagos"*, *"índice de utilización de crédito", "Número de cuentas de crédito", "Nivel de educación" y "Estado de empleo",* de cada fila.
+
+Dentro de la iteración, se aplica la fórmula `FICO` para calcular el puntaje de crediticio de cada individuo. La fórmula incorpora los valores ponderados de las características mencionadas anteriormente:
+
+1.  Peso del 35% para *"Historial de pagos (Payment History)"*
+2.  Peso del 30% para el "índice de utilización de crédito (Credit Utilization Ratio)"
+3.  Peso del 15% para "Número de cuentas de crédito (Number of Credit Accounts)"
+4.  10% de peso para "Nivel de educación (Education Level)"
+5.  y 10% de ponderación para *"Estatus laboral (Employment Status)"*
+
+Luego, el puntaje crediticio calculado se almacena en una lista llamada `"credit_scores"`.
+
+## Segmentación basada en puntakes crediticios
+
+Ahora, usemos el algoritmo de agrupamiento KMeans para segmentar a los clientes según sus puntajes crediticios.
+
+```{python}
+import warnings
+warnings.filterwarnings('ignore')
+import numpy as np
+from sklearn.cluster import KMeans
+
+X = data[['Credit Score']]
+X = np.nan_to_num(X)
+kmeans = KMeans(n_clusters=4, n_init=10, random_state=42)
+kmeans.fit(X)
+data['Segment'] = kmeans.labels_
+```
+
+Ahora echemos un vistazo a los segmentos:
+
+```{python}
+data.head()
+```
+
+```{python}
+# Convertir la columna segmento al tipo de datos categoría
+data['Segment'] = data['Segment'].astype('category')
+
+# Visualiza los segmentos usando Plotly
+fig = px.scatter(data, x=data.index, y='Credit Score', color='Segment',
+                 color_discrete_sequence=['green', 'blue', 'yellow', 'red'])
+fig.update_layout(
+    xaxis_title='Indice de clientes',
+    yaxis_title='Credit Score',
+    title='Customer Segmentation based on Credit Scores'
+)
+fig.show()
+```
+
+Ahora nombremos los segmentos según los grupos anteriores y echemos un vistazo a los segmentos nuevamente:
+
+```{python}
+data['Segment'] = data['Segment'].map({2: 'Muy baja', 
+                                       0: 'Baja',
+                                       1: 'Buena',
+                                       3: "Excelente"})
+
+# Convertir la columna segmento al tipo de datos de categoria
+data['Segment'] = data['Segment'].astype('category')
+
+# Visualiza los segmentos usando Plotly
+fig = px.scatter(data, x=data.index, y='Credit Score', color='Segment',
+                 color_discrete_sequence=['green', 'blue', 'yellow', 'red'])
+fig.update_layout(
+    xaxis_title='Customer Index',
+    yaxis_title='Credit Score',
+    title='Customer Segmentation based on Credit Scores'
+)
+fig.show()
+```
+
+Así es como puede realizar la segmentación y la calificación crediticia utilizando Python.
+
+# Resumen 
+
+La calificación crediticia y la segmentación se refieren al proceso de evaluar la solvencia de personas o empresas y dividirlos en distintos grupos según sus perfiles crediticios. Su objetivo es evaluar la probabilidad de que los prestatarios paguen sus dedudas y ayuda a las instituciones financieras a tomar decisiones informadas sobre préstamos y gestión del riesgo crediticio.
+
+Espero que te haya gustado este artículo sobre segmentación y calificación crediticia usando Python. No dude en hacer preguntas valiosas en la sección de comentarios a continuación.
