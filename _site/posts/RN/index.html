@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.2.475">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,10 +19,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,13 +48,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -98,20 +127,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Juan Isaula - Redes Neuronales Recurrentes (LSTM)">
 <meta property="og:description" content="Pronósticos de índice AAPL">
-<meta property="og:image" content="https://mm218.dev/posts/RN/fondo.png">
+<meta property="og:image" content="https://mm218.dev/posts\RN\fondo.png">
 <meta property="og:site-name" content="Juan Isaula">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:height" content="537">
 <meta property="og:image:width" content="1086">
 <meta name="twitter:title" content="Juan Isaula - Redes Neuronales Recurrentes (LSTM)">
 <meta name="twitter:description" content="Pronósticos de índice AAPL">
-<meta name="twitter:image" content="https://mm218.dev/posts/RN/fondo.png">
+<meta name="twitter:image" content="https://mm218.dev/posts\RN\fondo.png">
 <meta name="twitter:creator" content="@MikeMahoney218">
 <meta name="twitter:image-height" content="537">
 <meta name="twitter:image-width" content="1086">
@@ -129,39 +157,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <span class="navbar-title">Juan Isaula</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../papers" rel="" target="">
+    <a class="nav-link" href="../../papers">
  <span class="menu-text">Papers</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../presentations" rel="" target="">
+    <a class="nav-link" href="../../presentations">
  <span class="menu-text">Cursos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog.html" rel="" target="">
+    <a class="nav-link" href="../../blog.html">
  <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html">
  <span class="menu-text">Dashboards</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../sobre_juan.html" rel="" target="">
- <span class="menu-text">Historias</span></a>
-  </li>  
 </ul>
-            <div class="quarto-navbar-tools">
-</div>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -175,12 +197,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
+  <ul class="collapse">
+  <li><a href="#usos" id="toc-usos" class="nav-link" data-scroll-target="#usos">Usos</a></li>
+  <li><a href="#aplicaciones" id="toc-aplicaciones" class="nav-link" data-scroll-target="#aplicaciones">Aplicaciones</a></li>
+  </ul></li>
   <li><a href="#red-de-memoria-de-corto-y-largo-plazo-lstm" id="toc-red-de-memoria-de-corto-y-largo-plazo-lstm" class="nav-link" data-scroll-target="#red-de-memoria-de-corto-y-largo-plazo-lstm">Red de Memoria de Corto y Largo Plazo (LSTM)</a>
   <ul class="collapse">
   <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables">Variables</a></li>
   </ul></li>
-  <li><a href="#pronósticos-para-el-índice-de-aapl-utilizando-una-red-lstm" id="toc-pronósticos-para-el-índice-de-aapl-utilizando-una-red-lstm" class="nav-link" data-scroll-target="#pronósticos-para-el-índice-de-aapl-utilizando-una-red-lstm">Pronósticos para el índice de AAPL utilizando una red LSTM</a></li>
+  <li><a href="#simulación-de-pronóstico-usando-lstm-con-python" id="toc-simulación-de-pronóstico-usando-lstm-con-python" class="nav-link" data-scroll-target="#simulación-de-pronóstico-usando-lstm-con-python">Simulación de Pronóstico Usando LSTM con Python</a></li>
   </ul>
 </nav>
     </div>
@@ -225,6 +251,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section"></h2>
+<p>Las redes neuronales recurrentes son una arquitectura bastante empleada puesto que emplean los output de salida para retroalimentarse y continuar prediciendo un output.</p>
+<p><img src="Figure.png" class="img-fluid"></p>
+<section id="usos" class="level3">
+<h3 class="anchored" data-anchor-id="usos">Usos</h3>
+<ul>
+<li><p>Principalmente sirve para contextos donde el orden importa y sirve como predictor recurrente (series de tiempo, textos, audios)</p></li>
+<li><p>Sin embargo, ¿que tanto recordar el pasado? ¿cuál es la consecuencia en el rendimiento y demora de estimación?</p></li>
+<li><p>Sus tipos más utilizados son <code>LSTM</code> y <code>GRU</code></p></li>
+</ul>
+<p>En este post nos enfocaremos en utilizar, describir y simular la red LSTM.</p>
+</section>
+<section id="aplicaciones" class="level3">
+<h3 class="anchored" data-anchor-id="aplicaciones">Aplicaciones</h3>
+<ul>
+<li><p>Predictor de la siguiente palabra</p></li>
+<li><p>Series de tiempo</p></li>
+<li><p>No recomendable para transversal</p></li>
+</ul>
+</section>
 </section>
 <section id="red-de-memoria-de-corto-y-largo-plazo-lstm" class="level2">
 <h2 class="anchored" data-anchor-id="red-de-memoria-de-corto-y-largo-plazo-lstm">Red de Memoria de Corto y Largo Plazo (LSTM)</h2>
@@ -232,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figure 4.16.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Flujo computacional de LSTM</figcaption>
+<p></p><figcaption class="figure-caption">Flujo computacional de LSTM</figcaption><p></p>
 </figure>
 </div>
 <p>Las redes neuronales recurrentes pasan solo un estado oculto <span class="math inline">\(h_t\)</span> a través de cada iteración. Pero LSTM pasa dos vectores: <span class="math inline">\(h_t-\)</span>estado oculto <em>(memoria a corto plazo) y</em> <span class="math inline">\(c_t-\)</span>estado celular <em>(memoria a largo plazo).</em></p>
@@ -287,7 +332,7 @@ a_3b_3
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Figure 4.17.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Gráfico computacional de LSTM</figcaption>
+<p></p><figcaption class="figure-caption">Gráfico computacional de LSTM</figcaption><p></p>
 </figure>
 </div>
 <p>La red LSTM tiene los siguientes parámetros, que se ajustan durante el entrenamiento:</p>
@@ -295,337 +340,334 @@ a_3b_3
 <li><p><span class="math inline">\(w_{ii}, w_{hi}, w_{if}, w_{hf}, w_{ig}, w_{hg}, w_{io}, w_{ho}\)</span> - Pesos</p></li>
 <li><p><span class="math inline">\(b_{ii}, b_{hi}, b_{if}, b_{hf}, b_{ig}, b_{io}, b_{ho}\)</span> - Sesgos</p></li>
 </ul>
-<p>Los modelos LSTM son lo suficientemente potentes como para aprender los comportamientos pasados más importantes y comprender si esos comportamientos pasados son características importantes para hacer predicciones futuras. Hay varias aplicaciones en las que las LSTM se utilizan mucho. Aplicaciones como reconocimiento de voz, composición musical, reconocimiento de escritura a mano.</p>
-<p>Particularmente considero que las LSTM es como un modelo que tiene su propia memoria y que puede comportarse como un humano inteligente en la toma de desiciones.</p>
 </section>
 </section>
-<section id="pronósticos-para-el-índice-de-aapl-utilizando-una-red-lstm" class="level2">
-<h2 class="anchored" data-anchor-id="pronósticos-para-el-índice-de-aapl-utilizando-una-red-lstm">Pronósticos para el índice de AAPL utilizando una red LSTM</h2>
-<p>A continuación realizaremos un ejercicio donde intentamos pronósticar el precio de cierre (Close) del índice de AAPL, la data la puede encontrar dando click en <a href="https://drive.google.com/file/d/1xtSPf1AcXKzOgpe8pvzQZN5HB40F-w5y/view?usp=sharing">prices-split-adjusted.csv</a> .</p>
-<p>Comenzamos importando las librerías a utilizar.</p>
+<section id="simulación-de-pronóstico-usando-lstm-con-python" class="level2">
+<h2 class="anchored" data-anchor-id="simulación-de-pronóstico-usando-lstm-con-python">Simulación de Pronóstico Usando LSTM con Python</h2>
+<p>El pronóstico que realizamos para poner en marcha nuestro modelo LSTM es sobre el precio de cierre (close) del índice bursátil de Apple (AAPL). La librería o paquete principal para construcción de nuestro modelo fue <code>Tensorflow</code>. A continuación el lector puede apreciar la codificación que se llevó a cabo para poder construir nuestro modelo.</p>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> datetime</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, time</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> itemgetter</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Sequential</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers.core <span class="im">import</span> Dense, Dropout, Activation</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> LSTM</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> load_model</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keras</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Librerías </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> datetime</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math, time</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> preprocessing</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> datetime</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> operator <span class="im">import</span> itemgetter</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> Sequential</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers.core <span class="im">import</span> Dense, Dropout, Activation</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.layers <span class="im">import</span> LSTM</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.models <span class="im">import</span> load_model</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> keras</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> h5py</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_18008\2001173417.py:4: FutureWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_13684\3683430178.py:5: FutureWarning:
 
 The pandas.datetime class is deprecated and will be removed from pandas in a future version. Import from datetime module instead.
 </code></pre>
 </div>
 </div>
-<p>Cargamos el DataSet y lo almacenamos en la variable <code>df</code> y <code>data_df</code>. La data almacenada en <code>data_df</code> es la que utilizaremos para realizar todo nuestro estudio.</p>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"prices-split-adjusted.csv"</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos nuestro Dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"prices-split-adjusted.csv"</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> pd.read_csv(<span class="st">"prices-split-adjusted.csv"</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficamos el precio de cierre (Close) de AAPL</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.plot(df[df.symbol <span class="op">==</span> <span class="st">'EQIX'</span>].close.values, color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'close'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">symbol</th>
-<th data-quarto-table-cell-role="th">open</th>
-<th data-quarto-table-cell-role="th">close</th>
-<th data-quarto-table-cell-role="th">low</th>
-<th data-quarto-table-cell-role="th">high</th>
-<th data-quarto-table-cell-role="th">volume</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2016-01-05</td>
-<td>WLTW</td>
-<td>123.430000</td>
-<td>125.839996</td>
-<td>122.309998</td>
-<td>126.250000</td>
-<td>2163600.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2016-01-06</td>
-<td>WLTW</td>
-<td>125.239998</td>
-<td>119.980003</td>
-<td>119.940002</td>
-<td>125.540001</td>
-<td>2386400.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2016-01-07</td>
-<td>WLTW</td>
-<td>116.379997</td>
-<td>114.949997</td>
-<td>114.930000</td>
-<td>119.739998</td>
-<td>2489500.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2016-01-08</td>
-<td>WLTW</td>
-<td>115.480003</td>
-<td>116.620003</td>
-<td>113.500000</td>
-<td>117.440002</td>
-<td>2006300.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2016-01-11</td>
-<td>WLTW</td>
-<td>117.010002</td>
-<td>114.970001</td>
-<td>114.089996</td>
-<td>117.330002</td>
-<td>1408600.0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Este bloque de código fue de mucha utilidad, dado que aquí filtramos de nuestro dataset unicamente la información para el indice de AAPL y visualizamos la data.</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> data_df[data_df.symbol <span class="op">==</span> <span class="st">'AAPL'</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_df.drop([<span class="st">'symbol'</span>],<span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">open</th>
-<th data-quarto-table-cell-role="th">close</th>
-<th data-quarto-table-cell-role="th">low</th>
-<th data-quarto-table-cell-role="th">high</th>
-<th data-quarto-table-cell-role="th">volume</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-04</td>
-<td>30.490000</td>
-<td>30.572857</td>
-<td>30.340000</td>
-<td>30.642857</td>
-<td>123432400.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2010-01-05</td>
-<td>30.657143</td>
-<td>30.625713</td>
-<td>30.464285</td>
-<td>30.798571</td>
-<td>150476200.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-06</td>
-<td>30.625713</td>
-<td>30.138571</td>
-<td>30.107143</td>
-<td>30.747143</td>
-<td>138040000.0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2010-01-07</td>
-<td>30.250000</td>
-<td>30.082857</td>
-<td>29.864286</td>
-<td>30.285715</td>
-<td>119282800.0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-08</td>
-<td>30.042856</td>
-<td>30.282858</td>
-<td>29.865715</td>
-<td>30.285715</td>
-<td>111902700.0</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<p>Preliminarmente con este bloque de código podemos ver como se comporta la serie correspondiente al precio de cierre de las acciones de AAPL.</p>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))<span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.plot(df[df.symbol <span class="op">==</span> <span class="st">'EQIX'</span>].close.values, color<span class="op">=</span><span class="st">'green'</span>, label<span class="op">=</span><span class="st">'close'</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'best'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>&lt;matplotlib.legend.Legend at 0x236b99436a0&gt;</code></pre>
+<pre><code>&lt;matplotlib.legend.Legend at 0x2118e31ef20&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-6-output-2.png" width="580" height="449"></p>
+<p><img src="index_files/figure-html/cell-4-output-2.png" width="580" height="449"></p>
 </div>
 </div>
-<p>Necesitamos manipular nuestro campo de fecha para poder manipularlas como lo que son en realidad (fechas).</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> data_df.index</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data_df es nuestra data que comenzara a tratarse y posterioremente con la cual</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># se estara trabajando el resto del proyecto</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> pd.read_csv(<span class="st">"prices-split-adjusted.csv"</span>, index_col <span class="op">=</span> <span class="dv">0</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
 <div>
 
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">open</th>
-<th data-quarto-table-cell-role="th">close</th>
-<th data-quarto-table-cell-role="th">low</th>
-<th data-quarto-table-cell-role="th">high</th>
-<th data-quarto-table-cell-role="th">volume</th>
-<th data-quarto-table-cell-role="th">date</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-04</td>
-<td>30.490000</td>
-<td>30.572857</td>
-<td>30.340000</td>
-<td>30.642857</td>
-<td>123432400.0</td>
-<td>2010-01-04</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2010-01-05</td>
-<td>30.657143</td>
-<td>30.625713</td>
-<td>30.464285</td>
-<td>30.798571</td>
-<td>150476200.0</td>
-<td>2010-01-05</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-06</td>
-<td>30.625713</td>
-<td>30.138571</td>
-<td>30.107143</td>
-<td>30.747143</td>
-<td>138040000.0</td>
-<td>2010-01-06</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2010-01-07</td>
-<td>30.250000</td>
-<td>30.082857</td>
-<td>29.864286</td>
-<td>30.285715</td>
-<td>119282800.0</td>
-<td>2010-01-07</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2010-01-08</td>
-<td>30.042856</td>
-<td>30.282858</td>
-<td>29.865715</td>
-<td>30.285715</td>
-<td>111902700.0</td>
-<td>2010-01-08</td>
-</tr>
-</tbody>
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>symbol</th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2016-01-05</th>
+      <td>WLTW</td>
+      <td>123.430000</td>
+      <td>125.839996</td>
+      <td>122.309998</td>
+      <td>126.250000</td>
+      <td>2163600.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-06</th>
+      <td>WLTW</td>
+      <td>125.239998</td>
+      <td>119.980003</td>
+      <td>119.940002</td>
+      <td>125.540001</td>
+      <td>2386400.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-07</th>
+      <td>WLTW</td>
+      <td>116.379997</td>
+      <td>114.949997</td>
+      <td>114.930000</td>
+      <td>119.739998</td>
+      <td>2489500.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-08</th>
+      <td>WLTW</td>
+      <td>115.480003</td>
+      <td>116.620003</td>
+      <td>113.500000</td>
+      <td>117.440002</td>
+      <td>2006300.0</td>
+    </tr>
+    <tr>
+      <th>2016-01-11</th>
+      <td>WLTW</td>
+      <td>117.010002</td>
+      <td>114.970001</td>
+      <td>114.089996</td>
+      <td>117.330002</td>
+      <td>1408600.0</td>
+    </tr>
+  </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_df <span class="op">=</span> data_df[data_df.symbol <span class="op">==</span> <span class="st">'AAPL'</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>data_df.drop([<span class="st">'symbol'</span>],<span class="dv">1</span>,inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_13684\1763401402.py:2: FutureWarning:
 
+In a future version of pandas all arguments of DataFrame.drop except for the argument 'labels' will be keyword-only.
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.490000</td>
+      <td>30.572857</td>
+      <td>30.340000</td>
+      <td>30.642857</td>
+      <td>123432400.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.657143</td>
+      <td>30.625713</td>
+      <td>30.464285</td>
+      <td>30.798571</td>
+      <td>150476200.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.625713</td>
+      <td>30.138571</td>
+      <td>30.107143</td>
+      <td>30.747143</td>
+      <td>138040000.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.250000</td>
+      <td>30.082857</td>
+      <td>29.864286</td>
+      <td>30.285715</td>
+      <td>119282800.0</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.042856</td>
+      <td>30.282858</td>
+      <td>29.865715</td>
+      <td>30.285715</td>
+      <td>111902700.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> data_df.index</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>open</th>
+      <th>close</th>
+      <th>low</th>
+      <th>high</th>
+      <th>volume</th>
+      <th>date</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2010-01-04</th>
+      <td>30.490000</td>
+      <td>30.572857</td>
+      <td>30.340000</td>
+      <td>30.642857</td>
+      <td>123432400.0</td>
+      <td>2010-01-04</td>
+    </tr>
+    <tr>
+      <th>2010-01-05</th>
+      <td>30.657143</td>
+      <td>30.625713</td>
+      <td>30.464285</td>
+      <td>30.798571</td>
+      <td>150476200.0</td>
+      <td>2010-01-05</td>
+    </tr>
+    <tr>
+      <th>2010-01-06</th>
+      <td>30.625713</td>
+      <td>30.138571</td>
+      <td>30.107143</td>
+      <td>30.747143</td>
+      <td>138040000.0</td>
+      <td>2010-01-06</td>
+    </tr>
+    <tr>
+      <th>2010-01-07</th>
+      <td>30.250000</td>
+      <td>30.082857</td>
+      <td>29.864286</td>
+      <td>30.285715</td>
+      <td>119282800.0</td>
+      <td>2010-01-07</td>
+    </tr>
+    <tr>
+      <th>2010-01-08</th>
+      <td>30.042856</td>
+      <td>30.282858</td>
+      <td>29.865715</td>
+      <td>30.285715</td>
+      <td>111902700.0</td>
+      <td>2010-01-08</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data_df[<span class="st">'date'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_df[<span class="st">'date'</span>] <span class="op">=</span> pd.to_datetime(data_df[<span class="st">'date'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Transformamos los datos con <code>MinMaxScaler()</code> para que se distribuyan normal estándar, recuerde que esto es con media cero y varianza 1.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>min_max_scaler <span class="op">=</span> preprocessing.MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> min_max_scaler.fit_transform(data_df[<span class="st">'close'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>min_max_scaler <span class="op">=</span> preprocessing.MinMaxScaler(feature_range<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> min_max_scaler.fit_transform(data_df[<span class="st">'close'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Dividimos la data en datos de entrenamiento (train), tomando el 70% de los datos para entrenar nuestro modelo y un 20% para prueba (test).</p>
 <div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(dataset) <span class="op">*</span> <span class="fl">0.7</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> dataset[<span class="dv">0</span>:train_size,:], dataset[train_size:<span class="bu">len</span>(dataset),:]</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(train), <span class="bu">len</span>(test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>train_size <span class="op">=</span> <span class="bu">int</span>(<span class="bu">len</span>(dataset) <span class="op">*</span> <span class="fl">0.7</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>test_size <span class="op">=</span> <span class="bu">len</span>(dataset) <span class="op">-</span> train_size</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>train, test <span class="op">=</span> dataset[<span class="dv">0</span>:train_size,:], dataset[train_size:<span class="bu">len</span>(dataset),:]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(train), <span class="bu">len</span>(test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1233 529</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convertir una matriz de valores en una matriz de conjunto de datos</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataset(dataset, look_back<span class="op">=</span><span class="dv">15</span>):</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    dataX, dataY <span class="op">=</span> [], []</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dataset)<span class="op">-</span>look_back<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> dataset[i:(i<span class="op">+</span>look_back), <span class="dv">0</span>]</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        dataX.append(a)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        dataY.append(dataset[i <span class="op">+</span> look_back, <span class="dv">0</span>])</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(dataX), np.array(dataY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create_dataset: convertir una matriz de valores en una matriz de conjunto de datos</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataset(dataset, look_back<span class="op">=</span><span class="dv">15</span>):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    dataX, dataY <span class="op">=</span> [], []</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(dataset)<span class="op">-</span>look_back<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> dataset[i:(i<span class="op">+</span>look_back), <span class="dv">0</span>]</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        dataX.append(a)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        dataY.append(dataset[i <span class="op">+</span> look_back, <span class="dv">0</span>])</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(dataX), np.array(dataY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_train, y_train <span class="op">=</span> create_dataset(train, look_back<span class="op">=</span><span class="dv">15</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x_test, y_test <span class="op">=</span> create_dataset(test, look_back<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x_train, y_train <span class="op">=</span> create_dataset(train, look_back<span class="op">=</span><span class="dv">15</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_test, y_test <span class="op">=</span> create_dataset(test, look_back<span class="op">=</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>(1217, 15)
 (1217,)
@@ -634,245 +676,440 @@ The pandas.datetime class is deprecated and will be removed from pandas in a fut
 </div>
 </div>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> np.reshape(x_train, (x_train.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_train.shape[<span class="dv">1</span>]))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> np.reshape(x_test, (x_test.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_test.shape[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> np.reshape(x_train, (x_train.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_train.shape[<span class="dv">1</span>]))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> np.reshape(x_test, (x_test.shape[<span class="dv">0</span>], <span class="dv">1</span>, x_test.shape[<span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Comenzamos a crear y entrenar nuestro modelo <code>LSTM</code>.</p>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>look_back <span class="op">=</span> <span class="dv">15</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Sequential()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>model.add(LSTM(<span class="dv">20</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, look_back)))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">1</span>))</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mean_squared_error'</span>, optimizer<span class="op">=</span><span class="st">'adam'</span>)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">90</span>, batch_size<span class="op">=</span><span class="dv">8</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos y entrenamos el modelo LSTM</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>look_back <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Sequential()</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>model.add(LSTM(<span class="dv">40</span>, input_shape<span class="op">=</span>(<span class="dv">1</span>, look_back)))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>model.add(Dense(<span class="dv">1</span>))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(loss<span class="op">=</span><span class="st">'mean_squared_error'</span>, optimizer<span class="op">=</span><span class="st">'adam'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train, epochs<span class="op">=</span><span class="dv">60</span>, batch_size<span class="op">=</span><span class="dv">12</span>, verbose<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Epoch 1/90
-153/153 - 2s - loss: 0.0174 - 2s/epoch - 16ms/step
-Epoch 2/90
-153/153 - 0s - loss: 5.3418e-04 - 273ms/epoch - 2ms/step
-Epoch 3/90
-153/153 - 0s - loss: 4.4450e-04 - 278ms/epoch - 2ms/step
-Epoch 4/90
-153/153 - 0s - loss: 4.2874e-04 - 277ms/epoch - 2ms/step
-Epoch 5/90
-153/153 - 0s - loss: 4.0739e-04 - 268ms/epoch - 2ms/step
-Epoch 6/90
-153/153 - 0s - loss: 3.8709e-04 - 284ms/epoch - 2ms/step
-Epoch 7/90
-153/153 - 0s - loss: 3.7214e-04 - 273ms/epoch - 2ms/step
-Epoch 8/90
-153/153 - 0s - loss: 3.6078e-04 - 276ms/epoch - 2ms/step
-Epoch 9/90
-153/153 - 0s - loss: 3.5206e-04 - 290ms/epoch - 2ms/step
-Epoch 10/90
-153/153 - 0s - loss: 3.2790e-04 - 269ms/epoch - 2ms/step
-Epoch 11/90
-153/153 - 0s - loss: 3.0376e-04 - 288ms/epoch - 2ms/step
-Epoch 12/90
-153/153 - 0s - loss: 3.0369e-04 - 272ms/epoch - 2ms/step
-Epoch 13/90
-153/153 - 0s - loss: 3.1673e-04 - 272ms/epoch - 2ms/step
-Epoch 14/90
-153/153 - 0s - loss: 2.6855e-04 - 288ms/epoch - 2ms/step
-Epoch 15/90
-153/153 - 0s - loss: 2.6134e-04 - 274ms/epoch - 2ms/step
-Epoch 16/90
-153/153 - 0s - loss: 2.7831e-04 - 266ms/epoch - 2ms/step
-Epoch 17/90
-153/153 - 0s - loss: 2.3250e-04 - 280ms/epoch - 2ms/step
-Epoch 18/90
-153/153 - 0s - loss: 2.4377e-04 - 277ms/epoch - 2ms/step
-Epoch 19/90
-153/153 - 0s - loss: 2.1988e-04 - 300ms/epoch - 2ms/step
-Epoch 20/90
-153/153 - 0s - loss: 2.1443e-04 - 309ms/epoch - 2ms/step
-Epoch 21/90
-153/153 - 0s - loss: 2.0727e-04 - 308ms/epoch - 2ms/step
-Epoch 22/90
-153/153 - 0s - loss: 2.1768e-04 - 303ms/epoch - 2ms/step
-Epoch 23/90
-153/153 - 0s - loss: 1.9675e-04 - 301ms/epoch - 2ms/step
-Epoch 24/90
-153/153 - 0s - loss: 1.8817e-04 - 298ms/epoch - 2ms/step
-Epoch 25/90
-153/153 - 0s - loss: 2.0940e-04 - 302ms/epoch - 2ms/step
-Epoch 26/90
-153/153 - 0s - loss: 1.8725e-04 - 273ms/epoch - 2ms/step
-Epoch 27/90
-153/153 - 0s - loss: 1.9996e-04 - 268ms/epoch - 2ms/step
-Epoch 28/90
-153/153 - 0s - loss: 1.8666e-04 - 269ms/epoch - 2ms/step
-Epoch 29/90
-153/153 - 0s - loss: 2.0690e-04 - 289ms/epoch - 2ms/step
-Epoch 30/90
-153/153 - 0s - loss: 1.8579e-04 - 290ms/epoch - 2ms/step
-Epoch 31/90
-153/153 - 0s - loss: 1.8400e-04 - 327ms/epoch - 2ms/step
-Epoch 32/90
-153/153 - 0s - loss: 2.0776e-04 - 370ms/epoch - 2ms/step
-Epoch 33/90
-153/153 - 0s - loss: 1.7955e-04 - 285ms/epoch - 2ms/step
-Epoch 34/90
-153/153 - 0s - loss: 1.8656e-04 - 283ms/epoch - 2ms/step
-Epoch 35/90
-153/153 - 0s - loss: 1.7452e-04 - 363ms/epoch - 2ms/step
-Epoch 36/90
-153/153 - 0s - loss: 1.8671e-04 - 291ms/epoch - 2ms/step
-Epoch 37/90
-153/153 - 0s - loss: 2.0337e-04 - 276ms/epoch - 2ms/step
-Epoch 38/90
-153/153 - 0s - loss: 1.8612e-04 - 290ms/epoch - 2ms/step
-Epoch 39/90
-153/153 - 0s - loss: 1.7868e-04 - 287ms/epoch - 2ms/step
-Epoch 40/90
-153/153 - 0s - loss: 1.6047e-04 - 288ms/epoch - 2ms/step
-Epoch 41/90
-153/153 - 0s - loss: 1.7351e-04 - 274ms/epoch - 2ms/step
-Epoch 42/90
-153/153 - 0s - loss: 1.7513e-04 - 277ms/epoch - 2ms/step
-Epoch 43/90
-153/153 - 0s - loss: 1.6558e-04 - 286ms/epoch - 2ms/step
-Epoch 44/90
-153/153 - 0s - loss: 1.6894e-04 - 273ms/epoch - 2ms/step
-Epoch 45/90
-153/153 - 0s - loss: 1.9839e-04 - 270ms/epoch - 2ms/step
-Epoch 46/90
-153/153 - 0s - loss: 1.6972e-04 - 283ms/epoch - 2ms/step
-Epoch 47/90
-153/153 - 0s - loss: 1.9237e-04 - 287ms/epoch - 2ms/step
-Epoch 48/90
-153/153 - 0s - loss: 1.7812e-04 - 276ms/epoch - 2ms/step
-Epoch 49/90
-153/153 - 0s - loss: 1.6258e-04 - 283ms/epoch - 2ms/step
-Epoch 50/90
-153/153 - 0s - loss: 1.5556e-04 - 296ms/epoch - 2ms/step
-Epoch 51/90
-153/153 - 0s - loss: 1.5876e-04 - 279ms/epoch - 2ms/step
-Epoch 52/90
-153/153 - 0s - loss: 1.5916e-04 - 266ms/epoch - 2ms/step
-Epoch 53/90
-153/153 - 0s - loss: 1.7933e-04 - 363ms/epoch - 2ms/step
-Epoch 54/90
-153/153 - 0s - loss: 1.6076e-04 - 298ms/epoch - 2ms/step
-Epoch 55/90
-153/153 - 0s - loss: 1.5508e-04 - 276ms/epoch - 2ms/step
-Epoch 56/90
-153/153 - 0s - loss: 2.0915e-04 - 270ms/epoch - 2ms/step
-Epoch 57/90
-153/153 - 0s - loss: 1.6386e-04 - 340ms/epoch - 2ms/step
-Epoch 58/90
-153/153 - 0s - loss: 1.8083e-04 - 276ms/epoch - 2ms/step
-Epoch 59/90
-153/153 - 0s - loss: 1.5268e-04 - 274ms/epoch - 2ms/step
-Epoch 60/90
-153/153 - 0s - loss: 1.4961e-04 - 275ms/epoch - 2ms/step
-Epoch 61/90
-153/153 - 0s - loss: 1.8783e-04 - 271ms/epoch - 2ms/step
-Epoch 62/90
-153/153 - 0s - loss: 1.4447e-04 - 280ms/epoch - 2ms/step
-Epoch 63/90
-153/153 - 0s - loss: 1.4833e-04 - 275ms/epoch - 2ms/step
-Epoch 64/90
-153/153 - 0s - loss: 1.5035e-04 - 270ms/epoch - 2ms/step
-Epoch 65/90
-153/153 - 0s - loss: 1.6430e-04 - 272ms/epoch - 2ms/step
-Epoch 66/90
-153/153 - 0s - loss: 1.5268e-04 - 280ms/epoch - 2ms/step
-Epoch 67/90
-153/153 - 0s - loss: 1.6926e-04 - 282ms/epoch - 2ms/step
-Epoch 68/90
-153/153 - 0s - loss: 1.4859e-04 - 270ms/epoch - 2ms/step
-Epoch 69/90
-153/153 - 0s - loss: 1.6119e-04 - 285ms/epoch - 2ms/step
-Epoch 70/90
-153/153 - 0s - loss: 1.6663e-04 - 262ms/epoch - 2ms/step
-Epoch 71/90
-153/153 - 0s - loss: 1.6530e-04 - 280ms/epoch - 2ms/step
-Epoch 72/90
-153/153 - 0s - loss: 1.7051e-04 - 285ms/epoch - 2ms/step
-Epoch 73/90
-153/153 - 0s - loss: 1.6448e-04 - 275ms/epoch - 2ms/step
-Epoch 74/90
-153/153 - 0s - loss: 1.6769e-04 - 278ms/epoch - 2ms/step
-Epoch 75/90
-153/153 - 0s - loss: 1.6086e-04 - 271ms/epoch - 2ms/step
-Epoch 76/90
-153/153 - 0s - loss: 1.6478e-04 - 279ms/epoch - 2ms/step
-Epoch 77/90
-153/153 - 0s - loss: 1.5804e-04 - 263ms/epoch - 2ms/step
-Epoch 78/90
-153/153 - 0s - loss: 1.5207e-04 - 334ms/epoch - 2ms/step
-Epoch 79/90
-153/153 - 0s - loss: 1.3981e-04 - 295ms/epoch - 2ms/step
-Epoch 80/90
-153/153 - 0s - loss: 1.3907e-04 - 287ms/epoch - 2ms/step
-Epoch 81/90
-153/153 - 0s - loss: 1.5976e-04 - 307ms/epoch - 2ms/step
-Epoch 82/90
-153/153 - 0s - loss: 1.6238e-04 - 339ms/epoch - 2ms/step
-Epoch 83/90
-153/153 - 0s - loss: 1.4658e-04 - 497ms/epoch - 3ms/step
-Epoch 84/90
-153/153 - 0s - loss: 1.6490e-04 - 310ms/epoch - 2ms/step
-Epoch 85/90
-153/153 - 0s - loss: 1.5613e-04 - 283ms/epoch - 2ms/step
-Epoch 86/90
-153/153 - 0s - loss: 1.5913e-04 - 302ms/epoch - 2ms/step
-Epoch 87/90
-153/153 - 0s - loss: 1.5089e-04 - 288ms/epoch - 2ms/step
-Epoch 88/90
-153/153 - 0s - loss: 1.6357e-04 - 276ms/epoch - 2ms/step
-Epoch 89/90
-153/153 - 0s - loss: 1.4136e-04 - 271ms/epoch - 2ms/step
-Epoch 90/90
-153/153 - 0s - loss: 1.4603e-04 - 275ms/epoch - 2ms/step</code></pre>
+<pre><code>Epoch 1/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 3s - loss: 0.0178 - 3s/epoch - 34ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 2/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 6.4189e-04 - 283ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 3/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 5.0681e-04 - 274ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 4/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.8347e-04 - 272ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 5/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.5910e-04 - 268ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 6/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.3898e-04 - 258ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 7/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.1088e-04 - 255ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 8/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 4.0734e-04 - 261ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 9/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.6901e-04 - 289ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 10/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.6682e-04 - 273ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 11/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.4118e-04 - 280ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 12/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.2502e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 13/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.9669e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 14/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 3.0203e-04 - 258ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 15/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.8021e-04 - 258ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 16/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.7423e-04 - 250ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 17/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.5778e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 18/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.4664e-04 - 252ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 19/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.4607e-04 - 285ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 20/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.5375e-04 - 258ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 21/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3619e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 22/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3704e-04 - 255ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 23/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2161e-04 - 244ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 24/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3119e-04 - 269ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 25/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2326e-04 - 252ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 26/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.3168e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 27/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2751e-04 - 253ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 28/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2547e-04 - 250ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 29/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2019e-04 - 249ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 30/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2119e-04 - 247ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 31/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1291e-04 - 250ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 32/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9144e-04 - 250ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 33/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8920e-04 - 270ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 34/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9211e-04 - 251ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 35/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9233e-04 - 257ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 36/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8610e-04 - 255ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 37/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9514e-04 - 264ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 38/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2064e-04 - 263ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 39/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.2298e-04 - 249ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 40/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8378e-04 - 260ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 41/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.1100e-04 - 255ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 42/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9106e-04 - 256ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 43/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.0530e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 44/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7198e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 45/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8194e-04 - 242ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 46/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6699e-04 - 257ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 47/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.0421e-04 - 251ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 48/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7211e-04 - 254ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 49/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6593e-04 - 265ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 50/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9174e-04 - 259ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 51/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8807e-04 - 246ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 52/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7701e-04 - 268ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 53/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8759e-04 - 273ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 54/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6882e-04 - 248ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 55/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.8574e-04 - 253ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 56/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.7549e-04 - 267ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 57/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 2.0180e-04 - 267ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 58/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.9717e-04 - 252ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 59/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6178e-04 - 271ms/epoch - 3ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 60/60</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>102/102 - 0s - loss: 1.6752e-04 - 275ms/epoch - 3ms/step</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>&lt;keras.callbacks.History at 0x236b9801000&gt;</code></pre>
+<pre><code>&lt;keras.callbacks.History at 0x2118edff880&gt;</code></pre>
 </div>
 </div>
-<p>Evaluamos nuestro modelo, utilizando la métrica del RMSE para los datos de train y test.</p>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Invertimos las predicciones, dado que las habiamos transformado con MinMaxScaler</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculamos el RMSE</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Metricas utilizadas en el modelo </span></span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> model.predict(x_train)</span>
+<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> model.predict(x_test)</span>
+<span id="cb141-5"><a href="#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co"># invertimos las predicciones</span></span>
+<span id="cb141-6"><a href="#cb141-6" aria-hidden="true" tabindex="-1"></a>trainPredict <span class="op">=</span> min_max_scaler.inverse_transform(trainPredict)</span>
+<span id="cb141-7"><a href="#cb141-7" aria-hidden="true" tabindex="-1"></a>trainY <span class="op">=</span> min_max_scaler.inverse_transform([y_train])</span>
+<span id="cb141-8"><a href="#cb141-8" aria-hidden="true" tabindex="-1"></a>testPredict <span class="op">=</span> min_max_scaler.inverse_transform(testPredict)</span>
+<span id="cb141-9"><a href="#cb141-9" aria-hidden="true" tabindex="-1"></a>testY <span class="op">=</span> min_max_scaler.inverse_transform([y_test])</span>
+<span id="cb141-10"><a href="#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate root mean squared </span></span>
+<span id="cb141-11"><a href="#cb141-11" aria-hidden="true" tabindex="-1"></a>trainScore <span class="op">=</span> math.sqrt(mean_squared_error(trainY[<span class="dv">0</span>], trainPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb141-12"><a href="#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Train Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (trainScore))</span>
+<span id="cb141-13"><a href="#cb141-13" aria-hidden="true" tabindex="-1"></a>testScore <span class="op">=</span> math.sqrt(mean_squared_error(testY[<span class="dv">0</span>], testPredict[:,<span class="dv">0</span>]))</span>
+<span id="cb141-14"><a href="#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Test Score: </span><span class="sc">%.2f</span><span class="st"> RMSE'</span> <span class="op">%</span> (testScore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> 1/39 [..............................] - ETA: 13s39/39 [==============================] - 0s 1ms/step
- 1/17 [&gt;.............................] - ETA: 0s17/17 [==============================] - 0s 1ms/step
-Train Score: 1.20 RMSE
-Test Score: 1.91 RMSE</code></pre>
+<pre><code> 1/39 [..............................] - ETA: 19s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>26/39 [===================&gt;..........] - ETA: 0s </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>39/39 [==============================] - 1s 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 1/17 [&gt;.............................] - ETA: 0s</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>17/17 [==============================] - 0s 2ms/step</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Train Score: 1.25 RMSE
+Test Score: 2.04 RMSE</code></pre>
 </div>
 </div>
-<p>Finalmente, observamos nuestro resultados gráficamente</p>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graficamos los resultados </span></span>
+<span id="cb148-2"><a href="#cb148-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-3"><a href="#cb148-3" aria-hidden="true" tabindex="-1"></a>trainPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb148-4"><a href="#cb148-4" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb148-5"><a href="#cb148-5" aria-hidden="true" tabindex="-1"></a>trainPredictPlot[look_back:<span class="bu">len</span>(trainPredict)<span class="op">+</span>look_back, :] <span class="op">=</span> trainPredict</span>
+<span id="cb148-6"><a href="#cb148-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-7"><a href="#cb148-7" aria-hidden="true" tabindex="-1"></a>testPredictPlot <span class="op">=</span> np.empty_like(dataset)</span>
+<span id="cb148-8"><a href="#cb148-8" aria-hidden="true" tabindex="-1"></a>testPredictPlot[:, :] <span class="op">=</span> np.nan</span>
+<span id="cb148-9"><a href="#cb148-9" aria-hidden="true" tabindex="-1"></a>testPredictPlot[<span class="bu">len</span>(trainPredict)<span class="op">+</span>(look_back<span class="op">*</span><span class="dv">2</span>)<span class="op">+</span><span class="dv">1</span>:<span class="bu">len</span>(dataset)<span class="op">-</span><span class="dv">1</span>, :] <span class="op">=</span> testPredict</span>
+<span id="cb148-10"><a href="#cb148-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-11"><a href="#cb148-11" aria-hidden="true" tabindex="-1"></a>plt.plot(min_max_scaler.inverse_transform(dataset), label <span class="op">=</span> <span class="st">"Precio Historico"</span>)</span>
+<span id="cb148-12"><a href="#cb148-12" aria-hidden="true" tabindex="-1"></a>plt.plot(trainPredictPlot, label <span class="op">=</span> <span class="st">"Datos Entrenamiento"</span>)</span>
+<span id="cb148-13"><a href="#cb148-13" aria-hidden="true" tabindex="-1"></a>plt.plot(testPredictPlot, label <span class="op">=</span> <span class="st">"Predicción de Precio"</span>)</span>
+<span id="cb148-14"><a href="#cb148-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb148-15"><a href="#cb148-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Indice de AAPL'</span>)</span>
+<span id="cb148-16"><a href="#cb148-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'días'</span>)</span>
+<span id="cb148-17"><a href="#cb148-17" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'precio de cierre (Close)'</span>)</span>
+<span id="cb148-18"><a href="#cb148-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-17-output-1.png" width="575" height="411"></p>
+<p><img src="index_files/figure-html/cell-17-output-1.png" width="593" height="449"></p>
 </div>
 </div>
-<p>Note que nuestros resultados son muy buenos, sin embargo, podrían mejorarse, quizas aplicando más capas ocultas a nuestra red, recuerde que solo utilizamos 20. Este podría ser un buen ejercicio para que usted intente mejorar estos resultados.</p>
-<p>Recuerda que puedes comentar este post, agradeceria que lo hagas ya sea para alguna sugerencia u observación. Saludos espero hayas conocido un poco sobre este tipo de Red Neuronal en particular y su potente poder predectivo.</p>
+<p>Un ejercicio interesante para el lector podría ser, asumir el reto de tratar de mejorar las métricas <code>RMSE</code> para Train como para el Test. Una posible alternativa es utilizar más capas intermedias. Intenta asumir el reto y comenta tus resultados aquí en el post.</p>
 
 
 </section>
@@ -905,23 +1142,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -986,92 +1209,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1117,12 +1254,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">© Copyright 2022 Juan Isaula</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-      &nbsp;
-    </div>
   </div>
 </footer>
 

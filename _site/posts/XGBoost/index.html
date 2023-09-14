@@ -104,12 +104,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Juan Isaula - Time Series Forecasting with XGBoost">
 <meta property="og:description" content="Utilizando Machine Learning Forecast">
-<meta property="og:image" content="https://mm218.dev/posts/XGBoost/pinguino.jpeg">
+<meta property="og:image" content="https://mm218.dev/posts/XGBoost/fondo.jpeg">
 <meta property="og:site-name" content="Juan Isaula">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:title" content="Juan Isaula - Time Series Forecasting with XGBoost">
 <meta name="twitter:description" content="Utilizando Machine Learning Forecast">
-<meta name="twitter:image" content="https://mm218.dev/posts/XGBoost/pinguino.jpeg">
+<meta name="twitter:image" content="https://mm218.dev/posts/XGBoost/fondo.jpeg">
 <meta name="twitter:creator" content="@MikeMahoney218">
 <meta name="twitter:card" content="summary_large_image">
 </head>
@@ -385,7 +385,7 @@ f(x) = \sum T(x;\theta_j)
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"ipc_honduras.csv"</span>,  parse_dates<span class="op">=</span>[<span class="st">'Date'</span>]) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data.tail()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <div>
 
 
@@ -455,7 +455,7 @@ f(x) = \sum T(x;\theta_j)
 <div class="cell-output cell-output-stdout">
 <pre><code>(376, 2)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -527,7 +527,7 @@ f(x) = \sum T(x;\theta_j)
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>modelo.fit(datos, id_col <span class="op">=</span> <span class="st">"unique_id"</span>, time_col <span class="op">=</span> <span class="st">"ds"</span>, target_col <span class="op">=</span> <span class="st">"y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>MLForecast(models=[XGBRegressor], freq=&lt;MonthBegin&gt;, lag_features=['lag1', 'lag12', 'expanding_mean_lag1', 'rolling_mean_lag12_window_size5'], date_features=['month', 'year'], num_threads=1)</code></pre>
 </div>
 </div>
@@ -535,7 +535,7 @@ f(x) = \sum T(x;\theta_j)
 <div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>preds <span class="op">=</span> modelo.predict(<span class="dv">8</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>preds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="26">
 <div>
 
 
@@ -632,7 +632,7 @@ f(x) = \sum T(x;\theta_j)
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>predictions_w_intervals <span class="op">=</span> modelo.predict(<span class="dv">8</span>, level<span class="op">=</span>[<span class="dv">95</span>]) </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>predictions_w_intervals.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="29">
 <div>
 
 
