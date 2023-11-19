@@ -29,7 +29,7 @@ Esta segmentación ayuda a las instituciones financieras a evaluar el riesgo cre
 
 Entonces, para comenzar con la tarea de calificación y segmentación crediticia, primero necesitamos tener los datos apropiados. Encontré un conjuntos de datos ideal para esta tarea. Puede descargar el conjunto de datos desde [Aquí](https://statso.io/credit-scoring-case-study/).
 
-## Calificación crediticia y segmentación usando Python 
+## Calificación crediticia y segmentación usando Python
 
 Ahora comencemos con la tarea de segmentación y calificación crediticia importando las bibliotecas de Python necesarias y el conjunto de datos
 
@@ -46,7 +46,7 @@ data.head()
 
 A continuación se muestra la descripción de todas los campos de los datos:
 
-1.   `Age:` representa la edad del individuo
+1.  `Age:` representa la edad del individuo
 
 2.  `Gender:` identifica el género del individuo
 
@@ -112,7 +112,7 @@ correlation_fig = px.imshow(numeric_df.corr(),
 correlation_fig.show()
 ```
 
-## Calcular puntajes de crédito 
+## Calcular puntajes de crédito
 
 El conjunto de datos no tiene ninguna característica que represente los puntajes crediticios de las personas. Para calcular las puntuaciones de crédito, debemos utilizar una técnica adecuada. Existen varias técnicas ampliamente utilizadas para calcular puntajes credeticios, cada una con su propio proceso de cálculo. Un ejemplo es el puntaje `FICO`, es un modelo de calificación crediticia comúnmente utilizado en la industria.
 
@@ -153,7 +153,7 @@ A continuación se muestra cómo funciona el código anterior:
 
 2.  A continuación, el código aplica las asignaciones definidas a las columnas correspondientes en el DataFrame. Transforma los valores de las columnas *"Nivel de educación"* y *"Estado de empleo"* de su forma categórica original a las representaciones numéricas asignadas.
 
-3.   Después de eso, el código inicia una iteración sobre cada fila del DataFrame para calcular las puntuaciones de crédito de cada individuo. Recupera los valores de características relevantes, como *"Historial de pagos"*, *"índice de utilización de crédito", "Número de cuentas de crédito", "Nivel de educación" y "Estado de empleo",* de cada fila.
+3.  Después de eso, el código inicia una iteración sobre cada fila del DataFrame para calcular las puntuaciones de crédito de cada individuo. Recupera los valores de características relevantes, como *"Historial de pagos"*, *"índice de utilización de crédito", "Número de cuentas de crédito", "Nivel de educación" y "Estado de empleo",* de cada fila.
 
 Dentro de la iteración, se aplica la fórmula `FICO` para calcular el puntaje de crediticio de cada individuo. La fórmula incorpora los valores ponderados de las características mencionadas anteriormente:
 
@@ -227,7 +227,7 @@ fig.show()
 
 Así es como puede realizar la segmentación y la calificación crediticia utilizando Python.
 
-# Resumen 
+# Resumen
 
 La calificación crediticia y la segmentación se refieren al proceso de evaluar la solvencia de personas o empresas y dividirlos en distintos grupos según sus perfiles crediticios. Su objetivo es evaluar la probabilidad de que los prestatarios paguen sus dedudas y ayuda a las instituciones financieras a tomar decisiones informadas sobre préstamos y gestión del riesgo crediticio.
 
