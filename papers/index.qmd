@@ -1,13 +1,31 @@
 <html>
-<head><title>Papers</title></head>
+
+<head>
+
+<title>Courses</title>
+
+</head>
+
 <body>
-    <h2>Papers</h2>
-    Haga click en "[PDF]" para descargar el documento.
-    <hr>
-    <h3>2017</h3>
-    <p><strong>Bruce E. Hansen</strong>: Time series econometrics for the 21st century <a href="https://www.tandfonline.com/doi/abs/10.1080/00220485.2017.1320610?journalCode=vece20">https://doi.org/10.48550/arXiv.2304.02632</a> <a href='https://www.ssc.wisc.edu/~bhansen/papers/jee.pdf'>[PDF]</a></p>
-    <h3>2020</h3>
-    <p><strong>Juan, I. M</strong>: Modelos de tipo caja negra para estudio de
-series temporales Financieras.<a href='https://drive.google.com/file/d/1bfmZtjIk9PH4K1LU4Gagvng3GDCZSuCO/view?usp=sharing'> [PDF]</a></p>
+
+<h2>Courses</h2>
+
+Saludos! Aquí encontraras diferentes cursos que he preparado para ti.
+
+<hr>
+
 </body>
+
 </html>
+
+-   [Modelando Riesgo Crediticio con Python](https://j-isaula.github.io/Credit-Risk-Modeling/)
+
+-   [Fundamentos Estadísticos con R](https://j-isaula.github.io/Fudamentos_estadisticos_con_R/)
+
+-   [Matemáticas de la Optimización - Microeconomía](https://j-isaula.github.io/micreoeconomics/)
+
+-   [Test de Jarque-Bera con Python](https://github.com/J-Isaula/Finance-using-python/blob/main/Finance_Python_Clas1.ipynb)
+
+-   [Redes Neuronales LSTM vs GRU](https://github.com/J-Isaula/LSTM-vs-GRU/blob/main/LSTM_vs_GRU.ipynb)
+
+-   [Pronósticos de Inflación Honduras utilizando Redes Neuronales](https://github.com/J-Isaula/Inflation-Forecast/blob/main/LSTM_PyTorch.ipynb)
