@@ -4,6 +4,10 @@ title: "Historias"
 
 En esta sección de mi `website` conoceras un poco de las diferentes actividades que realizó o he realizado en algunos de mis días.
 
+**Celebrando el cumpleaños de mi amigo Elmer, felicidades crack.**
+
+![](cumple_elmer.jpeg){width="13.3cm"}
+
 **Linda Experiencia, impartiendo el curso sobre fundamentos estadísticos utilizando el software de R a estudiantes de la maestría en Gestión de Proyectos de la UNAH.**
 
 ![](maestria_cr.png){fig-align="left" width="13.3cm"}
@@ -23,3 +27,7 @@ En esta sección de mi `website` conoceras un poco de las diferentes actividades
 **Festejando Graduación (Lic. Matemáticas) de Amigos**
 
 ![](amigos.jpeg){width="13.1cm"}
+
+**Formando parte del jurado de la fería cientifica de los chicos del Instituto Hildegard**
+
+![](feria_cientifica.jpeg){width="13.3cm" height="17cm"}

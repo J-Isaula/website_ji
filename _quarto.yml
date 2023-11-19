@@ -26,9 +26,9 @@ website:
     right:
       - text: "Home"
         href: index.html
-      - text: "Papers"
+      - text: "Courses"
         href: papers
-      - text: "Cursos"
+      - text: "UNAH Courses"
         href: presentations
       - text: "Blog"
         href: blog.html

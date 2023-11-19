@@ -11,7 +11,8 @@ listing:
 page-layout: full
 title-block-banner: true
 ---
-::: {.column-page}
 
+***Recurda que puedes dejar tus comentarios sobre alguno de los post que se presentan en esta sección de mi website, yendo al final de este sitio.***
+
+::: column-page
 :::
-
