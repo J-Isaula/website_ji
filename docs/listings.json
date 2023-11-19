@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/prima_seguros/index.html",
       "/posts/risk_score/index.html",
       "/posts/XGBoost/index.html",
       "/posts/RN/index.html",
