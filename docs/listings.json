@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/random_variables/index.html",
       "/posts/prima_seguros/index.html",
       "/posts/risk_score/index.html",
       "/posts/XGBoost/index.html",
