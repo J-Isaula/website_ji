@@ -1,0 +1,37 @@
+[
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/Neural Network/index.html",
+      "/posts/prima_seguros/index.html",
+      "/posts/risk_score/index.html",
+      "/posts/XGBoost/index.html",
+      "/posts/RN/index.html",
+      "/posts/port_mg/estructuras_mercado/index.html",
+      "/posts/port_mg/index.html",
+      "/posts/tidyverse/index.html",
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html",
+      "/posts/r/index.html",
+      "/posts/arima/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/estructuras_mercado/index.html",
+      "/papers/ground_filtering/index.html",
+      "/posts/r/index.html",
+      "/about.html",
+      "/posts/tidyverse/index.html",
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html",
+      "/posts/port_mg/index.html",
+      "/posts/arima/index.html",
+      "/subscribe.html",
+      "/presentations/index.html",
+      "/blog.html",
+      "/papers/index.html"
+    ]
+  }
+]
