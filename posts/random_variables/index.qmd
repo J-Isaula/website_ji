@@ -29,15 +29,15 @@ elegirlas.
 Una función de activación es una función que se agrega a una red
 neuronal para ayudar a la red a aprender dependencias no lineales
 complejas. Una función de activación típica debe ser diferenciable y
-continua en todas partes. A continuación proporcionaremos algunos
-ejemplos de funciones de activación utilizando la biblioteca
+continua en todas partes. A continuación proporcionaré algunos ejemplos
+de funciones de activación utilizando la biblioteca
 [PyTorch](https://pytorch.org/).
 
 #### Función ReLU
 
-`ReLU` o la función ReLU realiza una operacion simple:
-$y = \max (0, x)$. Aquí te proporciono un ejemplo de uso de la función
-ReLU utilizando PyTorch.
+`ReLU` o la función ReLU realiza una operación simple:
+$y = \max (0, x)$. Aquí te proporcionó un ejemplo de uso de la función
+ReLU utilizando `PyTorch.`
 
 ```{python}
 import torch
@@ -61,11 +61,11 @@ Es una de las funciones de activación no lineal más comunes. La función
 sigmoidea se representa matemáticamente como:
 
 $$
-sigmoid(x) = \frac{1}{1 + e^x} 
+\sigma(x) = \frac{1}{1 + e^x} 
 $$
 
-Al igual que `ReLU`, la función `sigmoidea` se puede construir
-simplemente usando `PyTorch`.
+Al igual que `ReLU`, la función $\sigma$ se puede construir simplemente
+usando `PyTorch`.
 
 ```{python}
 import torch
@@ -87,12 +87,12 @@ plt.show()
 
 La función tangente hiperbólica es similar a la función sigmoidea, pero
 devuelve valores en el rango $(-1,1)$. El beneficio de `Tanh` sobre
-`Sigmoid` es que las entradas negativas se asignarán estrictamente a
+$\sigma$ es que las entradas negativas se asignarán estrictamente a
 negativa, y las entradas positivas se asignarán estrictamente a
 positivas:
 
 $$
-tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
 $$
 
 ```{python}
@@ -108,19 +108,19 @@ plt.plot(x.tolist(),y.tolist())
 plt.show()
 ```
 
-Las funciones de activación no lineales, como la `Sigmoid` y `Tanh`,
+Las funciones de activación no lineales, como la $\sigma$ y $\tanh$
 sufren de un gran problema computacional llamado problema de ***fuga de
 gradiente.***
 
-La fuga de gradiente hace que sea muy difícil entrenar y ajustar los
-parámetros de las capas iniciales en la red. Este problema empeora a
+La ***fuga de gradiente*** hace que sea muy difícil entrenar y ajustar
+los parámetros de las capas iniciales en la red. Este problema empeora a
 medida que aumenta el número de capas en la red.
 
 La fuga de gradiente es la causa principal que hace que las activaciones
 sigmoideas o Tanh no sean adecuadas para los modelos de Deep Learning
 (aprendizaje profundo). La función de activación `ReLU` no sufre de
-gradiente de desaparición porque la derivada siempre es 1 para entradas
-positivas. Así que siempre considere usar ReLU como la función de
+gradiente de fuga porque la derivada siempre es 1 para entradas
+positivas. Así que siempre considere usar `ReLU` como la función de
 activación en los primeros borradores del diseño de su modelo.\
 \
 La creación de una arquitectura de red neuronal que se adapte más a un
@@ -242,12 +242,12 @@ Discutiremos los siguientes temas:
 
 ### Recurrent Neural Network (RNN)
 
-RNN tiene un concepto de un estado oculto. Un estado oculto puede
-tratarse como memoria interna. El estado oculto no intenta recordar
-todos los valores pasados de la secuencia sino solo su efecto. Debido a
-la memoria interna, las RNN pueden recordar cosas importantes sobre su
-entrada, lo que les permite ser muy preciosos para predecir valores
-futuros.
+RNN *(Red Neuronal Recurrente Estándar)* tiene un concepto de un estado
+oculto. Un estado oculto puede tratarse como memoria interna. El estado
+oculto no intenta recordar todos los valores pasados de la secuencia
+sino solo su efecto. Debido a la memoria interna, las RNN pueden
+recordar cosas importantes sobre su entrada, lo que les permite ser muy
+preciosos para predecir valores futuros.
 
 Estudiemos la teoría de RNN de una manera más formal. En RNN, la
 secuencia de entrada se representa a traves de un bucle. Cuando toma una
@@ -272,8 +272,8 @@ Podemos ver a detalle la RNN Cell:
 ![Gráfico computacional de RNN Cell](Figure%204.4.png)
 
 La RNN Cell combina información sobre el valor actual de la secuencia
-$x_i$ y el estado previamente oculto $h_{i-1}$. La célula RNN devuelve
-un estado oculto actualizado $h_i$ después de aplicar la función de
+$x_i$ y el estado previamente oculto $h_{i-1}$. La RNN Cell, devuelve un
+estado oculto actualizado $h_i$ después de aplicar la función de
 activación.
 
 La RNN tiene los siguientes parámetros, que se ajustan durante el
@@ -287,11 +287,11 @@ entrenamiento:
 
 -   $B_{hh}$ sesgos oculto - oculto
 
-Nota: Un error común ocurre cuando los subíndices en los parámetros RNN
-$(W_{ih}, b_{ih}, W_{hh}, b_{hh})$ se interpretan como una dimensión de
-índice o tensor. No, son solo la abreviatura de entrada-oculto $(h_í)$ y
-oculto-oculto $(h)$. El mismo principio aplica a los parámetros de otros
-modelos: `GRU` y `LSTM`.
+***Nota:*** *Un error común ocurre cuando los subíndices en los
+parámetros RNN* $(W_{ih}, b_{ih}, W_{hh}, b_{hh})$ *se interpretan como
+una dimensión de índice o tensor. No, son solo la abreviatura de
+entrada-oculto* $(h_í)$ *y oculto-oculto* $(h)$*. El mismo principio
+aplica a los parámetros de otros modelos: `GRU` y `LSTM`.*
 
 En ocasiones, los cientificos de datos utilizan la siguiente
 representación de las RNN:
@@ -303,7 +303,7 @@ estoy tratando de evitar esto. Pero si este tipo de gráfico se adapta a
 tu intuición, entonces úsalo sin ninguna duda.\
 
 Ahora estamos listos para examinar una implementación de RNN utilizando
-`PyTorch`.
+[PyTorch](https://pytorch.org/)
 
 ```{python}
 import torch.nn as nn
@@ -493,7 +493,7 @@ for test_seq in x_test.tolist():
     predicted.append(unscaled)
 
 real = scaler.inverse_transform(y_test.tolist())
-plt.title("conjutno de datos prueba")
+plt.title("Conjunto de datos prueba - RNN")
 plt.plot(real, label = 'real')
 plt.plot(predicted, label = 'predicción')
 plt.legend()
@@ -507,7 +507,7 @@ precisión.
 Y finalmente, examinamos el proceso de entrenamiento en sí.
 
 ```{python}
-plt.title('Entrenamiento')
+plt.title('Desempeño RNN')
 plt.yscale('log')
 plt.plot(training_loss, label = 'Entrenamiento')
 plt.plot(validation_loss, label = 'validación')
@@ -527,8 +527,7 @@ A pesar de todas las ventajas de RNN, tiene desventajas significativas:
 
 -   Debido a la complejidad computacional, sufren problemas de gradiente
     de fuga. El proceso de entrenamiento se vuelve demasiado lento. El
-    problema del gradient e de fuga es un problema común a todas las
-    RNN.
+    problema del gradiente de fuga es un problema común a todas las RNN.
 
 -   El estado oculto se actualiza en cada iteración, lo que dificulta el
     almacenamiento de información a largo plazo en RNN. Las
@@ -772,7 +771,7 @@ for test_seq in x_test.tolist():
 
 ```{python}
 real = scaler.inverse_transform(y_test.tolist())
-plt.title("conjutno de datos prueba")
+plt.title("Conjunto de datos prueba - GRU")
 plt.plot(real, label = 'real')
 plt.plot(predicted, label = 'predicción')
 plt.legend()
@@ -783,7 +782,7 @@ Vemos que el modelo `GRU` imita el comportamiento original de la serie
 temporal con bastante precisión.
 
 ```{python}
-plt.title('Entrenamiento')
+plt.title('Desempeño GRU')
 plt.yscale('log')
 plt.plot(training_loss, label = 'Entrenamiengto')
 plt.plot(validation_loss, label = 'validación')
@@ -1018,7 +1017,7 @@ with torch.no_grad():
         predicted.append(unscaled)
         
 real = scaler.inverse_transform(y_test.tolist())
-plt.title("Conjunto de prueba")
+plt.title("Conjunto de prueba - LSTM")
 plt.plot(real, label = 'real')
 plt.plot(predicted, label = 'predicción')
 plt.legend()
@@ -1029,7 +1028,7 @@ LSTM captura muy bien el comportamiento de las series temporales para
 hacer predicciones precisas.
 
 ```{python}
-plt.title('Entrenamiento')
+plt.title('Desempeño LSTM')
 plt.yscale('log')
 plt.plot(training_loss, label = 'Entrenamiento')
 plt.plot(validation_loss, label = 'validación')
