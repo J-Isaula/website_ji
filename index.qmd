@@ -21,8 +21,8 @@ page-layout: full
 
 # Hola!
 
-Soy Juan, un matemático orientado al área estadística, especialista en ciencia de datos, análisis actuarial y riesgo crediticio, tengo gran expertis en lenguajes de progamación  como  `Python`, `R`, `KNIME` y `SQL`. Me fascina el campo del Machine Learning y Deep Learning,  la mayor parte de mis trabajos están orientados al desarrollo de modelos estadísticos aplicados a diferentes áreas (economía, medicina, finanzas, actuaría, riesgo crediticio). 
+Soy Juan, un matemático orientado al área estadística, especialista en ciencia de datos, análisis actuarial y riesgo crediticio, tengo gran expertis en lenguajes de progamación como `Python`, `R`, `KNIME` y `SQL`. Me fascina el campo del Machine Learning y Deep Learning, la mayor parte de mis trabajos están orientados al desarrollo de modelos estadísticos aplicados a diferentes áreas (economía, medicina, finanzas, actuaría, riesgo crediticio).
 
-En la actualidad soy candidato a MSc. Economía Matemática en Universidad Nacional Autónoma de San Luis Potosi (UASLP), México. 
+En la actualidad soy candidato a ***MSc. Economía Matemática*** en Universidad Nacional Autónoma de San Luis Potosi (UASLP), México.
 
-En este sitio mantengo información sobre cursos en los cuales soy colaborador, algunos papers que llaman mucho mi atención, mi blog personal donde podra encontrar post que le puden despertar su interes en el modelado estadístico con el uso de herramientas de aprendizaje automático (Machine Learning) y Aprendizaje Profundo (Deep Learning)
+En este sitio mantengo información sobre cursos en los cuales soy colaborador, algunos papers que llaman mucho mi atención, mi blog personal donde podra encontrar post que le puden despertar su interes en el modelado estadístico con el uso de herramientas de aprendizaje automático (Machine Learning) y Aprendizaje Profundo (Deep Learning).
