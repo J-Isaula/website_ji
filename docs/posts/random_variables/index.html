@@ -228,10 +228,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="fundamentos-previos-a-la-comprensión-de-redes-neuronales">Fundamentos previos a la comprensión de Redes Neuronales</h2>
 <section id="función-de-activación" class="level3">
 <h3 class="anchored" data-anchor-id="función-de-activación">Función de Activación</h3>
-<p>Una función de activación es una función que se agrega a una red neuronal para ayudar a la red a aprender dependencias no lineales complejas. Una función de activación típica debe ser diferenciable y continua en todas partes. A continuación proporcionaremos algunos ejemplos de funciones de activación utilizando la biblioteca <a href="https://pytorch.org/">PyTorch</a>.</p>
+<p>Una función de activación es una función que se agrega a una red neuronal para ayudar a la red a aprender dependencias no lineales complejas. Una función de activación típica debe ser diferenciable y continua en todas partes. A continuación proporcionaré algunos ejemplos de funciones de activación utilizando la biblioteca <a href="https://pytorch.org/">PyTorch</a>.</p>
 <section id="función-relu" class="level4">
 <h4 class="anchored" data-anchor-id="función-relu">Función ReLU</h4>
-<p><code>ReLU</code> o la función ReLU realiza una operacion simple: <span class="math inline">\(y = \max (0, x)\)</span>. Aquí te proporciono un ejemplo de uso de la función ReLU utilizando PyTorch.</p>
+<p><code>ReLU</code> o la función ReLU realiza una operación simple: <span class="math inline">\(y = \max (0, x)\)</span>. Aquí te proporcionó un ejemplo de uso de la función ReLU utilizando <code>PyTorch.</code></p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
@@ -254,9 +254,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="función-sigmoidea">Función Sigmoidea</h4>
 <p>Es una de las funciones de activación no lineal más comunes. La función sigmoidea se representa matemáticamente como:</p>
 <p><span class="math display">\[
-sigmoid(x) = \frac{1}{1 + e^x}
+\sigma(x) = \frac{1}{1 + e^x}
 \]</span></p>
-<p>Al igual que <code>ReLU</code>, la función <code>sigmoidea</code> se puede construir simplemente usando <code>PyTorch</code>.</p>
+<p>Al igual que <code>ReLU</code>, la función <span class="math inline">\(\sigma\)</span> se puede construir simplemente usando <code>PyTorch</code>.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
@@ -277,9 +277,9 @@ sigmoid(x) = \frac{1}{1 + e^x}
 </section>
 <section id="función-tanh" class="level4">
 <h4 class="anchored" data-anchor-id="función-tanh">Función Tanh</h4>
-<p>La función tangente hiperbólica es similar a la función sigmoidea, pero devuelve valores en el rango <span class="math inline">\((-1,1)\)</span>. El beneficio de <code>Tanh</code> sobre <code>Sigmoid</code> es que las entradas negativas se asignarán estrictamente a negativa, y las entradas positivas se asignarán estrictamente a positivas:</p>
+<p>La función tangente hiperbólica es similar a la función sigmoidea, pero devuelve valores en el rango <span class="math inline">\((-1,1)\)</span>. El beneficio de <code>Tanh</code> sobre <span class="math inline">\(\sigma\)</span> es que las entradas negativas se asignarán estrictamente a negativa, y las entradas positivas se asignarán estrictamente a positivas:</p>
 <p><span class="math display">\[
-tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
+\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
 \]</span></p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -296,9 +296,9 @@ tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}
 <p><img src="index_files/figure-html/cell-4-output-1.png" width="590" height="431"></p>
 </div>
 </div>
-<p>Las funciones de activación no lineales, como la <code>Sigmoid</code> y <code>Tanh</code>, sufren de un gran problema computacional llamado problema de <strong><em>fuga de gradiente.</em></strong></p>
-<p>La fuga de gradiente hace que sea muy difícil entrenar y ajustar los parámetros de las capas iniciales en la red. Este problema empeora a medida que aumenta el número de capas en la red.</p>
-<p>La fuga de gradiente es la causa principal que hace que las activaciones sigmoideas o Tanh no sean adecuadas para los modelos de Deep Learning (aprendizaje profundo). La función de activación <code>ReLU</code> no sufre de gradiente de desaparición porque la derivada siempre es 1 para entradas positivas. Así que siempre considere usar ReLU como la función de activación en los primeros borradores del diseño de su modelo.<br>
+<p>Las funciones de activación no lineales, como la <span class="math inline">\(\sigma\)</span> y <span class="math inline">\(\tanh\)</span> sufren de un gran problema computacional llamado problema de <strong><em>fuga de gradiente.</em></strong></p>
+<p>La <strong><em>fuga de gradiente</em></strong> hace que sea muy difícil entrenar y ajustar los parámetros de las capas iniciales en la red. Este problema empeora a medida que aumenta el número de capas en la red.</p>
+<p>La fuga de gradiente es la causa principal que hace que las activaciones sigmoideas o Tanh no sean adecuadas para los modelos de Deep Learning (aprendizaje profundo). La función de activación <code>ReLU</code> no sufre de gradiente de fuga porque la derivada siempre es 1 para entradas positivas. Así que siempre considere usar <code>ReLU</code> como la función de activación en los primeros borradores del diseño de su modelo.<br>
 <br>
 La creación de una arquitectura de red neuronal que se adapte más a un problema en particular es un arte. Existe una dirección de estudio separada en el aprendizaje profundo llamado <em><code>Búsqueda de arquitectura neural</code></em>, que automatiza la ingeniería de arquitectura de red: <a href="https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html." class="uri">https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html.</a> Pero incluso estos motores de búsqueda no pueden competir con las habilidades heurísticas humanas en el diseño todavía. Existen algunas técnicas que aumentan la probabilidad de mejorar el rendimiento de la red neuronal. Por supuesto, estas técnicas no garantizan la mejora en todos los casos. A veces incluso pueden empeorar el rendimiento de la red neuronal. Pero es probable que desarrolle una arquitectura de modelo robusta siguiendo estos enfoques.</p>
 </section>
@@ -367,7 +367,7 @@ smooth\_loss(y^{\prime},y) = \frac{1}{n}\sum z_i
 </ul>
 <section id="recurrent-neural-network-rnn" class="level3">
 <h3 class="anchored" data-anchor-id="recurrent-neural-network-rnn">Recurrent Neural Network (RNN)</h3>
-<p>RNN tiene un concepto de un estado oculto. Un estado oculto puede tratarse como memoria interna. El estado oculto no intenta recordar todos los valores pasados de la secuencia sino solo su efecto. Debido a la memoria interna, las RNN pueden recordar cosas importantes sobre su entrada, lo que les permite ser muy preciosos para predecir valores futuros.</p>
+<p>RNN <em>(Red Neuronal Recurrente Estándar)</em> tiene un concepto de un estado oculto. Un estado oculto puede tratarse como memoria interna. El estado oculto no intenta recordar todos los valores pasados de la secuencia sino solo su efecto. Debido a la memoria interna, las RNN pueden recordar cosas importantes sobre su entrada, lo que les permite ser muy preciosos para predecir valores futuros.</p>
 <p>Estudiemos la teoría de RNN de una manera más formal. En RNN, la secuencia de entrada se representa a traves de un bucle. Cuando toma una decisión, considera la entrada actual y también lo que ha aprendido de las entradas que recibio anteriormente. Veamos el gráfico computacional de RNN para comprender esta lógica:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -388,7 +388,7 @@ smooth\_loss(y^{\prime},y) = \frac{1}{n}\sum z_i
 <figcaption class="figure-caption">Gráfico computacional de RNN Cell</figcaption>
 </figure>
 </div>
-<p>La RNN Cell combina información sobre el valor actual de la secuencia <span class="math inline">\(x_i\)</span> y el estado previamente oculto <span class="math inline">\(h_{i-1}\)</span>. La célula RNN devuelve un estado oculto actualizado <span class="math inline">\(h_i\)</span> después de aplicar la función de activación.</p>
+<p>La RNN Cell combina información sobre el valor actual de la secuencia <span class="math inline">\(x_i\)</span> y el estado previamente oculto <span class="math inline">\(h_{i-1}\)</span>. La RNN Cell, devuelve un estado oculto actualizado <span class="math inline">\(h_i\)</span> después de aplicar la función de activación.</p>
 <p>La RNN tiene los siguientes parámetros, que se ajustan durante el entrenamiento:</p>
 <ul>
 <li><p><span class="math inline">\(W_{ih}\)</span> pesos ocultos de entrada</p></li>
@@ -396,7 +396,7 @@ smooth\_loss(y^{\prime},y) = \frac{1}{n}\sum z_i
 <li><p><span class="math inline">\(W_{hh}\)</span> pesos ocultos - ocultos</p></li>
 <li><p><span class="math inline">\(B_{hh}\)</span> sesgos oculto - oculto</p></li>
 </ul>
-<p>Nota: Un error común ocurre cuando los subíndices en los parámetros RNN <span class="math inline">\((W_{ih}, b_{ih}, W_{hh}, b_{hh})\)</span> se interpretan como una dimensión de índice o tensor. No, son solo la abreviatura de entrada-oculto <span class="math inline">\((h_í)\)</span> y oculto-oculto <span class="math inline">\((h)\)</span>. El mismo principio aplica a los parámetros de otros modelos: <code>GRU</code> y <code>LSTM</code>.</p>
+<p><strong><em>Nota:</em></strong> <em>Un error común ocurre cuando los subíndices en los parámetros RNN</em> <span class="math inline">\((W_{ih}, b_{ih}, W_{hh}, b_{hh})\)</span> <em>se interpretan como una dimensión de índice o tensor. No, son solo la abreviatura de entrada-oculto</em> <span class="math inline">\((h_í)\)</span> <em>y oculto-oculto</em> <span class="math inline">\((h)\)</span><em>. El mismo principio aplica a los parámetros de otros modelos: <code>GRU</code> y <code>LSTM</code>.</em></p>
 <p>En ocasiones, los cientificos de datos utilizan la siguiente representación de las RNN:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -406,7 +406,7 @@ smooth\_loss(y^{\prime},y) = \frac{1}{n}\sum z_i
 </div>
 <p>El gráfico que se muestra puede dar lugar a algunos malentendidos, y estoy tratando de evitar esto. Pero si este tipo de gráfico se adapta a tu intuición, entonces úsalo sin ninguna duda.<br>
 </p>
-<p>Ahora estamos listos para examinar una implementación de RNN utilizando <code>PyTorch</code>.</p>
+<p>Ahora estamos listos para examinar una implementación de RNN utilizando <a href="https://pytorch.org/">PyTorch</a></p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -522,7 +522,7 @@ smooth\_loss(y^{\prime},y) = \frac{1}{n}\sum z_i
 <span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RNN(hidden_size <span class="op">=</span> rnn_hidden_size)</span>
 <span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>model.train()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15172\1156180628.py:50: UserWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22356\1156180628.py:50: UserWarning:
 
 Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  C:\b\abs_bao0hdcrdh\croot\pytorch_1675190257512\work\torch\csrc\utils\tensor_new.cpp:204.)
 </code></pre>
@@ -597,7 +597,7 @@ epoch 450: train - 0.0012, val: - 0.0024</code></pre>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    predicted.append(unscaled)</span>
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> scaler.inverse_transform(y_test.tolist())</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"conjutno de datos prueba"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Conjunto de datos prueba - RNN"</span>)</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>plt.plot(real, label <span class="op">=</span> <span class="st">'real'</span>)</span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>plt.plot(predicted, label <span class="op">=</span> <span class="st">'predicción'</span>)</span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
@@ -609,7 +609,7 @@ epoch 450: train - 0.0012, val: - 0.0024</code></pre>
 <p>RNN muestra un gran rendimiento en el conjunto de datos de prueba. El modelo que hemos entrenado predice picos estacionales con mucha precisión.</p>
 <p>Y finalmente, examinamos el proceso de entrenamiento en sí.</p>
 <div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Entrenamiento'</span>)</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Desempeño RNN'</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot(training_loss, label <span class="op">=</span> <span class="st">'Entrenamiento'</span>)</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.plot(validation_loss, label <span class="op">=</span> <span class="st">'validación'</span>)</span>
@@ -618,14 +618,14 @@ epoch 450: train - 0.0012, val: - 0.0024</code></pre>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-11-output-1.png" width="599" height="449"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>El proceso del entrenamiento es suave sin picos agudos e impredecibles.</p>
 <p>Ahora, podemos establecer con confianza la promesa y la efectividad de la aplicación de RNN a los problemas de pronósticos de la serie temporal.</p>
 <p>A pesar de todas las ventajas de RNN, tiene desventajas significativas:</p>
 <ul>
-<li><p>Debido a la complejidad computacional, sufren problemas de gradiente de fuga. El proceso de entrenamiento se vuelve demasiado lento. El problema del gradient e de fuga es un problema común a todas las RNN.</p></li>
+<li><p>Debido a la complejidad computacional, sufren problemas de gradiente de fuga. El proceso de entrenamiento se vuelve demasiado lento. El problema del gradiente de fuga es un problema común a todas las RNN.</p></li>
 <li><p>El estado oculto se actualiza en cada iteración, lo que dificulta el almacenamiento de información a largo plazo en RNN. Las arquitecturas <code>GRU</code> y <code>LSTM</code> resuelven este problema. Tienen enfoques similares sobre cómo almacenar información a largo plazo.</p></li>
 </ul>
 </section>
@@ -776,7 +776,7 @@ epoch 450: train - 0.0011, val: - 0.0022</code></pre>
 </div>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> scaler.inverse_transform(y_test.tolist())</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"conjutno de datos prueba"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Conjunto de datos prueba - GRU"</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(real, label <span class="op">=</span> <span class="st">'real'</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.plot(predicted, label <span class="op">=</span> <span class="st">'predicción'</span>)</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
@@ -787,7 +787,7 @@ epoch 450: train - 0.0011, val: - 0.0022</code></pre>
 </div>
 <p>Vemos que el modelo <code>GRU</code> imita el comportamiento original de la serie temporal con bastante precisión.</p>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Entrenamiento'</span>)</span>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Desempeño GRU'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.plot(training_loss, label <span class="op">=</span> <span class="st">'Entrenamiengto'</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.plot(validation_loss, label <span class="op">=</span> <span class="st">'validación'</span>)</span>
@@ -796,7 +796,7 @@ epoch 450: train - 0.0011, val: - 0.0022</code></pre>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-14-output-1.png" width="599" height="449"></p>
+<p><img src="index_files/figure-html/cell-14-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Las pérdidas de entrenamiento y validación tienen descenso asintótico con un brecha natural constante entre ellas. Podemos concluir que el modelo realmente aprende el comportamiento de la serie temporal.</p>
@@ -983,7 +983,7 @@ epoch 90: train - 0.0014, val: - 0.0019</code></pre>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        predicted.append(unscaled)</span>
 <span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> scaler.inverse_transform(y_test.tolist())</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Conjunto de prueba"</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Conjunto de prueba - LSTM"</span>)</span>
 <span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>plt.plot(real, label <span class="op">=</span> <span class="st">'real'</span>)</span>
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>plt.plot(predicted, label <span class="op">=</span> <span class="st">'predicción'</span>)</span>
 <span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
@@ -994,7 +994,7 @@ epoch 90: train - 0.0014, val: - 0.0019</code></pre>
 </div>
 <p>LSTM captura muy bien el comportamiento de las series temporales para hacer predicciones precisas.</p>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Entrenamiento'</span>)</span>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Desempeño LSTM'</span>)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.plot(training_loss, label <span class="op">=</span> <span class="st">'Entrenamiento'</span>)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.plot(validation_loss, label <span class="op">=</span> <span class="st">'validación'</span>)</span>
@@ -1003,7 +1003,7 @@ epoch 90: train - 0.0014, val: - 0.0019</code></pre>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="index_files/figure-html/cell-19-output-1.png" width="599" height="449"></p>
+<p><img src="index_files/figure-html/cell-19-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Mirando, concluimos que detuvimos el proceso de entrenamiento demasiado temprano. Obtenemos modelos más precisos si establecemos más epocas (epoch) para el entrenamiento.</p>
