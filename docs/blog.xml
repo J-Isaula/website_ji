@@ -24,10 +24,10 @@
 <h2 class="anchored" data-anchor-id="fundamentos-previos-a-la-comprensión-de-redes-neuronales">Fundamentos previos a la comprensión de Redes Neuronales</h2>
 <section id="función-de-activación" class="level3">
 <h3 class="anchored" data-anchor-id="función-de-activación">Función de Activación</h3>
-<p>Una función de activación es una función que se agrega a una red neuronal para ayudar a la red a aprender dependencias no lineales complejas. Una función de activación típica debe ser diferenciable y continua en todas partes. A continuación proporcionaremos algunos ejemplos de funciones de activación utilizando la biblioteca <a href="https://pytorch.org/">PyTorch</a>.</p>
+<p>Una función de activación es una función que se agrega a una red neuronal para ayudar a la red a aprender dependencias no lineales complejas. Una función de activación típica debe ser diferenciable y continua en todas partes. A continuación proporcionaré algunos ejemplos de funciones de activación utilizando la biblioteca <a href="https://pytorch.org/">PyTorch</a>.</p>
 <section id="función-relu" class="level4">
 <h4 class="anchored" data-anchor-id="función-relu">Función ReLU</h4>
-<p><code>ReLU</code> o la función ReLU realiza una operacion simple: <img src="https://latex.codecogs.com/png.latex?y%20=%20%5Cmax%20(0,%20x)">. Aquí te proporciono un ejemplo de uso de la función ReLU utilizando PyTorch.</p>
+<p><code>ReLU</code> o la función ReLU realiza una operación simple: <img src="https://latex.codecogs.com/png.latex?y%20=%20%5Cmax%20(0,%20x)">. Aquí te proporcionó un ejemplo de uso de la función ReLU utilizando <code>PyTorch.</code></p>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -77,8 +77,8 @@ font-style: inherit;">"ReLU"</span>)</span>
 <section id="función-sigmoidea" class="level4">
 <h4 class="anchored" data-anchor-id="función-sigmoidea">Función Sigmoidea</h4>
 <p>Es una de las funciones de activación no lineal más comunes. La función sigmoidea se representa matemáticamente como:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Asigmoid(x)%20=%20%5Cfrac%7B1%7D%7B1%20+%20e%5Ex%7D%0A"></p>
-<p>Al igual que <code>ReLU</code>, la función <code>sigmoidea</code> se puede construir simplemente usando <code>PyTorch</code>.</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Csigma(x)%20=%20%5Cfrac%7B1%7D%7B1%20+%20e%5Ex%7D%0A"></p>
+<p>Al igual que <code>ReLU</code>, la función <img src="https://latex.codecogs.com/png.latex?%5Csigma"> se puede construir simplemente usando <code>PyTorch</code>.</p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -127,8 +127,8 @@ font-style: inherit;">"Sigmoidea"</span>)</span>
 </section>
 <section id="función-tanh" class="level4">
 <h4 class="anchored" data-anchor-id="función-tanh">Función Tanh</h4>
-<p>La función tangente hiperbólica es similar a la función sigmoidea, pero devuelve valores en el rango <img src="https://latex.codecogs.com/png.latex?(-1,1)">. El beneficio de <code>Tanh</code> sobre <code>Sigmoid</code> es que las entradas negativas se asignarán estrictamente a negativa, y las entradas positivas se asignarán estrictamente a positivas:</p>
-<p><img src="https://latex.codecogs.com/png.latex?%0Atanh(x)%20=%20%5Cfrac%7Be%5Ex%20-%20e%5E%7B-x%7D%7D%7Be%5Ex%20+%20e%5E%7B-x%7D%7D%0A"></p>
+<p>La función tangente hiperbólica es similar a la función sigmoidea, pero devuelve valores en el rango <img src="https://latex.codecogs.com/png.latex?(-1,1)">. El beneficio de <code>Tanh</code> sobre <img src="https://latex.codecogs.com/png.latex?%5Csigma"> es que las entradas negativas se asignarán estrictamente a negativa, y las entradas positivas se asignarán estrictamente a positivas:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%0A%5Ctanh(x)%20=%20%5Cfrac%7Be%5Ex%20-%20e%5E%7B-x%7D%7D%7Be%5Ex%20+%20e%5E%7B-x%7D%7D%0A"></p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -168,9 +168,9 @@ font-style: inherit;">'Tanh'</span>)</span>
 <p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-4-output-1.png" width="590" height="431"></p>
 </div>
 </div>
-<p>Las funciones de activación no lineales, como la <code>Sigmoid</code> y <code>Tanh</code>, sufren de un gran problema computacional llamado problema de <strong><em>fuga de gradiente.</em></strong></p>
-<p>La fuga de gradiente hace que sea muy difícil entrenar y ajustar los parámetros de las capas iniciales en la red. Este problema empeora a medida que aumenta el número de capas en la red.</p>
-<p>La fuga de gradiente es la causa principal que hace que las activaciones sigmoideas o Tanh no sean adecuadas para los modelos de Deep Learning (aprendizaje profundo). La función de activación <code>ReLU</code> no sufre de gradiente de desaparición porque la derivada siempre es 1 para entradas positivas. Así que siempre considere usar ReLU como la función de activación en los primeros borradores del diseño de su modelo.<br>
+<p>Las funciones de activación no lineales, como la <img src="https://latex.codecogs.com/png.latex?%5Csigma"> y <img src="https://latex.codecogs.com/png.latex?%5Ctanh"> sufren de un gran problema computacional llamado problema de <strong><em>fuga de gradiente.</em></strong></p>
+<p>La <strong><em>fuga de gradiente</em></strong> hace que sea muy difícil entrenar y ajustar los parámetros de las capas iniciales en la red. Este problema empeora a medida que aumenta el número de capas en la red.</p>
+<p>La fuga de gradiente es la causa principal que hace que las activaciones sigmoideas o Tanh no sean adecuadas para los modelos de Deep Learning (aprendizaje profundo). La función de activación <code>ReLU</code> no sufre de gradiente de fuga porque la derivada siempre es 1 para entradas positivas. Así que siempre considere usar <code>ReLU</code> como la función de activación en los primeros borradores del diseño de su modelo.<br>
 <br>
 La creación de una arquitectura de red neuronal que se adapte más a un problema en particular es un arte. Existe una dirección de estudio separada en el aprendizaje profundo llamado <em><code>Búsqueda de arquitectura neural</code></em>, que automatiza la ingeniería de arquitectura de red: <a href="https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html." class="uri">https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html.</a> Pero incluso estos motores de búsqueda no pueden competir con las habilidades heurísticas humanas en el diseño todavía. Existen algunas técnicas que aumentan la probabilidad de mejorar el rendimiento de la red neuronal. Por supuesto, estas técnicas no garantizan la mejora en todos los casos. A veces incluso pueden empeorar el rendimiento de la red neuronal. Pero es probable que desarrolle una arquitectura de modelo robusta siguiendo estos enfoques.</p>
 </section>
@@ -258,7 +258,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 </ul>
 <section id="recurrent-neural-network-rnn" class="level3">
 <h3 class="anchored" data-anchor-id="recurrent-neural-network-rnn">Recurrent Neural Network (RNN)</h3>
-<p>RNN tiene un concepto de un estado oculto. Un estado oculto puede tratarse como memoria interna. El estado oculto no intenta recordar todos los valores pasados de la secuencia sino solo su efecto. Debido a la memoria interna, las RNN pueden recordar cosas importantes sobre su entrada, lo que les permite ser muy preciosos para predecir valores futuros.</p>
+<p>RNN <em>(Red Neuronal Recurrente Estándar)</em> tiene un concepto de un estado oculto. Un estado oculto puede tratarse como memoria interna. El estado oculto no intenta recordar todos los valores pasados de la secuencia sino solo su efecto. Debido a la memoria interna, las RNN pueden recordar cosas importantes sobre su entrada, lo que les permite ser muy preciosos para predecir valores futuros.</p>
 <p>Estudiemos la teoría de RNN de una manera más formal. En RNN, la secuencia de entrada se representa a traves de un bucle. Cuando toma una decisión, considera la entrada actual y también lo que ha aprendido de las entradas que recibio anteriormente. Veamos el gráfico computacional de RNN para comprender esta lógica:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -279,7 +279,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <figcaption class="figure-caption">Gráfico computacional de RNN Cell</figcaption>
 </figure>
 </div>
-<p>La RNN Cell combina información sobre el valor actual de la secuencia <img src="https://latex.codecogs.com/png.latex?x_i"> y el estado previamente oculto <img src="https://latex.codecogs.com/png.latex?h_%7Bi-1%7D">. La célula RNN devuelve un estado oculto actualizado <img src="https://latex.codecogs.com/png.latex?h_i"> después de aplicar la función de activación.</p>
+<p>La RNN Cell combina información sobre el valor actual de la secuencia <img src="https://latex.codecogs.com/png.latex?x_i"> y el estado previamente oculto <img src="https://latex.codecogs.com/png.latex?h_%7Bi-1%7D">. La RNN Cell, devuelve un estado oculto actualizado <img src="https://latex.codecogs.com/png.latex?h_i"> después de aplicar la función de activación.</p>
 <p>La RNN tiene los siguientes parámetros, que se ajustan durante el entrenamiento:</p>
 <ul>
 <li><p><img src="https://latex.codecogs.com/png.latex?W_%7Bih%7D"> pesos ocultos de entrada</p></li>
@@ -287,7 +287,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <li><p><img src="https://latex.codecogs.com/png.latex?W_%7Bhh%7D"> pesos ocultos - ocultos</p></li>
 <li><p><img src="https://latex.codecogs.com/png.latex?B_%7Bhh%7D"> sesgos oculto - oculto</p></li>
 </ul>
-<p>Nota: Un error común ocurre cuando los subíndices en los parámetros RNN <img src="https://latex.codecogs.com/png.latex?(W_%7Bih%7D,%20b_%7Bih%7D,%20W_%7Bhh%7D,%20b_%7Bhh%7D)"> se interpretan como una dimensión de índice o tensor. No, son solo la abreviatura de entrada-oculto <img src="https://latex.codecogs.com/png.latex?(h_%C3%AD)"> y oculto-oculto <img src="https://latex.codecogs.com/png.latex?(h)">. El mismo principio aplica a los parámetros de otros modelos: <code>GRU</code> y <code>LSTM</code>.</p>
+<p><strong><em>Nota:</em></strong> <em>Un error común ocurre cuando los subíndices en los parámetros RNN</em> <img src="https://latex.codecogs.com/png.latex?(W_%7Bih%7D,%20b_%7Bih%7D,%20W_%7Bhh%7D,%20b_%7Bhh%7D)"> <em>se interpretan como una dimensión de índice o tensor. No, son solo la abreviatura de entrada-oculto</em> <img src="https://latex.codecogs.com/png.latex?(h_%C3%AD)"> <em>y oculto-oculto</em> <img src="https://latex.codecogs.com/png.latex?(h)"><em>. El mismo principio aplica a los parámetros de otros modelos: <code>GRU</code> y <code>LSTM</code>.</em></p>
 <p>En ocasiones, los cientificos de datos utilizan la siguiente representación de las RNN:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -297,7 +297,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 </div>
 <p>El gráfico que se muestra puede dar lugar a algunos malentendidos, y estoy tratando de evitar esto. Pero si este tipo de gráfico se adapta a tu intuición, entonces úsalo sin ninguna duda.<br>
 </p>
-<p>Ahora estamos listos para examinar una implementación de RNN utilizando <code>PyTorch</code>.</p>
+<p>Ahora estamos listos para examinar una implementación de RNN utilizando <a href="https://pytorch.org/">PyTorch</a></p>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
 background-color: null;
@@ -709,7 +709,7 @@ background-color: null;
 font-style: inherit;">=</span> rnn_hidden_size)</span>
 <span id="cb8-72">model.train()</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_15172\1156180628.py:50: UserWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22356\1156180628.py:50: UserWarning:
 
 Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  C:\b\abs_bao0hdcrdh\croot\pytorch_1675190257512\work\torch\csrc\utils\tensor_new.cpp:204.)
 </code></pre>
@@ -914,7 +914,7 @@ background-color: null;
 font-style: inherit;">=</span> scaler.inverse_transform(y_test.tolist())</span>
 <span id="cb13-16">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"conjutno de datos prueba"</span>)</span>
+font-style: inherit;">"Conjunto de datos prueba - RNN"</span>)</span>
 <span id="cb13-17">plt.plot(real, label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -936,7 +936,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Entrenamiento'</span>)</span>
+font-style: inherit;">'Desempeño RNN'</span>)</span>
 <span id="cb14-2">plt.yscale(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'log'</span>)</span>
@@ -959,14 +959,14 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb14-7">plt.legend()</span>
 <span id="cb14-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-11-output-1.png" width="599" height="449"></p>
+<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-11-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>El proceso del entrenamiento es suave sin picos agudos e impredecibles.</p>
 <p>Ahora, podemos establecer con confianza la promesa y la efectividad de la aplicación de RNN a los problemas de pronósticos de la serie temporal.</p>
 <p>A pesar de todas las ventajas de RNN, tiene desventajas significativas:</p>
 <ul>
-<li><p>Debido a la complejidad computacional, sufren problemas de gradiente de fuga. El proceso de entrenamiento se vuelve demasiado lento. El problema del gradient e de fuga es un problema común a todas las RNN.</p></li>
+<li><p>Debido a la complejidad computacional, sufren problemas de gradiente de fuga. El proceso de entrenamiento se vuelve demasiado lento. El problema del gradiente de fuga es un problema común a todas las RNN.</p></li>
 <li><p>El estado oculto se actualiza en cada iteración, lo que dificulta el almacenamiento de información a largo plazo en RNN. Las arquitecturas <code>GRU</code> y <code>LSTM</code> resuelven este problema. Tienen enfoques similares sobre cómo almacenar información a largo plazo.</p></li>
 </ul>
 </section>
@@ -1333,7 +1333,7 @@ background-color: null;
 font-style: inherit;">=</span> scaler.inverse_transform(y_test.tolist())</span>
 <span id="cb17-2">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"conjutno de datos prueba"</span>)</span>
+font-style: inherit;">"Conjunto de datos prueba - GRU"</span>)</span>
 <span id="cb17-3">plt.plot(real, label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -1354,7 +1354,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <div class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Entrenamiento'</span>)</span>
+font-style: inherit;">'Desempeño GRU'</span>)</span>
 <span id="cb18-2">plt.yscale(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'log'</span>)</span>
@@ -1377,7 +1377,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb18-7">plt.legend()</span>
 <span id="cb18-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-14-output-1.png" width="599" height="449"></p>
+<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-14-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Las pérdidas de entrenamiento y validación tienen descenso asintótico con un brecha natural constante entre ellas. Podemos concluir que el modelo realmente aprende el comportamiento de la serie temporal.</p>
@@ -1855,7 +1855,7 @@ background-color: null;
 font-style: inherit;">=</span> scaler.inverse_transform(y_test.tolist())</span>
 <span id="cb23-18">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Conjunto de prueba"</span>)</span>
+font-style: inherit;">"Conjunto de prueba - LSTM"</span>)</span>
 <span id="cb23-19">plt.plot(real, label <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
@@ -1876,7 +1876,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">plt.title(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Entrenamiento'</span>)</span>
+font-style: inherit;">'Desempeño LSTM'</span>)</span>
 <span id="cb24-2">plt.yscale(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'log'</span>)</span>
@@ -1899,7 +1899,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb24-7">plt.legend()</span>
 <span id="cb24-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-19-output-1.png" width="599" height="449"></p>
+<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-19-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Mirando, concluimos que detuvimos el proceso de entrenamiento demasiado temprano. Obtenemos modelos más precisos si establecemos más epocas (epoch) para el entrenamiento.</p>
