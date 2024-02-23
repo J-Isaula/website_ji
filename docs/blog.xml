@@ -14,7 +14,7 @@
 <item>
   <title>Tipos de Arquitecturas de Redes Neuronales</title>
   <dc:creator>Juan Isaula</dc:creator>
-  <link>https://mm218.dev/posts/random_variables/index.html</link>
+  <link>https://mm218.dev/posts/Neural Network/index.html</link>
   <description><![CDATA[ 
 
 
@@ -70,7 +70,7 @@ font-style: inherit;">"ReLU"</span>)</span>
 <span id="cb1-11">plt.plot(x.tolist(), y.tolist())</span>
 <span id="cb1-12">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-2-output-1.png" width="566" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-2-output-1.png" width="566" height="431"></p>
 </div>
 </div>
 </section>
@@ -121,7 +121,7 @@ font-style: inherit;">"Sigmoidea"</span>)</span>
 <span id="cb2-11">plt.plot(x.tolist(), y.tolist())</span>
 <span id="cb2-12">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-3-output-1.png" width="571" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-3-output-1.png" width="571" height="431"></p>
 </div>
 </div>
 </section>
@@ -165,7 +165,7 @@ font-style: inherit;">'Tanh'</span>)</span>
 <span id="cb3-9">plt.plot(x.tolist(),y.tolist())</span>
 <span id="cb3-10">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-4-output-1.png" width="590" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-4-output-1.png" width="590" height="431"></p>
 </div>
 </div>
 <p>Las funciones de activación no lineales, como la <img src="https://latex.codecogs.com/png.latex?%5Csigma"> y <img src="https://latex.codecogs.com/png.latex?%5Ctanh"> sufren de un gran problema computacional llamado problema de <strong><em>fuga de gradiente.</em></strong></p>
@@ -262,7 +262,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <p>Estudiemos la teoría de RNN de una manera más formal. En RNN, la secuencia de entrada se representa a traves de un bucle. Cuando toma una decisión, considera la entrada actual y también lo que ha aprendido de las entradas que recibio anteriormente. Veamos el gráfico computacional de RNN para comprender esta lógica:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mm218.dev/posts/random_variables/Figure 4.3.png" class="img-fluid figure-img"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/Figure 4.3.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Gráfico Computacional de RNN</figcaption>
 </figure>
 </div>
@@ -275,7 +275,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <p>Podemos ver a detalle la RNN Cell:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mm218.dev/posts/random_variables/Figure 4.4.png" class="img-fluid figure-img"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/Figure 4.4.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Gráfico computacional de RNN Cell</figcaption>
 </figure>
 </div>
@@ -291,7 +291,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <p>En ocasiones, los cientificos de datos utilizan la siguiente representación de las RNN:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://mm218.dev/posts/random_variables/Figure 4.5.png" class="img-fluid figure-img"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/Figure 4.5.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Visualización alternativa de RNN</figcaption>
 </figure>
 </div>
@@ -434,7 +434,7 @@ background-color: null;
 font-style: inherit;">500</span>])</span>
 <span id="cb7-11">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-7-output-1.png" width="592" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-7-output-1.png" width="592" height="431"></p>
 </div>
 </div>
 <p>Podemos ver en que esta es una serie de tiempo realmente complicada. Tiene varios factores de estacionalidad con picos apenas predecibles.</p>
@@ -709,7 +709,7 @@ background-color: null;
 font-style: inherit;">=</span> rnn_hidden_size)</span>
 <span id="cb8-72">model.train()</span></code></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_22356\1156180628.py:50: UserWarning:
+<pre><code>C:\Users\juani\AppData\Local\Temp\ipykernel_9444\1156180628.py:50: UserWarning:
 
 Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at  C:\b\abs_bao0hdcrdh\croot\pytorch_1675190257512\work\torch\csrc\utils\tensor_new.cpp:204.)
 </code></pre>
@@ -928,7 +928,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <span id="cb13-19">plt.legend()</span>
 <span id="cb13-20">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-10-output-1.png" width="592" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-10-output-1.png" width="592" height="431"></p>
 </div>
 </div>
 <p>RNN muestra un gran rendimiento en el conjunto de datos de prueba. El modelo que hemos entrenado predice picos estacionales con mucha precisión.</p>
@@ -959,7 +959,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb14-7">plt.legend()</span>
 <span id="cb14-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-11-output-1.png" width="599" height="450"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-11-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>El proceso del entrenamiento es suave sin picos agudos e impredecibles.</p>
@@ -978,13 +978,13 @@ font-style: inherit;">'Epoch'</span>)</span>
 <p>Se comienza calculando la puerta de actualización <img src="https://latex.codecogs.com/png.latex?z_t"> para el peso de tiempo <img src="https://latex.codecogs.com/png.latex?t"> usando la fórmula:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Beqnarray*%7D%0Az_%7Bt%7D%20&amp;=&amp;%20%5Csigma(W%5E%7Bz%7Dx_t%20+%20U%5E%7Bz%7Dh_%7Bt-1%7D)%20%5Chspace%7B1cm%7D%20%5Cmbox%7BPuerta%20de%20actualizaci%C3%B3n%7D%5C%5C%5B0.2cm%5D%0A%5Cend%7Beqnarray*%7D%0A"></p>
 <p>lo que sucede aquí es que cuando <img src="https://latex.codecogs.com/png.latex?x_t"> se conecta a la unidad de red, se multiplica por su propio peso <img src="https://latex.codecogs.com/png.latex?W%5E%7Bz%7D">. Lo mismo ocurre con <img src="https://latex.codecogs.com/png.latex?h_%7Bt-1%7D">, que contiene la información de las unidades <img src="https://latex.codecogs.com/png.latex?t-1"> anteriores y se múltiplica por su propio peso <img src="https://latex.codecogs.com/png.latex?U%5E%7Bz%7D">. Ambos resultados se suman y se aplica una función de activación sigmoidea <img src="https://latex.codecogs.com/png.latex?(%5Csigma)"> para acotar el resultado entre 0 y 1.</p>
-<p><img src="https://mm218.dev/posts/random_variables/fig_gru_1.png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/fig_gru_1.png" class="img-fluid"></p>
 <p>La puerta de actualización ayuda al modelo a determinar cuánta información pasada (de pasos de tiempo anteriores) debe transmitirse al futuro. Esto es muy poderoso porque el modelo puede decidir copiar toda la la información del pasado y eliminar el riesgo de que desaparezca el problema de fuga del gradiente.</p>
 <p>Luego continuamos con Restablecer puerta:</p>
 <p>Básicamente, esta puerta se utiliza desde el modelo para decidir cuánta información pasada se debe olvidar. Para calcularlo utilizamos:</p>
 <p><img src="https://latex.codecogs.com/png.latex?%0Ar_t%20=%20%5Csigma(W%5E%7Br%7Dx_t%20+%20U%5E%7Br%7Dh_%7Bt-1%7D)%5Chspace%7B1cm%7D%20%5Cmbox%7BRestablecer%20puerta%7D%0A"></p>
 <p>Esta fórmula es la misma que la de la puerta de actualización. La diferencia viene en los pesos y el uso de la puerta, que veremos en un momento.</p>
-<p><img src="https://mm218.dev/posts/random_variables/fig_2_gru.png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/fig_2_gru.png" class="img-fluid"></p>
 <p>Como antes, conectamos <img src="https://latex.codecogs.com/png.latex?h_%7Bt-1%7D%20-%20%5Cmbox%7Blinea%20azul%7D"> y <img src="https://latex.codecogs.com/png.latex?x_%7Bt%7D%20-%20%5Cmbox%7Blinea%20violeta%7D">, los multiplicamos con sus pesos correspondientes, sumamos los resultados y aplicamos la función sigmoidea.</p>
 <p><strong><em>Contenido de la memoria actual:</em></strong></p>
 <p>veamos como afectarán exactamente las puertaas al resultado final. Primero, comenzamos con el uso de la puerta de reinicio. Introducimos un nuevo contenido de memoria que utilizará la puerta de reinicio para almacenar la información del pasado. Se calcula de la siguiente manera:</p>
@@ -996,7 +996,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <li><p>Aplicar la función de activación no lineal tanh.</p></li>
 </ol>
 <p>Puedes ver claramente los pasos aquí:</p>
-<p><img src="https://mm218.dev/posts/random_variables/fig_3_gru.png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/fig_3_gru.png" class="img-fluid"></p>
 <p>Hacemos una multiplicación por elementos de <img src="https://latex.codecogs.com/png.latex?h_%7Bt-1%7D%20-%20%5Cmbox%7Bl%C3%ADnea%20azul%7D"> y <img src="https://latex.codecogs.com/png.latex?r_t%20-%20%5Cmbox%7Bl%C3%ADnea%20naranja%7D"> y luego sumamos el resultado - linea rosa con la entrada <img src="https://latex.codecogs.com/png.latex?x_t%20-"> línea morada. Finalmente, tanh se usa para producir <img src="https://latex.codecogs.com/png.latex?h_%7Bt%7D%5E%7B%5Cprime%7D:"> línea verde brillante.</p>
 <p><strong><em>Memoria final en el paso de tiempo actual</em></strong></p>
 <p>Como último paso, la red necesita calcular <img src="https://latex.codecogs.com/png.latex?h_%7Bt%7D">, el vector que contiene información para la unidad actual y la transmite a la red. Para hacer eso, se necesita la puerta de actualización. Determina qué recopilar el contenido de la memoria actual <img src="https://latex.codecogs.com/png.latex?(h_t%5E%7B%5Cprime%7D)"> y qué de los pasos anteriores <img src="https://latex.codecogs.com/png.latex?(h_%7B(t-1)%7D)">. Eso se hace de la siguiente manera:</p>
@@ -1008,7 +1008,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 </ol>
 <p>Pongamos el ejemplo de la reseña del equilibrio. En esta ocasión, la información más relevante se situa al inicio del texto. El modelo puede aprender a establecer el vector <img src="https://latex.codecogs.com/png.latex?z_t"> cerca de 1 y conservar la mayor parte de la información anterior. Dado que <img src="https://latex.codecogs.com/png.latex?z_t"> estará cerca de 1 en este paso de tiempo, <img src="https://latex.codecogs.com/png.latex?(1-z_t)"> estará cerca de 0, lo que ignorará gran parte del contenido actual (en este caso, la última parte de la reseña que explica la trama del libro), lo cual es irrelevante para nuestra predicción.</p>
 <p>Aquí hay una ilustración que enfatiza la ecuación anterior:</p>
-<p><img src="https://mm218.dev/posts/random_variables/fig_4_gru.png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/fig_4_gru.png" class="img-fluid"></p>
 <p>A continuación, puede ver cómo <img src="https://latex.codecogs.com/png.latex?z_t"> (línea verde) para calcular <img src="https://latex.codecogs.com/png.latex?1%20-%20z_t"> que combinado con <img src="https://latex.codecogs.com/png.latex?h_%7Bt%7D%5E%7B%5Cprime%7D"> (línea verde brillante), produce un resultado en la línea roja oscura. <img src="https://latex.codecogs.com/png.latex?z_t"> también se usa con <img src="https://latex.codecogs.com/png.latex?h_%7Bt-1%7D%20-%20%5Cmbox%7Bl%C3%ADnea%20azul%7D"> en una multiplicación de elementos. Finalmente, <img src="https://latex.codecogs.com/png.latex?h_%7Bt%7D:"> la línea azul es el resultado de la suma de las salidas correspondientes a las líneas rojas brillantes y oscuras.</p>
 <p>Ahora puede ver cómo las GRU pueden almacenar y filtrar la información utilizando sus puertas de actualización y reinicio. Eso elimina el problema del gradiente de fuga, ya que el modelo no elimina la nueva entrada cada vez, sino que mantiene la información relevante y la pasa a los siguientes pasos de la red. <strong><em>Si se les entrena cuidadosamente, pueden desempeñarse extremadamente bien incluso en escenarios complejos.</em></strong></p>
 <p>El modelo de predicción <code>GRU</code> es muy similar al <code>RNN</code>. Veamos su desempeño utilizando la misma data que el casa <code>RNN</code>.</p>
@@ -1347,7 +1347,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <span id="cb17-5">plt.legend()</span>
 <span id="cb17-6">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-13-output-1.png" width="592" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-13-output-1.png" width="592" height="431"></p>
 </div>
 </div>
 <p>Vemos que el modelo <code>GRU</code> imita el comportamiento original de la serie temporal con bastante precisión.</p>
@@ -1377,7 +1377,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb18-7">plt.legend()</span>
 <span id="cb18-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-14-output-1.png" width="599" height="450"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-14-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Las pérdidas de entrenamiento y validación tienen descenso asintótico con un brecha natural constante entre ellas. Podemos concluir que el modelo realmente aprende el comportamiento de la serie temporal.</p>
@@ -1386,7 +1386,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <h3 class="anchored" data-anchor-id="long-short-term-memory-network-lstm">Long short-term memory network (LSTM)</h3>
 <p>La red <code>LSTM</code> se ha desarrollado para superar el problema de fuga de gradiente en <code>RNN</code> al mejorar el flujo de gradiente de la red. Debe mencionarse que la arquitectura apareció mucho antes que la GRU. La arquitectura LSTM se desarrolló en 1997, y el GRU se propueso en 2014. El diseño GRU es más simple y más comprensible que LSTM. Es por eso que comenzamos nuestro estudio examinando primero GRU.</p>
 <p>Como su nombre lo índica, LSTM aborda los mismos problemas de memoria a corto y largo plazo que GRU. A nivel global, el flujo computacional del LSTM se ve de la siguiente manera:</p>
-<p><img src="https://mm218.dev/posts/random_variables/Figure 4.16.png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/Figure 4.16.png" class="img-fluid"></p>
 <p>LSTM funciona sobre los principios similares que GRU pero tiene más variables. RNN y GRU solo pasan un estado oculto <img src="https://latex.codecogs.com/png.latex?h_t"> a través de cada iteración. Pero LSTM pasa dos vectores:</p>
 <ul>
 <li><p><img src="https://latex.codecogs.com/png.latex?h_t"> estado oculto (memoria a corto plazo)</p></li>
@@ -1413,7 +1413,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <li><p><img src="https://latex.codecogs.com/png.latex?h_t%20~(estado~oculto)"> es el siguiente estado oculto que se calcula eligiendo la información importante del estado de celda o celular <img src="https://latex.codecogs.com/png.latex?c_t">.</p></li>
 </ul>
 <p>A continuación te muestro el gráfico computacional de la celda LSTM:</p>
-<p><img src="https://mm218.dev/posts/random_variables/Figure 4.17 .png" class="img-fluid"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/Figure 4.17 .png" class="img-fluid"></p>
 <p>LSTM tiene los siguientes parámetros, que se ajustan durante el entrenamiento:</p>
 <ul>
 <li><p><img src="https://latex.codecogs.com/png.latex?W_%7Bii%7D,%20W_%7Bhi%7D,%20W_%7Bif%7D,%20W_%7Bhf%7D,%20W_%7Big%7D,%20W_%7Bhg%7D,%20W_%7Bio%7D,%20W_%7Bho%7D"> estos son los pesos.</p></li>
@@ -1557,7 +1557,7 @@ background-color: null;
 font-style: inherit;">500</span>])</span>
 <span id="cb20-11">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-16-output-1.png" width="592" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-16-output-1.png" width="592" height="431"></p>
 </div>
 </div>
 <p>Veamos el modelo en acción:</p>
@@ -1869,7 +1869,7 @@ font-style: inherit;">'predicción'</span>)</span>
 <span id="cb23-21">plt.legend()</span>
 <span id="cb23-22">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-18-output-1.png" width="592" height="431"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-18-output-1.png" width="592" height="431"></p>
 </div>
 </div>
 <p>LSTM captura muy bien el comportamiento de las series temporales para hacer predicciones precisas.</p>
@@ -1899,7 +1899,7 @@ font-style: inherit;">'Epoch'</span>)</span>
 <span id="cb24-7">plt.legend()</span>
 <span id="cb24-8">plt.show()</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://mm218.dev/posts/random_variables/index_files/figure-html/cell-19-output-1.png" width="599" height="450"></p>
+<p><img src="https://mm218.dev/posts/Neural Network/index_files/figure-html/cell-19-output-1.png" width="599" height="450"></p>
 </div>
 </div>
 <p>Mirando, concluimos que detuvimos el proceso de entrenamiento demasiado temprano. Obtenemos modelos más precisos si establecemos más epocas (epoch) para el entrenamiento.</p>
@@ -1936,9 +1936,9 @@ font-style: inherit;">'Epoch'</span>)</span>
   <category>GRU</category>
   <category>LSTM</category>
   <category>PyTorch</category>
-  <guid>https://mm218.dev/posts/random_variables/index.html</guid>
+  <guid>https://mm218.dev/posts/Neural Network/index.html</guid>
   <pubDate>Wed, 24 Jan 2024 06:00:00 GMT</pubDate>
-  <media:content url="https://mm218.dev/posts/random_variables/arq_rn.jpeg" medium="image" type="image/jpeg"/>
+  <media:content url="https://mm218.dev/posts/Neural Network/arq_rn.jpeg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Predicción de primas de seguros médicos con Machine Learning</title>
@@ -5344,6 +5344,26 @@ font-style: inherit;">"Predicción de Precio"</span>)</span>
   <guid>https://mm218.dev/posts/RN/index.html</guid>
   <pubDate>Tue, 23 May 2023 06:00:00 GMT</pubDate>
   <media:content url="https://mm218.dev/posts/RN/fondo.png" medium="image" type="image/png" height="71" width="144"/>
+</item>
+<item>
+  <title>Crecimiento Economico</title>
+  <dc:creator>Juan Isaula</dc:creator>
+  <link>https://mm218.dev/posts/crec_economico/index.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+ ]]></description>
+  <category>RNN</category>
+  <category>LSTM</category>
+  <category>Tensorflow</category>
+  <category>Python</category>
+  <guid>https://mm218.dev/posts/crec_economico/index.html</guid>
+  <pubDate>Tue, 23 May 2023 06:00:00 GMT</pubDate>
+  <media:content url="https://mm218.dev/posts/crec_economico/fondo.png" medium="image" type="image/png" height="71" width="144"/>
 </item>
 <item>
   <title>Estructuras de Mercado con Python</title>
