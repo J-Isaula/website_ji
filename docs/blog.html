@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Juan Isaula -</title>
+<title>blog – Juan Isaula</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,8 +62,10 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
@@ -90,67 +98,94 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
-<link rel="alternate" type="application/rss+xml" title="Juan Isaula" href="blog.xml"><meta property="og:title" content="Juan Isaula -">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://mm218.dev/posts/post-with-code/thumbnail.jpg">
-<meta property="og:site-name" content="Juan Isaula">
+<link rel="alternate" type="application/rss+xml" title="Juan Isaula" href="blog.xml" data-external="1"><meta property="og:title" content="– Juan Isaula">
+<meta property="og:description" content="Technology and the Environment">
+<meta property="og:image" content="https://j-isaula.github.io/website_ji/posts/post-with-code/thumbnail.jpg">
+<meta property="og:site_name" content="Juan Isaula">
 <meta property="og:locale" content="en_US">
-<meta name="twitter:title" content="Juan Isaula -">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://mm218.dev/posts/post-with-code/thumbnail.jpg">
-<meta name="twitter:creator" content="@MikeMahoney218">
+<meta name="twitter:title" content="– Juan Isaula">
+<meta name="twitter:description" content="Technology and the Environment">
+<meta name="twitter:image" content="https://j-isaula.github.io/website_ji/posts/post-with-code/thumbnail.jpg">
+<meta name="twitter:creator" content="@isaula_im">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Juan Isaula</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./papers" rel="" target="">
- <span class="menu-text">Courses</span></a>
+    <a class="nav-link" href="./papers"> 
+<span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentations" rel="" target="">
- <span class="menu-text">UNAH Courses</span></a>
+    <a class="nav-link" href="./presentations"> 
+<span class="menu-text">UNAH Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" rel="" target="" aria-current="page">
- <span class="menu-text">Blog</span></a>
+    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+<span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">Dashboards</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Dashboards</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./sobre_juan.html" rel="" target="">
- <span class="menu-text">Historias</span></a>
+    <a class="nav-link" href="./sobre_juan.html"> 
+<span class="menu-text">Historias</span></a>
   </li>  
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -160,9 +195,10 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(13)</span></div><div class="category" data-category="CMg">CMg <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CTP">CTP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="CVP">CVP <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Credit Scores">Credit Scores <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Diversificación">Diversificación <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Economía">Economía <span class="quarto-category-count">(1)</span></div><div class="category" data-category="FICO">FICO <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Forecasting">Forecasting <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Frontera eficiente">Frontera eficiente <span class="quarto-category-count">(1)</span></div><div class="category" data-category="GRU">GRU <span class="quarto-category-count">(1)</span></div><div class="category" data-category="LSTM">LSTM <span class="quarto-category-count">(3)</span></div><div class="category" data-category="MLForecast">MLForecast <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Machine Learning">Machine Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Microeconomía">Microeconomía <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Portafolio">Portafolio <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Prophet">Prophet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="PyTorch">PyTorch <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(6)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(5)</span></div><div class="category" data-category="RNN">RNN <span class="quarto-category-count">(3)</span></div><div class="category" data-category="RStudio">RStudio <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Random Forest Regressor">Random Forest Regressor <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Seguros">Seguros <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tensorflow">Tensorflow <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Time Series">Time Series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Volatilidad">Volatilidad <span class="quarto-category-count">(1)</span></div><div class="category" data-category="XGBoost">XGBoost <span class="quarto-category-count">(1)</span></div><div class="category" data-category="broom">broom <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sklearn">sklearn <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(14)</span></div><div class="category" data-category="CMg">CMg <span class="quarto-category-count">(2)</span></div><div class="category" data-category="CTP">CTP <span class="quarto-category-count">(2)</span></div><div class="category" data-category="CVP">CVP <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Credit Scores">Credit Scores <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Diversificación">Diversificación <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Economía">Economía <span class="quarto-category-count">(1)</span></div><div class="category" data-category="FICO">FICO <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Forecasting">Forecasting <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Frontera eficiente">Frontera eficiente <span class="quarto-category-count">(1)</span></div><div class="category" data-category="GRU">GRU <span class="quarto-category-count">(2)</span></div><div class="category" data-category="LSTM">LSTM <span class="quarto-category-count">(3)</span></div><div class="category" data-category="MLForecast">MLForecast <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Machine Learning">Machine Learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Microeconomía">Microeconomía <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Portafolio">Portafolio <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Prophet">Prophet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="PyTorch">PyTorch <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(6)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(5)</span></div><div class="category" data-category="RNN">RNN <span class="quarto-category-count">(3)</span></div><div class="category" data-category="RStudio">RStudio <span class="quarto-category-count">(5)</span></div><div class="category" data-category="Random Forest Regressor">Random Forest Regressor <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Seguros">Seguros <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tensorflow">Tensorflow <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Time Series">Time Series <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Volatilidad">Volatilidad <span class="quarto-category-count">(1)</span></div><div class="category" data-category="XGBoost">XGBoost <span class="quarto-category-count">(1)</span></div><div class="category" data-category="broom">broom <span class="quarto-category-count">(1)</span></div><div class="category" data-category="sklearn">sklearn <span class="quarto-category-count">(2)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block page-columns page-full column-body" id="quarto-document-content">
+
 
 
 
@@ -176,19 +212,19 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="RNN,GRU,LSTM,PyTorch" data-listing-date-sort="1706076000000" data-listing-file-modified-sort="1706656174173" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27">
+<div class="quarto-post image-right" data-index="0" data-categories="RNN,GRU,LSTM,PyTorch" data-listing-date-sort="1706076000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27" data-listing-word-count-sort="5382">
 <div class="thumbnail">
-<p><a href="./posts/Neural Network/index.html"> <img src="./posts/Neural Network/arq_rn.jpeg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/Neural Network/index.html" class="no-external"></a></p><a href="./posts/Neural Network/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/Neural Network/arq_rn.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/Neural Network/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/Neural Network/index.html">
 <h3 class="no-anchor listing-title">
-Tipos de Arquitecturas de Redes Neuronales
+<a href="./posts/Neural Network/index.html" class="no-external">Tipos de Arquitecturas de Redes Neuronales</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/Neural Network/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('RNN'); return false;">
 RNN
@@ -203,14 +239,12 @@ LSTM
 PyTorch
 </div>
 </div>
-<a href="./posts/Neural Network/index.html">
 <div class="listing-description">
-Las arquitecturas de redes neuronales se refieren a los diseños estructurales y organizativos de redes neuronales artificiales (RNA). Estas arquitecturas determinan cómo se…<code></code>
+<a href="./posts/Neural Network/index.html" class="no-external">Las arquitecturas de redes neuronales se refieren a los diseños estructurales y organizativos de redes neuronales artificiales (RNA). Estas arquitecturas determinan cómo se…<code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/Neural Network/index.html">
+<a href="./posts/Neural Network/index.html" class="no-external">
 <div class="listing-date">
 Jan 24, 2024
 </div>
@@ -220,19 +254,61 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="Python,Seguros,Random Forest Regressor" data-listing-date-sort="1700373600000" data-listing-file-modified-sort="1700419089502" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="quarto-post image-right" data-index="1" data-categories="RNN,GRU,LSTM,PyTorch" data-listing-date-sort="1706076000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="27" data-listing-word-count-sort="5382">
 <div class="thumbnail">
-<p><a href="./posts/prima_seguros/index.html"> <img src="./posts/prima_seguros/seguros.jpeg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/random_variables/index.html" class="no-external"></a></p><a href="./posts/random_variables/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/random_variables/arq_rn.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/random_variables/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/prima_seguros/index.html">
 <h3 class="no-anchor listing-title">
-Predicción de primas de seguros médicos con Machine Learning
+<a href="./posts/random_variables/index.html" class="no-external">Tipos de Arquitecturas de Redes Neuronales</a>
 </h3>
 <div class="listing-subtitle">
-Utilizando Python
+<a href="./posts/random_variables/index.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('RNN'); return false;">
+RNN
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('GRU'); return false;">
+GRU
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('LSTM'); return false;">
+LSTM
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('PyTorch'); return false;">
+PyTorch
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/random_variables/index.html" class="no-external">Las arquitecturas de redes neuronales se refieren a los diseños estructurales y organizativos de redes neuronales artificiales (RNA). Estas arquitecturas determinan cómo se…<code></code></a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/random_variables/index.html" class="no-external">
+<div class="listing-date">
+Jan 24, 2024
+</div>
+<div class="listing-author">
+Juan Isaula
 </div>
 </a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Python,Seguros,Random Forest Regressor" data-listing-date-sort="1700373600000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="744">
+<div class="thumbnail">
+<p><a href="./posts/prima_seguros/index.html" class="no-external"></a></p><a href="./posts/prima_seguros/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/prima_seguros/seguros.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/prima_seguros/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/prima_seguros/index.html" class="no-external">Predicción de primas de seguros médicos con Machine Learning</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/prima_seguros/index.html" class="no-external">Utilizando Python</a>
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
 Python
@@ -244,14 +320,12 @@ Seguros
 Random Forest Regressor
 </div>
 </div>
-<a href="./posts/prima_seguros/index.html">
 <div class="listing-description">
-Una persona que ha contratado una póliza de seguro médico…<code></code><code></code>
+<a href="./posts/prima_seguros/index.html" class="no-external">Una persona que ha contratado una póliza de seguro médico obtiene cobertura de seguro médico pagando una prima determinada. Existen muchos factores que determinan la prima…<code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/prima_seguros/index.html">
+<a href="./posts/prima_seguros/index.html" class="no-external">
 <div class="listing-date">
 Nov 19, 2023
 </div>
@@ -261,19 +335,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="FICO,Credit Scores,Python,sklearn" data-listing-date-sort="1694584800000" data-listing-file-modified-sort="1700326741008" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
+<div class="quarto-post image-right" data-index="3" data-categories="FICO,Credit Scores,Python,sklearn" data-listing-date-sort="1694584800000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1708">
 <div class="thumbnail">
-<p><a href="./posts/risk_score/index.html"> <img src="./posts/risk_score/gatito.jpeg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/risk_score/index.html" class="no-external"></a></p><a href="./posts/risk_score/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/risk_score/gatito.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/risk_score/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/risk_score/index.html">
 <h3 class="no-anchor listing-title">
-Credit Scoring and Segmentation using Python
+<a href="./posts/risk_score/index.html" class="no-external">Credit Scoring and Segmentation using Python</a>
 </h3>
 <div class="listing-subtitle">
-Machine Learning
+<a href="./posts/risk_score/index.html" class="no-external">Machine Learning</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('FICO'); return false;">
 FICO
@@ -288,14 +362,12 @@ Python
 sklearn
 </div>
 </div>
-<a href="./posts/risk_score/index.html">
 <div class="listing-description">
-La calificación crediticia y la segmentación se refieren al proceso de evaluar la solvencia de personas o empresas y dividirlos en distintos grupos según sus perfiles…<code></code><code></code><code></code>
+<a href="./posts/risk_score/index.html" class="no-external">La calificación crediticia y la segmentación se refieren al proceso de evaluar la solvencia de personas o empresas y dividirlos en distintos grupos según sus perfiles…<code></code><code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/risk_score/index.html">
+<a href="./posts/risk_score/index.html" class="no-external">
 <div class="listing-date">
 Sep 13, 2023
 </div>
@@ -305,19 +377,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="XGBoost,MLForecast,Python,sklearn" data-listing-date-sort="1691388000000" data-listing-file-modified-sort="1691868147745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
+<div class="quarto-post image-right" data-index="4" data-categories="XGBoost,MLForecast,Python,sklearn" data-listing-date-sort="1691388000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1684">
 <div class="thumbnail">
-<p><a href="./posts/XGBoost/index.html"> <img src="./posts/XGBoost/pinguino.jpeg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/XGBoost/index.html" class="no-external"></a></p><a href="./posts/XGBoost/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/XGBoost/pinguino.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/XGBoost/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/XGBoost/index.html">
 <h3 class="no-anchor listing-title">
-Time Series Forecasting with XGBoost
+<a href="./posts/XGBoost/index.html" class="no-external">Time Series Forecasting with XGBoost</a>
 </h3>
 <div class="listing-subtitle">
-Utilizando Machine Learning Forecast
+<a href="./posts/XGBoost/index.html" class="no-external">Utilizando Machine Learning Forecast</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('XGBoost'); return false;">
 XGBoost
@@ -332,14 +404,12 @@ Python
 sklearn
 </div>
 </div>
-<a href="./posts/XGBoost/index.html">
 <div class="listing-description">
-<code>MLForecast</code> es un marco de datos para…
+<a href="./posts/XGBoost/index.html" class="no-external"><code>MLForecast</code> es un marco de datos para realizar pronósticos de series de tiempo utilizando modelos de aprendizaje automático, con la opción de escalar a cantidades masivas de…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/XGBoost/index.html">
+<a href="./posts/XGBoost/index.html" class="no-external">
 <div class="listing-date">
 Aug 7, 2023
 </div>
@@ -349,19 +419,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="RNN,LSTM,Tensorflow,Python" data-listing-date-sort="1684821600000" data-listing-file-modified-sort="1690487222328" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="quarto-post image-right" data-index="5" data-categories="RNN,LSTM,Tensorflow,Python" data-listing-date-sort="1684821600000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1098">
 <div class="thumbnail">
-<p><a href="./posts/RN/index.html"> <img src="./posts/RN/fondo.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/RN/index.html" class="no-external"></a></p><a href="./posts/RN/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/RN/fondo.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/RN/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/RN/index.html">
 <h3 class="no-anchor listing-title">
-Redes Neuronales Recurrentes (LSTM)
+<a href="./posts/RN/index.html" class="no-external">Redes Neuronales Recurrentes (LSTM)</a>
 </h3>
 <div class="listing-subtitle">
-Pronósticos de índice AAPL
+<a href="./posts/RN/index.html" class="no-external">Pronósticos de índice AAPL</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('RNN'); return false;">
 RNN
@@ -376,14 +446,12 @@ Tensorflow
 Python
 </div>
 </div>
-<a href="./posts/RN/index.html">
 <div class="listing-description">
-Las redes LSTM (Long Short-Term Memory) son un tipo especial de redes neuronales recurrentes diseñadas con celdas de memoria que mantienen su estado a largo plazo. El…
+<a href="./posts/RN/index.html" class="no-external">Las redes LSTM (Long Short-Term Memory) son un tipo especial de redes neuronales recurrentes diseñadas con celdas de memoria que mantienen su estado a largo plazo. El…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/RN/index.html">
+<a href="./posts/RN/index.html" class="no-external">
 <div class="listing-date">
 May 23, 2023
 </div>
@@ -393,63 +461,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="RNN,LSTM,Tensorflow,Python" data-listing-date-sort="1684821600000" data-listing-file-modified-sort="1707519338233" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="quarto-post image-right" data-index="6" data-categories="CMg,CVP,CTP,Python" data-listing-date-sort="1681365600000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1468">
 <div class="thumbnail">
-<p><a href="./posts/crec_economico/index.html"> <img src="./posts/crec_economico/fondo.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/estructuras_mercado/index.html" class="no-external"></a></p><a href="./posts/estructuras_mercado/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/estructuras_mercado/estruct_mercd.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/estructuras_mercado/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/crec_economico/index.html">
 <h3 class="no-anchor listing-title">
-Crecimiento Economico
+<a href="./posts/estructuras_mercado/index.html" class="no-external">Estructuras de Mercado con Python</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/estructuras_mercado/index.html" class="no-external">Competencia Perfecta, Monopolio y Oligopolio</a>
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('RNN'); return false;">
-RNN
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('LSTM'); return false;">
-LSTM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tensorflow'); return false;">
-Tensorflow
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-</div>
-<a href="./posts/crec_economico/index.html">
-<div class="listing-description">
-
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/crec_economico/index.html">
-<div class="listing-date">
-May 23, 2023
-</div>
-<div class="listing-author">
-Juan Isaula
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="CMg,CVP,CTP,Python" data-listing-date-sort="1681365600000" data-listing-file-modified-sort="1686066996000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
-<div class="thumbnail">
-<p><a href="./posts/port_mg/estructuras_mercado/index.html"> <img src="./posts/port_mg/estructuras_mercado/estruct_mercd.jpeg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/port_mg/estructuras_mercado/index.html">
-<h3 class="no-anchor listing-title">
-Estructuras de Mercado con Python
-</h3>
-<div class="listing-subtitle">
-Competencia Perfecta, Monopolio y Oligopolio
-</div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('CMg'); return false;">
 CMg
@@ -464,14 +488,12 @@ CTP
 Python
 </div>
 </div>
-<a href="./posts/port_mg/estructuras_mercado/index.html">
 <div class="listing-description">
-Este post tiene como objetivo dar a conocer la importancia del <code>software</code> de <code>Python</code> en el ambito microeconomico, particularmente en este caso hablamos de las diferentes <code>estructuras…</code><code></code><code></code><code></code>
+<a href="./posts/estructuras_mercado/index.html" class="no-external">Este post tiene como objetivo dar a conocer la importancia del <code>software</code> de <code>Python</code> en el ambito microeconomico, particularmente en este caso hablamos de las diferentes <code>estruct…</code><code></code><code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/port_mg/estructuras_mercado/index.html">
+<a href="./posts/estructuras_mercado/index.html" class="no-external">
 <div class="listing-date">
 Apr 13, 2023
 </div>
@@ -481,19 +503,61 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="Diversificación,Portafolio,Volatilidad,Frontera eficiente" data-listing-date-sort="1675836000000" data-listing-file-modified-sort="1686066987000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21">
+<div class="quarto-post image-right" data-index="7" data-categories="CMg,CVP,CTP,Python" data-listing-date-sort="1681365600000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1468">
 <div class="thumbnail">
-<p><a href="./posts/port_mg/index.html"> <img src="./posts/port_mg/fondo.PNG" class="thumbnail-image"> </a></p>
+<p><a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external"></a></p><a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/port_mg/estructuras_mercado/estruct_mercd.jpeg" class="thumbnail-image"></p>
+</a><p><a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/port_mg/index.html">
 <h3 class="no-anchor listing-title">
-Portfolio management
+<a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external">Estructuras de Mercado con Python</a>
 </h3>
 <div class="listing-subtitle">
-Generalidades
+<a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external">Competencia Perfecta, Monopolio y Oligopolio</a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('CMg'); return false;">
+CMg
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('CVP'); return false;">
+CVP
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('CTP'); return false;">
+CTP
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
+Python
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external">Este post tiene como objetivo dar a conocer la importancia del <code>software</code> de <code>Python</code> en el ambito microeconomico, particularmente en este caso hablamos de las diferentes <code>estruct…</code><code></code><code></code><code></code></a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/port_mg/estructuras_mercado/index.html" class="no-external">
+<div class="listing-date">
+Apr 13, 2023
+</div>
+<div class="listing-author">
+Juan Isaula
 </div>
 </a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="Diversificación,Portafolio,Volatilidad,Frontera eficiente" data-listing-date-sort="1675836000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4007">
+<div class="thumbnail">
+<p><a href="./posts/port_mg/index.html" class="no-external"></a></p><a href="./posts/port_mg/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/port_mg/fondo.PNG" class="thumbnail-image"></p>
+</a><p><a href="./posts/port_mg/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/port_mg/index.html" class="no-external">Portfolio management</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/port_mg/index.html" class="no-external">Generalidades</a>
+</div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Diversificación'); return false;">
 Diversificación
@@ -508,14 +572,12 @@ Volatilidad
 Frontera eficiente
 </div>
 </div>
-<a href="./posts/port_mg/index.html">
 <div class="listing-description">
-La teoría de la fijación de precios de derivados es una teoría de rendimientos deterministas: cubrimos nuestros derivados con el subyacente para eliminar el riesgo, y…
+<a href="./posts/port_mg/index.html" class="no-external">La teoría de la fijación de precios de derivados es una teoría de rendimientos deterministas: cubrimos nuestros derivados con el subyacente para eliminar el riesgo, y…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/port_mg/index.html">
+<a href="./posts/port_mg/index.html" class="no-external">
 <div class="listing-date">
 Feb 8, 2023
 </div>
@@ -525,19 +587,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="Machine Learning,Forecasting,R,RStudio,broom" data-listing-date-sort="1674280800000" data-listing-file-modified-sort="1686066992000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13">
+<div class="quarto-post image-right" data-index="9" data-categories="Machine Learning,Forecasting,R,RStudio,broom" data-listing-date-sort="1674280800000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2573">
 <div class="thumbnail">
-<p><a href="./posts/tidyverse/index.html"> <img src="./posts/tidyverse/image.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/tidyverse/index.html" class="no-external"></a></p><a href="./posts/tidyverse/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/tidyverse/image.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/tidyverse/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/tidyverse/index.html">
 <h3 class="no-anchor listing-title">
-Machine Learning en Tidyverse
+<a href="./posts/tidyverse/index.html" class="no-external">Machine Learning en Tidyverse</a>
 </h3>
 <div class="listing-subtitle">
-Múltiples Modulos con broom
+<a href="./posts/tidyverse/index.html" class="no-external">Múltiples Modulos con broom</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Machine Learning'); return false;">
 Machine Learning
@@ -555,14 +617,12 @@ RStudio
 broom
 </div>
 </div>
-<a href="./posts/tidyverse/index.html">
 <div class="listing-description">
-Asumire que el lector tiene cierto conocimiento de la teoría de modelos lineales, en caso de no ser así, no te preocupes visita este link para que puedas ir a leer las…<code></code><code></code>
+<a href="./posts/tidyverse/index.html" class="no-external">Asumire que el lector tiene cierto conocimiento de la teoría de modelos lineales, en caso de no ser así, no te preocupes visita este link para que puedas ir a leer las…<code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/tidyverse/index.html">
+<a href="./posts/tidyverse/index.html" class="no-external">
 <div class="listing-date">
 Jan 21, 2023
 </div>
@@ -572,19 +632,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="Economía,Microeconomía,R,RStudio" data-listing-date-sort="1673244000000" data-listing-file-modified-sort="1686066990000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16">
+<div class="quarto-post image-right" data-index="10" data-categories="Economía,Microeconomía,R,RStudio" data-listing-date-sort="1673244000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3019">
 <div class="thumbnail">
-<p><a href="./posts/post-with-code/index.html"> <img src="./posts/post-with-code/thumbnail.jpg" class="thumbnail-image"> </a></p>
+<p><a href="./posts/post-with-code/index.html" class="no-external"></a></p><a href="./posts/post-with-code/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/post-with-code/thumbnail.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/post-with-code/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/post-with-code/index.html">
 <h3 class="no-anchor listing-title">
-Microeconomía Intermedia con R
+<a href="./posts/post-with-code/index.html" class="no-external">Microeconomía Intermedia con R</a>
 </h3>
 <div class="listing-subtitle">
-Utilidad y sus Curvas de Indiferencia
+<a href="./posts/post-with-code/index.html" class="no-external">Utilidad y sus Curvas de Indiferencia</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Economía'); return false;">
 Economía
@@ -599,14 +659,12 @@ R
 RStudio
 </div>
 </div>
-<a href="./posts/post-with-code/index.html">
 <div class="listing-description">
-Una forma de iniciar el análisis de los…<span class="math inline"></span><span class="math inline"></span><span class="math inline"></span>
+<a href="./posts/post-with-code/index.html" class="no-external">Una forma de iniciar el análisis de los individuos es plantear un conjunto básico de postulados, o axiomas, que describen el comportamiento racional del mismo. Supondremos…<span class="math inline"></span><span class="math inline"></span><span class="math inline"></span></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/post-with-code/index.html">
+<a href="./posts/post-with-code/index.html" class="no-external">
 <div class="listing-date">
 Jan 9, 2023
 </div>
@@ -616,19 +674,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="10" data-categories="Prophet,Forecasting,R,RStudio" data-listing-date-sort="1652508000000" data-listing-file-modified-sort="1686066993000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="quarto-post image-right" data-index="11" data-categories="Prophet,Forecasting,R,RStudio" data-listing-date-sort="1652508000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1216">
 <div class="thumbnail">
-<p><a href="./posts/welcome/index.html"> <img src="./posts/welcome/Fondo_post2.PNG" class="thumbnail-image"> </a></p>
+<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/welcome/Fondo_post2.PNG" class="thumbnail-image"></p>
+</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/welcome/index.html">
 <h3 class="no-anchor listing-title">
-Modelo Prophet de Facebook
+<a href="./posts/welcome/index.html" class="no-external">Modelo Prophet de Facebook</a>
 </h3>
 <div class="listing-subtitle">
-Pronóstico aplicado al tipo de cambio USD/HNL
+<a href="./posts/welcome/index.html" class="no-external">Pronóstico aplicado al tipo de cambio USD/HNL</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Prophet'); return false;">
 Prophet
@@ -643,14 +701,12 @@ R
 RStudio
 </div>
 </div>
-<a href="./posts/welcome/index.html">
 <div class="listing-description">
-En este post, te presento la implementación de Facebook Prophet, así como sus principales hiperparámetros ajustados para generar el modelo predictivo, dicho modelo lo…
+<a href="./posts/welcome/index.html" class="no-external">En este post, te presento la implementación de Facebook Prophet, así como sus principales hiperparámetros ajustados para generar el modelo predictivo, dicho modelo lo…</a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/welcome/index.html">
+<a href="./posts/welcome/index.html" class="no-external">
 <div class="listing-date">
 May 14, 2022
 </div>
@@ -660,19 +716,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="11" data-categories="R,RStudio" data-listing-date-sort="1642658400000" data-listing-file-modified-sort="1686066991000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
+<div class="quarto-post image-right" data-index="12" data-categories="R,RStudio" data-listing-date-sort="1642658400000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2953">
 <div class="thumbnail">
-<p><a href="./posts/r/index.html"> <img src="./posts/r/r_studio.png" class="thumbnail-image"> </a></p>
+<p><a href="./posts/r/index.html" class="no-external"></a></p><a href="./posts/r/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/r/r_studio.png" class="thumbnail-image"></p>
+</a><p><a href="./posts/r/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/r/index.html">
 <h3 class="no-anchor listing-title">
-Introducción a R
+<a href="./posts/r/index.html" class="no-external">Introducción a R</a>
 </h3>
 <div class="listing-subtitle">
-Generalidades
+<a href="./posts/r/index.html" class="no-external">Generalidades</a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
 R
@@ -681,14 +737,12 @@ R
 RStudio
 </div>
 </div>
-<a href="./posts/r/index.html">
 <div class="listing-description">
-<code>R</code> es un lenguaje y un ambiente para el manejo de datos, cálculos, y gráficos en código libre. Dada estas características los desarrollos que se han realizado en <code>R</code> son abiertos y están disponibles gratuitamente, por lo cual su uso se ha…<code></code><code></code>
+<a href="./posts/r/index.html" class="no-external"><code>R</code> es un lenguaje y un ambiente para el manejo de datos, cálculos, y gráficos en código libre. Dada estas características los desarrollos que se han realizado en <code>R</code> son…<code></code><code></code></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/r/index.html">
+<a href="./posts/r/index.html" class="no-external">
 <div class="listing-date">
 Jan 20, 2022
 </div>
@@ -698,19 +752,19 @@ Juan Isaula
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="12" data-categories="Time Series,RStudio,R" data-listing-date-sort="1620972000000" data-listing-file-modified-sort="1686066989000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="quarto-post image-right" data-index="13" data-categories="Time Series,RStudio,R" data-listing-date-sort="1620972000000" data-listing-file-modified-sort="1708670779000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1468">
 <div class="thumbnail">
-<p><a href="./posts/arima/index.html"> <img src="./posts/arima/Fondo4.PNG" class="thumbnail-image"> </a></p>
+<p><a href="./posts/arima/index.html" class="no-external"></a></p><a href="./posts/arima/index.html" class="no-external">
+<p><img loading="lazy" src="./posts/arima/Fondo4.PNG" class="thumbnail-image"></p>
+</a><p><a href="./posts/arima/index.html" class="no-external"></a></p>
 </div>
 <div class="body">
-<a href="./posts/arima/index.html">
 <h3 class="no-anchor listing-title">
-Series de Tiempo
+<a href="./posts/arima/index.html" class="no-external">Series de Tiempo</a>
 </h3>
 <div class="listing-subtitle">
-
+<a href="./posts/arima/index.html" class="no-external"></a>
 </div>
-</a>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('Time Series'); return false;">
 Time Series
@@ -722,14 +776,12 @@ RStudio
 R
 </div>
 </div>
-<a href="./posts/arima/index.html">
 <div class="listing-description">
-Una serie temporal es una colección de observaciones indexadas por la fecha de cada observación, denotada por <span class="math inline">\(y_t\)</span>
+<a href="./posts/arima/index.html" class="no-external">Una serie temporal es una colección de observaciones indexadas por la fecha de cada observación, denotada por <span class="math inline">\(y_t\)</span></a>
 </div>
-</a>
 </div>
 <div class="metadata">
-<a href="./posts/arima/index.html">
+<a href="./posts/arima/index.html" class="no-external">
 <div class="listing-date">
 May 14, 2021
 </div>
@@ -779,18 +831,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -822,11 +863,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/j-isaula\.github\.io\/website_ji\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -836,8 +916,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -849,7 +938,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -893,6 +1105,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -918,6 +1131,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -982,7 +1221,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© Copyright 2022 Juan Isaula</div>   
+    <div class="nav-footer-left">
+<p>© Copyright 2022 Juan Isaula</p>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
@@ -991,6 +1232,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 

@@ -3,11 +3,12 @@
     "listing": "/blog.html",
     "items": [
       "/posts/Neural Network/index.html",
+      "/posts/random_variables/index.html",
       "/posts/prima_seguros/index.html",
       "/posts/risk_score/index.html",
       "/posts/XGBoost/index.html",
       "/posts/RN/index.html",
-      "/posts/crec_economico/index.html",
+      "/posts/estructuras_mercado/index.html",
       "/posts/port_mg/estructuras_mercado/index.html",
       "/posts/port_mg/index.html",
       "/posts/tidyverse/index.html",

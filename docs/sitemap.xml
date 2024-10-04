@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mm218.dev/index.html</loc>
-    <lastmod>2024-02-23T06:33:11.087Z</lastmod>
+    <lastmod>2024-10-04T04:37:52.485Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/posts/estructuras_mercado/index.html</loc>
@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://mm218.dev/papers/index.html</loc>
-    <lastmod>2023-11-18T16:32:45.473Z</lastmod>
+    <lastmod>2024-08-23T06:35:47.513Z</lastmod>
   </url>
   <url>
     <loc>https://mm218.dev/presentations/index.html</loc>
@@ -91,5 +91,25 @@
   <url>
     <loc>https://mm218.dev/posts/crec_economico/index.html</loc>
     <lastmod>2024-02-12T03:49:35.521Z</lastmod>
+  </url>
+  <url>
+    <loc>https://j-isaula.github.io/website_ji/papers/index.html</loc>
+    <lastmod>2024-08-23T06:35:47.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://j-isaula.github.io/website_ji/index.html</loc>
+    <lastmod>2024-10-04T04:37:52.485Z</lastmod>
+  </url>
+  <url>
+    <loc>https://j-isaula.github.io/website_ji/presentations/index.html</loc>
+    <lastmod>2024-02-23T06:46:19.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://j-isaula.github.io/website_ji/blog.html</loc>
+    <lastmod>2024-02-23T06:46:19.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://j-isaula.github.io/website_ji/sobre_juan.html</loc>
+    <lastmod>2024-02-23T06:46:19.000Z</lastmod>
   </url>
 </urlset>
