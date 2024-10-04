@@ -13,12 +13,12 @@ project:
 
 website:
   title: "Juan Isaula"
-  site-url: https://mm218.dev
+  site-url: https://j-isaula.github.io/website_ji/
   description: "Technology and the Environment"
   open-graph:
     locale: en_US
   twitter-card:
-    creator: "@MikeMahoney218"
+    creator: "@isaula_im"
   comments:
     utterances:
       repo: mikemahoney218/mm218.dev
